@@ -1,0 +1,180 @@
+/**** Geral *****/
+
+/* Padrao */
+html, body{
+    height: 100%;
+    margin: 0;
+}
+input, select, button, button.btn, a.btn, .navbar{
+    border-radius: 0px!important;
+}
+/* Btns */
+.btn-q{
+    margin: 10px 0px 15px;
+}
+.btn-f{
+    margin: 10px 0px -10px;
+}
+/* Footer */
+#footer{
+    bottom: 0px;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+/*Graphs*/
+.graphs{
+    margin-left: -30px;
+}
+.ctp-btns, .ctp-errors, .ctp-infos{
+    margin: 10px 0px;
+}
+
+
+/**** Site ****/
+
+/* Conteudo */
+.main-text .header-text{
+    background-color: #fff;
+    margin-top: -120px;
+    padding: 20px 0px;
+}
+.header-text p{
+    padding-bottom: 20px;
+    border-bottom: 1px solid #e1e1e1; 
+}
+#content{
+    margin: 100px 0px;
+}
+/* Login */
+.field-login form{
+    padding: 10px 20px;
+    border: 2px solid #428bca;
+}
+.field-login legend{
+    padding-top: 10px;
+}
+
+
+/**** Admin ****/
+
+/* Content */
+#graphs{
+    margin: 10px 0px;
+}
+#graphs .header-text{
+    border-bottom: 1px solid #D2DAE2;
+    color: #4E515E;
+    margin: 0px 0px 20px;
+    padding: 0px 0px 10px;
+}
+#news{
+    padding: 10px 0px;
+    margin: 10px 0px;
+}
+#news .header-text{
+    background-color: #6F7D95;
+    color: #ffffff;
+    font-size: 22px;
+    font-family: 'Calibri', sans-serif;
+    text-transform: uppercase;
+}
+/* Menu */
+#aside{
+    background-color: #354052;
+    font-family: 'Calibri', sans-serif;
+    height: 1300px;
+}
+#aside .navbar-toggle {
+    border-color: #ddd;
+}
+#aside .navbar-toggle:hover,
+#aside .navbar-toggle:focus {
+    background-color: #ddd;
+}
+#aside .navbar-toggle .icon-bar {
+     background-color: #888;
+}
+#aside #img-user img{
+    width: 120px;
+    height: auto;
+    margin: 15px 0px;
+}
+#aside .menu{
+    color: #57657C;
+    font-size: 14px;
+    text-transform: uppercase;
+    margin: 10px 0px;
+    padding: 5px 0px;
+    border-top: 3px solid #2F394A;
+}
+#aside .menu a{
+    padding: 10px 2px;
+    color: #A0ABBF;
+}
+#aside .menu a:hover{
+    color: #ffffff;
+    background-color: transparent;
+}
+#aside .menu a .glyphicon{
+    margin-right: 10px;
+}
+/* Breadcrumb */
+.breadcrumb{
+    //background-color: #337ab7;
+    background-color: #6F7D95;
+    margin: 20px 0px;
+}
+.breadcrumb > .active, .breadcrumb > li > a{
+    color:#fff;
+}
+/* Forms */
+.form-section{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+/* Tabela */
+.table-list{
+    margin-top: 10px;
+    margin-bottom: -5px;
+}
+/* Grid SM */
+@media screen and (max-width: 991px) {
+    #aside {
+        height: auto;
+    }
+    .navbar-header {
+        float: none;
+    }
+    .navbar-toggle {
+        display: block;
+    }
+    .navbar-collapse {
+        border-top: 1px solid transparent;
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.1);
+    }
+    .navbar-collapse.collapse {
+        display: none!important;
+    }
+    .navbar-nav {
+        float: none!important;
+        margin: 7.5px -15px;
+    }
+    .navbar-nav>li {
+        float: none;
+    }
+    .navbar-nav>li>a {
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+    .navbar-text {
+        float: none;
+        margin: 15px 0;
+    }
+    /* since 3.1.0 */
+    .navbar-collapse.collapse.in { 
+        display: block!important;
+    }
+    .collapsing {
+        overflow: hidden!important;
+    }
+}
