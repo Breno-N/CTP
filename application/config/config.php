@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] = 'http://localhost/ctp/';
+$config['base_url'] = 'https://' . getenv('OPENSHIFT_APP_DNS') . '/';
 
 /*
 |--------------------------------------------------------------------------
@@ -207,7 +207,7 @@ $config['directory_trigger'] = 'd';
 | your log files will fill up very fast.
 |
 */
-$config['log_threshold'] = 0; 
+$config['log_threshold'] = getenv('CI_ENV') == 'development' ? 4 : 0;
 
 /*
 |--------------------------------------------------------------------------
@@ -218,7 +218,7 @@ $config['log_threshold'] = 0;
 | application/logs/ directory. Use a full server path with trailing slash.
 |
 */
-$config['log_path'] =  '';
+$config['log_path'] = getenv('OPENSHIFT_LOG_DIR');
 
 /*
 |--------------------------------------------------------------------------
@@ -277,7 +277,7 @@ $config['error_views_path'] = '';
 | application/cache/ directory.  Use a full server path with trailing slash.
 |
 */
-$config['cache_path'] = '';
+$config['cache_path'] = getenv('OPENSHIFT_DATA_DIR') . 'storage/framework/cache';
 
 /*
 |--------------------------------------------------------------------------
@@ -308,7 +308,7 @@ $config['cache_query_string'] = FALSE;
 | http://codeigniter.com/user_guide/libraries/encryption.html
 |
 */
-$config['encryption_key'] = '468597defHuasdfas65789';
+$config['encryption_key'] = getenv('CI_KEY');
 
 /*
 |--------------------------------------------------------------------------
@@ -361,7 +361,7 @@ $config['encryption_key'] = '468597defHuasdfas65789';
 $config['sess_driver'] = 'files';
 $config['sess_cookie_name'] = 'ci_session';
 $config['sess_expiration'] = 7200;
-$config['sess_save_path'] = NULL;
+$config['sess_save_path'] = getenv('OPENSHIFT_DATA_DIR') . 'storage/framework/sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 300;
 $config['sess_regenerate_destroy'] = FALSE;
@@ -501,4 +501,4 @@ $config['rewrite_short_tags'] = FALSE;
 | Comma-separated:	'10.0.1.200,192.168.5.0/24'
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
-$config['proxy_ips'] = '';
+$config['proxy_ips'] = getenv('OPENSHIFT_HAPROXY_IP') ?: '';
