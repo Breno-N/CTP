@@ -7,7 +7,7 @@
         var selecteds = [];
         var state = $('#state').val();
         var city_selected = $('#id_city_selected').val();
-        var url_default = '/ctp/admin/usuarios/';
+        var url_default = '/admin/usuarios/';
         
         if($('#zip-code')[0] != undefined){
             $('#zip-code').mask('99999-999');

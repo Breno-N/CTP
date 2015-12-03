@@ -5,7 +5,7 @@
     $(function(){
         
         var selecteds = [];
-        var url_default = '/ctp/admin/tipos_status_requisicoes/';
+        var url_default = '/admin/tipos_status_requisicoes/';
         
         $('.btn-update').on('click', function(e){
             e.stopPropagation();

@@ -4,7 +4,7 @@
     
     $(function(){
         
-        var url_default = '/ctp/admin/painel/';
+        var url_default = '/admin/painel/';
         
         if($("#graphs").length > 0){
             $('#graphs').hide();

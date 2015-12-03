@@ -5,7 +5,7 @@
     $(function(){
         
         var selecteds = [];
-        var url_default = '/ctp/admin/requisicoes/';
+        var url_default = '/admin/requisicoes/';
         
         $('.btn-update').on('click', function(e){
             e.stopPropagation();

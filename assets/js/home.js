@@ -4,7 +4,7 @@
     
     $(function(){
        
-         var url_default = '/ctp/home/';
+         var url_default = '/home/';
         
         if($("#graphs").length > 0){
             $('#graphs').hide();

@@ -7,7 +7,7 @@
         var selecteds = [];
         var state = $('#state').val();
         var city_selected = $('#id_city_selected').val();
-        var url_default = '/ctp/admin/bairros/';
+        var url_default = '/admin/bairros/';
         
         if(state != '' && state != null && state != undefined){
             getCitys(state, city_selected);

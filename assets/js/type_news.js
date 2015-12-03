@@ -5,7 +5,7 @@
     $(function(){
         
         var selecteds = [];
-        var url_default = '/ctp/admin/tipos_noticias/';
+        var url_default = '/admin/tipos_noticias/';
         
         $('.btn-update').on('click', function(e){
             e.stopPropagation();

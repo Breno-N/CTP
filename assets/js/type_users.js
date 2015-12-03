@@ -5,7 +5,7 @@
     $(function(){
         
         var selecteds = [];
-        var url_default = '/ctp/admin/tipos_usuarios/';
+        var url_default = '/admin/tipos_usuarios/';
         
         $('.btn-update').on('click', function(e){
             e.stopPropagation();
