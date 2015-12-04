@@ -10,7 +10,7 @@
     <div class="navbar-collapse collapse sidebar-navbar-collapse">
         <div id="img-user" class="text-center">
             <a href="<?php echo base_url().'admin/usuarios/editar/'.$this->session->userdata['id']; ?>" alt="avatar do usuario">
-                <img class="img-circle" src="/ctp/assets/images/user.jpg" title="avatar do usuario">
+                <img class="img-circle" src="/assets/images/user.jpg" title="avatar do usuario">
             </a>
         </div>
         <ul class="nav nav-pills nav-stacked menu">
