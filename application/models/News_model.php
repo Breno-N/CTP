@@ -53,12 +53,12 @@ class News_model extends MY_Model
         public function get_item($where = array(), $column = 'id', $order = 'DESC')
         {
                 $data['fields'] = $this->table.'.*, 
-                                    ctp_news_category.description as category,
+                                    ctp_type_news.description as category,
                                     ctp_users.name as user
                                 ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_news_category', 'where' => 'ctp_news_category.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
+                                        array('from' => 'ctp_type_news', 'where' => 'ctp_type_news.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
                                         array('from' => 'ctp_users', 'where' => 'ctp_users.id = '.$this->table.'.id_user', 'join' => 'INNER')
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
@@ -74,12 +74,12 @@ class News_model extends MY_Model
                 $data['fields'] .= $this->table.'.title as title, ';
                 $data['fields'] .= $this->table.'.description as description, ';
                 $data['fields'] .= $this->table.'.date_create as date_create, ';
-                $data['fields'] .= 'ctp_news_category.description as category,
+                $data['fields'] .= 'ctp_type_news.description as category,
                                     ctp_users.name as user
                                     ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_news_category', 'where' => 'ctp_news_category.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
+                                        array('from' => 'ctp_type_news', 'where' => 'ctp_type_news.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
                                         array('from' => 'ctp_users', 'where' => 'ctp_users.id = '.$this->table.'.id_user', 'join' => 'INNER')
                                     );
                 $data['where'] = $where;

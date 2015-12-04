@@ -49,6 +49,11 @@
                     </a>
                 </li>
                 <li role="presentation">
+                    <a href="<?php echo base_url().'admin/noticias/'; ?>">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Noticias
+                    </a>
+                </li>
+                <li role="presentation">
                     <a href="<?php echo base_url().'admin/tipos_usuarios/'; ?>">
                         <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tipos de Usuários
                     </a>
