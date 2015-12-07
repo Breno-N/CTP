@@ -49,7 +49,8 @@ class Login extends MY_Controller
                                     'email' => $user->email,
                                     'type' => $user->id_type_user,
                                     'neighborhood' => $user->id_neighborhood,
-                                    'authentication' => TRUE
+                                    'authentication' => TRUE,
+                                    'admin' => ($user->id_type_user == 3) ? TRUE : FALSE,
                                 );
                                 $this->session->set_userdata($session);
                                 redirect('admin/painel/index');

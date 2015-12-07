@@ -22,7 +22,7 @@ class Tipos_noticias extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('CTP - Admin - Tipos de Notícias')
+                        ->set_title('Admin - Tipos de Notícias')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -66,7 +66,7 @@ class Tipos_noticias extends MY_Controller
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
                         $data['categorys_master'] = $this->_get_categorys_master();
                         $this->layout
-                                    ->set_title('CTP - Admin - Tipos de Notícias - Adicionar')
+                                    ->set_title('Admin - Tipos de Notícias - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
                                     ->set_includes('js/type_news.js')
@@ -104,7 +104,7 @@ class Tipos_noticias extends MY_Controller
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $data['categorys_master'] = $this->_get_categorys_master();
                                 $this->layout
-                                        ->set_title('CTP - Admin - Tipos de Notícias - Editar')
+                                        ->set_title('Admin - Tipos de Notícias - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/type_news.js')

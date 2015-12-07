@@ -23,7 +23,7 @@
                     <a href="#">Quem Somos</a>
                 </li>
                 <li>
-                    <a href="#">Contato</a>
+                    <a href="<?php echo base_url().'contato'?>">Contato</a>
                 </li>
             </ul>
             <form class="navbar-form navbar-left" role="search">

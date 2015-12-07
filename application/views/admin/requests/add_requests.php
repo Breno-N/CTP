@@ -28,7 +28,7 @@
                 </div>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
-                        <label for="id_type_business">Tipo de Requisição</label>
+                        <label for="id_type_business">Categoria do Pedido</label>
                         <?php
                             $config['itens'] = $type_business;
                             $config['nome'] = 'id_type_business';
@@ -61,6 +61,14 @@
                         </label>
                     </div>
                 </div>
+                <?php if(isset($item) && $this->session->userdata['admin']): ?>
+                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 pull-right">
+                        <div class="form-group">
+                            <label for="quantity">Reforçar Pedidos</label>
+                            <input type="number" name="quantity" id="quantity" class="form-control">
+                        </div>
+                    </div>
+                <?php endif; ?>
             </div>
             
             <?php if(!isset($item) || $item->user_create == $this->session->userdata['email']):?>
@@ -96,7 +104,7 @@
                 </div>
             <?php endif; ?>
             
-            <?php if(isset($item) && $item->user_create == $this->session->userdata['email']): ?>
+            <?php if(isset($item) && ($item->user_create == $this->session->userdata['email'] || $this->session->userdata['admin'])): ?>
                 <div class="row form-section">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <button type="submit" class="btn btn-primary">Salvar</button>

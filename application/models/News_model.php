@@ -68,7 +68,7 @@ class News_model extends MY_Model
                 return (isset($retorno['itens'][0]) ? $retorno['itens'][0] : NULL) ;
         }
 
-        public function get_itens($where = array(), $column = 'id', $order = 'DESC')
+        public function get_itens($where = array(), $column = 'id', $order = 'DESC', $limit = NULL)
         {
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.title as title, ';
@@ -86,6 +86,7 @@ class News_model extends MY_Model
                 $data['group'] = 'id';
                 $data['column'] = $column;
                 $data['order'] = $order;
+                if(isset($limit) && !empty($limit)) $data['limit'] = $limit;
                 $retorno = $this->get_itens_($data);
                 return $retorno;
         }

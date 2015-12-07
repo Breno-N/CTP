@@ -6,6 +6,7 @@ class Requisicoes extends MY_Controller
                                     array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
                                     array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
                                     array('field'=> 'id_type_business', 'label' => 'Tipo de Requisição', 'rules' => 'required|trim'),
+                                    array('field'=> 'quantity', 'label' => 'Reforçar Pedidos', 'rules' => 'integer|trim'),
                                 ); 
 
         public function __construct() 
@@ -26,14 +27,19 @@ class Requisicoes extends MY_Controller
                         $data['data_table'] = $this->_init_data_table();
                         $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                         $this->layout
-                                ->set_title('CTP - Admin - Requisições')
+                                ->set_title('Admin - Requisições')
                                 ->set_description('')
                                 ->set_keywords('')
                                 ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
+                                //->set_includes('css/dataTables/Buttons-1.1.0/buttons.bootstrap.min.css')
+                                //->set_includes('css/dataTables/Buttons-1.1.0/buttons.dataTables.min.css')
                                 ->set_includes('js/dataTables/jquery.dataTables.min.js')
                                 ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                                ->set_includes('js/chart/Chart.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/dataTables.buttons.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
                                 ->set_includes('js/data_table.js')
+                                ->set_includes('js/chart/Chart.js')
                                 ->set_includes('js/requests.js')
                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                 ->set_breadcrumbs('Requisições', 'admin/requisicoes/', 1)
@@ -47,7 +53,7 @@ class Requisicoes extends MY_Controller
         
         private function _init_data_table()
         {
-                $default_filter = ($this->session->userdata['type'] == '3') ? 'ctp_requests.active = 1' : 'ctp_requests.active = 1 AND (ctp_user_request.id_user = '.$this->session->userdata['id'].' OR ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].')';
+                $default_filter = ($this->session->userdata['type'] != '1') ? 'ctp_requests.active = 1' : 'ctp_requests.active = 1 AND (ctp_user_request.id_user = '.$this->session->userdata['id'].' OR ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].')';
                 $data['itens'] = $this->requests_model->get_itens($default_filter);
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
                 $this->layout->set_html('admin/requests/table', $data);
@@ -130,7 +136,7 @@ class Requisicoes extends MY_Controller
                                 $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
                                 $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
                                 $this->layout
-                                        ->set_title('CTP - Admin - Requisições - Editar')
+                                        ->set_title('Admin - Requisições - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/requests.js')

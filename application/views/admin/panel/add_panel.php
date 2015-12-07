@@ -21,31 +21,24 @@
         </div>
     </div>
 </div>
-<div id="news">
-    <div class="row">
-        <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
-            <div class="panel panel-default">
-                <!-- Default panel contents -->
-                <div class="panel-heading header-text">Últimas Notícias</div>
-                <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item">
-                        Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica
-                    </li>
-                    <li class="list-group-item">
-                        Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica
-                    </li>
-                    <li class="list-group-item">
-                        Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica
-                    </li>
-                    <li class="list-group-item">
-                        Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica
-                    </li>
-                    <li class="list-group-item">
-                        Lorem Ipsum sobreviveu não só a cinco séculos, como também ao salto para a editoração eletrônica
-                    </li>
-                </ul>
+<?php if(isset($last_news['itens']) && !empty($last_news['itens'])): ?>
+    <div id="news">
+        <div class="row">
+            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                <div class="panel panel-default">
+                    <!-- Default panel contents -->
+                    <div class="panel-heading header-text">Últimas Notícias</div>
+                    <!-- List group -->
+                    <ul class="list-group">
+                        <?php foreach($last_news['itens'] as $new): ?>
+                            <li class="list-group-item">
+                                <h4><?php echo $new->title; ?></h4>
+                                <p><?php echo $new->description; ?></p>
+                            </li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
-</div>
+<?php endif; ?>

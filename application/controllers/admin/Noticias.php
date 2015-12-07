@@ -24,7 +24,7 @@ class Noticias extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('CTP - Admin - Notícias')
+                        ->set_title('Admin - Notícias')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -69,7 +69,7 @@ class Noticias extends MY_Controller
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
                         $data['news_categories'] = $this->_get_news_categories();
                         $this->layout
-                                    ->set_title('CTP - Admin - Notícias - Adicionar')
+                                    ->set_title('Admin - Notícias - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
                                     ->set_includes('js/neighborhood.js')
@@ -106,7 +106,7 @@ class Noticias extends MY_Controller
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $data['news_categories'] = $this->_get_news_categories();
                                 $this->layout
-                                        ->set_title('CTP - Admin - Notícias - Editar')
+                                        ->set_title('Admin - Notícias - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/news.js')

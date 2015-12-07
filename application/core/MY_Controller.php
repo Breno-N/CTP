@@ -33,7 +33,8 @@ class MY_Controller extends CI_Controller
      */
     protected function _is_autorized($redirect = '')
     {
-            if($this->session->userdata['type'] != '3') redirect($redirect);
+            //if($this->session->userdata['type'] != '3') redirect($redirect);
+            if(!$this->session->userdata['admin']) redirect($redirect);
     }
     
     /*
@@ -185,6 +186,7 @@ class MY_Controller extends CI_Controller
                     $this->email->initialize($config);
                     $this->email->from($email['from'], $email['name']);
                     $this->email->to($email['to']);
+                    $this->email->cc($email['cc']);
                     $this->email->subject($email['subject']);
                     $this->email->message($email['message']);
                     $retorno = $this->email->send();

@@ -22,7 +22,7 @@ class Tipos_status_requisicoes extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('CTP - Admin - Tipos de Status de Requisições')
+                        ->set_title('Admin - Tipos de Status de Requisições')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -65,7 +65,7 @@ class Tipos_status_requisicoes extends MY_Controller
                         $data['function'] = $function;
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
                         $this->layout
-                                    ->set_title('CTP - Admin - Tipos de Status de Requisições - Adicionar')
+                                    ->set_title('Admin - Tipos de Status de Requisições - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
                                     ->set_includes('js/type_request_status.js')
@@ -102,7 +102,7 @@ class Tipos_status_requisicoes extends MY_Controller
                                 $data['item'] = $dados;
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $this->layout
-                                        ->set_title('CTP - Admin - Usuários - Editar')
+                                        ->set_title('Admin - Usuários - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/type_request_status.js')
