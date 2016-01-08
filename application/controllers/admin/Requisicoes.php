@@ -3,16 +3,16 @@
 class Requisicoes extends MY_Controller
 {
         private $validate = array(
-                                    array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
+                                    //array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
+                                    array('field'=> 'id_business', 'label' => 'Categoria', 'rules' => 'required|trim'),
                                     array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
-                                    array('field'=> 'id_type_business', 'label' => 'Tipo de Requisição', 'rules' => 'required|trim'),
                                     array('field'=> 'quantity', 'label' => 'Reforçar Pedidos', 'rules' => 'integer|trim'),
                                 ); 
 
         public function __construct() 
         {
                 parent::__construct();
-                $this->load->model(array('requests_model', 'users_model', 'user_request_model', 'neighborhood_model', 'attachment_model', 'type_request_status_model', 'type_business_model'));
+                $this->load->model(array('requests_model', 'users_model', 'user_request_model', 'neighborhood_model', 'attachment_model', 'business_model', 'type_business_model', 'type_request_status_model'));
         }
         
         public function index()
@@ -39,7 +39,6 @@ class Requisicoes extends MY_Controller
                                 //->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
                                 //->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
                                 ->set_includes('js/data_table.js')
-                                ->set_includes('js/chart/Chart.js')
                                 ->set_includes('js/requests.js')
                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                 ->set_breadcrumbs('Requisições', 'admin/requisicoes/', 1)
@@ -70,6 +69,7 @@ class Requisicoes extends MY_Controller
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
+                                unset($data['id_type_business']);
                                 $data['request_public_agency'] = (isset($data['request_public_agency']) ? 1 : 0 );
                                 $data['have_business_neighborhood'] = (isset($data['have_business_neighborhood']) ? 1 : 0 );
                                 $data['id_neighborhood'] = $this->session->userdata['neighborhood'];
@@ -218,6 +218,37 @@ class Requisicoes extends MY_Controller
         public function get_type_business()
         {
                 return $this->type_business_model->get_select('ctp_type_business.active = 1', 'description', 'ASC');
+        }
+        
+        public function get_business()
+        {
+                $data = $this->_get();
+                $return = $this->business_model->get_select('ctp_business.id_type_business = '.$data['type_business'], 'description', 'ASC');
+                if(isset($return) && !empty($return))
+                {
+                    $return = $this->have_business_neighborhood_request($return);
+                }
+                echo json_encode($return);
+        }
+        
+        private function have_business_neighborhood_request($itens = array())
+        {
+                foreach ($itens as $item)
+                {
+                        $all[$item->id] = $item;
+                        $ids[] = $item->id;
+                }
+                $ids = implode(',', $ids);
+                $find = $this->requests_model->get_select_by_business('ctp_requests.id_business IN ('.$ids.') ');
+                foreach ($find as $object)
+                {
+                        unset($all[$object->id]);
+                }
+                foreach ($all as $single)
+                {
+                        $return[] = $single;
+                }
+                return $return;
         }
         
         private function get_neighborhood()

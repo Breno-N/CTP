@@ -128,6 +128,11 @@ input, select, button, button.btn, a.btn, .navbar{
     height: auto;
     margin: 15px 0px;
 }
+#aside #img-user .title-user{
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase; 
+}
 #aside .menu{
     color: #57657C;
     font-size: 14px;

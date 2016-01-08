@@ -134,7 +134,7 @@ class MY_Controller extends CI_Controller
             if(!is_dir($dir)) $this->build_dir($dir);
 
             $config['upload_path'] = $dir;
-            $config['allowed_types'] = 'jpg|png|pdf|doc|docx|txt';
+            $config['allowed_types'] = 'pdf|doc|docx';
             $config['max_size'] = 2048;
            
             $this->load->library('upload', $config);
