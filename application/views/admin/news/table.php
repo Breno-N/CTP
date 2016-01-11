@@ -5,22 +5,18 @@
                 <table id="data-table" class="table table-bordered" cellspacing="0" width="100%">
                     <thead>
                         <tr>
-                            <th>Negócio</th>
                             <th>Categoria</th>
-                            <th>Nº de Solitações</th>
-                            <th>Status</th>
-                            <th>Data de criação</th>
+                            <th>Titulo</th>
+                            <th>Descrição</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php foreach($itens['itens'] as $item): ?>
                             <tr class="text-justify data-item" data-id="<?php echo $item->id; ?>">
-                                <td><?php echo $item->business; ?></td>
-                                <td><?php echo $item->type_business; ?></td>
-                                <td><?php echo $item->quantity; ?></td>
-                                <td><?php echo $item->type_request_status; ?></td>
-                                <td><?php echo $item->date_create; ?></td>
+                                <td><?php echo $item->category; ?></td>
+                                <td><?php echo $item->title; ?></td>
+                                <td><?php echo $item->description; ?></td>
                                 <td>
                                     <a href="<?php echo $action_editar.$item->id; ?>" class="btn btn-default btn-update">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Detalhes

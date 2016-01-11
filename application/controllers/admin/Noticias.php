@@ -1,15 +1,17 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Tipos_status_requisicoes extends MY_Controller
+class Noticias extends MY_Controller
 {
         private $validate = array(
-                                    array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|max_length[255]|trim'),
+                                    array('field'=> 'id_news_category', 'label' => 'Categoria', 'rules' => 'required|trim'),
+                                    array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
+                                    array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
                                 ); 
 
         public function __construct() 
         {
                 parent::__construct();
-                $this->load->model(array('type_request_status_model'));
+                $this->load->model(array('news_model', 'type_news_model'));
         }
         
         public function index()
@@ -22,7 +24,7 @@ class Tipos_status_requisicoes extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('Admin - Tipos de Status de Requisições')
+                        ->set_title('Admin - Notícias')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -30,32 +32,33 @@ class Tipos_status_requisicoes extends MY_Controller
                         ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
                         ->set_includes('js/chart/Chart.js')
                         ->set_includes('js/data_table.js')
-                        ->set_includes('js/type_request_status.js')
+                        ->set_includes('js/news.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                        ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 1)
-                        ->set_view('admin/type_request_status/add_list', $data, 'template/admin/');
+                        ->set_breadcrumbs('Notícias', 'admin/noticias/', 1)
+                        ->set_view('admin/news/add_list', $data, 'template/admin/');
         }
         
         private function _init_data_table()
         {
-                $data['itens'] = $this->type_request_status_model->get_itens('ctp_type_request_status.active = 1');
+                $data['itens'] = $this->news_model->get_itens('ctp_news.active = 1');
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
-                $this->layout->set_html('admin/type_request_status/table', $data);
+                $this->layout->set_html('admin/news/table', $data);
                 return $this->layout->get_html();
         }
-       
+        
         public function adicionar()
         {
                 $this->_is_autorized('admin/painel/');
                 $this->form_validation->set_rules($this->validate); 
-                $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
+                $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
+                        $data['id_user'] = $this->session->userdata['id'];
+                        $data['date_create'] = date('Y-m-d');
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
-                        $id = $this->type_request_status_model->insert($data);
-                        redirect('admin/tipos_status_requisicoes/editar/'.$id.'/1');
+                        $id = $this->news_model->insert($data);
+                        redirect('admin/noticias/editar/'.$id.'/1');
                 }
                 else
                 {
@@ -64,15 +67,16 @@ class Tipos_status_requisicoes extends MY_Controller
                         $data['classe'] = $classe;
                         $data['function'] = $function;
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                        $data['news_categories'] = $this->_get_news_categories();
                         $this->layout
-                                    ->set_title('Admin - Tipos de Status de Requisições - Adicionar')
+                                    ->set_title('Admin - Notícias - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
-                                    ->set_includes('js/type_request_status.js')
+                                    ->set_includes('js/neighborhood.js')
                                     ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/tipos_status_requisicoes/', 1)
-                                    ->set_view('admin/type_request_status/add_type_request_status', $data, 'template/admin/');
+                                    ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
+                                    ->set_breadcrumbs('Adicionar', 'admin/noticias/', 1)
+                                    ->set_view('admin/news/add_news', $data, 'template/admin/');
                 }
         }
         
@@ -81,16 +85,15 @@ class Tipos_status_requisicoes extends MY_Controller
                 $this->_is_autorized('admin/painel/');
                 if(isset($codigo) && $codigo)
                 {
-                        $dados = $this->type_request_status_model->get_item('ctp_type_request_status.id = '.$codigo);
+                        $dados = $this->news_model->get_item('ctp_news.id = '.$codigo);
                         $this->form_validation->set_rules($this->validate); 
-                        $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                        $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
+                        $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
                                 $data['active'] = (isset($data['active']) ? 1 : 0 );
-                                $this->type_request_status_model->update($data, 'ctp_type_request_status.id = '.$codigo);
-                                redirect('admin/tipos_status_requisicoes/editar/'.$codigo.'/1');
+                                $this->news_model->update($data, 'ctp_news.id = '.$codigo);
+                                redirect('admin/noticias/editar/'.$codigo.'/1');
                         }
                         else
                         {
@@ -101,15 +104,16 @@ class Tipos_status_requisicoes extends MY_Controller
                                 $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
                                 $data['item'] = $dados;
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                $data['news_categories'] = $this->_get_news_categories();
                                 $this->layout
-                                        ->set_title('Admin - Usuários - Editar')
+                                        ->set_title('Admin - Notícias - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
-                                        ->set_includes('js/type_request_status.js')
+                                        ->set_includes('js/news.js')
                                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/tipos_status_requisicoes/editar', 1)
-                                        ->set_view('admin/type_request_status/add_type_request_status',$data , 'template/admin/');
+                                        ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
+                                        ->set_breadcrumbs('Editar', 'admin/noticias/editar', 1)
+                                        ->set_view('admin/news/add_news',$data , 'template/admin/');
                         }
                 }
                 else
@@ -125,14 +129,19 @@ class Tipos_status_requisicoes extends MY_Controller
                 $qtde = 0;
                 foreach($itens['selecteds'] as $item)
                 {
-                        $exists = $this->type_request_status_model->get_total_itens('ctp_type_request_status.id = '.$item);
+                        $exists = $this->news_model->get_total_itens('ctp_news.id = '.$item);
                         if($exists)
                         {
-                                $deleted = $this->type_request_status_model->update(array('active' => 0),'ctp_type_request_status.id = '.$item);
+                                $deleted = $this->news_model->update(array('active' => 0),'ctp_news.id = '.$item);
                                 if($deleted) $qtde++;
                         }
                 }
                 echo json_encode($qtde);
+        }
+        
+        private function _get_news_categories()
+        {
+                return $this->type_news_model->get_select();
         }
         
         private function _get()

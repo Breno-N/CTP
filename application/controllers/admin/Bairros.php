@@ -50,8 +50,8 @@ class Bairros extends MY_Controller
         {
                 $this->_is_autorized('admin/painel/');
                 $this->form_validation->set_rules($this->validate); 
-                $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
+                $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
+                $this->form_validation->set_message('max_length','O campo "{field}" não pode exceder o tamanho de {param} caracteres');
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
@@ -69,7 +69,7 @@ class Bairros extends MY_Controller
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
                         $data['states'] = $this->get_states();
                         $this->layout
-                                    ->set_title('CTP - Admin - Bairros - Adicionar')
+                                    ->set_title('Admin - Bairros - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
                                     ->set_includes('js/neighborhood.js')
@@ -87,8 +87,8 @@ class Bairros extends MY_Controller
                 {
                         $dados = $this->neighborhood_model->get_item('ctp_neighborhood.id = '.$codigo);
                         $this->form_validation->set_rules($this->validate); 
-                        $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                        $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
+                        $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
+                        $this->form_validation->set_message('max_length','O campo "{field}" não pode exceder o tamanho de {param} caracteres');
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
@@ -108,7 +108,7 @@ class Bairros extends MY_Controller
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $data['states'] = $this->get_states();
                                 $this->layout
-                                        ->set_title('CTP - Admin - Bairros - Editar')
+                                        ->set_title('Admin - Bairros - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/neighborhood.js')

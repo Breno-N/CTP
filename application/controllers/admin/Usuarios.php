@@ -36,7 +36,7 @@ class Usuarios extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('CTP - Admin - Usuários')
+                        ->set_title('Admin - Usuários')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -71,7 +71,7 @@ class Usuarios extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
-                        $data['password'] = Bcrypt::hash($data['password']);
+                        $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash('123') ;
                         $data['date_create'] = date('Y-m-d');
 
                         $data_neighborhood['id_city'] = $data['id_city'];
@@ -206,7 +206,7 @@ class Usuarios extends MY_Controller
                                 $data['item'] = $dados;
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $this->layout
-                                        ->set_title('CTP - Admin - Usuários - Editar')
+                                        ->set_title('Admin - Usuários - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/mask/jquery.mask.js')

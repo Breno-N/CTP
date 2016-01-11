@@ -1,8 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class News_model extends MY_Model
+class Business_model extends MY_Model
 {
-        private $table = 'ctp_news'; 
+        private $table = 'ctp_business'; 
 
         public function __construct()
         {
@@ -39,56 +39,49 @@ class News_model extends MY_Model
         public function get_select($where = array(), $column = 'id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id,';
-                $data['fields'] .= $this->table.'.title as descricao';
+                $data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =  array(
                                         array($this->table)
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $retorno = $this->get_itens_($data);
-                return $retorno['itens'];
+                $return = $this->get_itens_($data);
+                return (isset($return['itens']) ? $return['itens'] : array() );
         }
-
+        
         public function get_item($where = array(), $column = 'id', $order = 'DESC')
         {
-                $data['fields'] = $this->table.'.*, 
-                                    ctp_type_news.description as category,
-                                    ctp_users.name as user
-                                ';
+                $data['fields'] = $this->table.'.* ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_news', 'where' => 'ctp_type_news.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
-                                        array('from' => 'ctp_users', 'where' => 'ctp_users.id = '.$this->table.'.id_user', 'join' => 'INNER')
+                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $retorno = $this->get_itens_($data);
-                return (isset($retorno['itens'][0]) ? $retorno['itens'][0] : NULL) ;
+                $return = $this->get_itens_($data);
+                return (isset($return['itens'][0]) ? $return['itens'][0] : NULL) ;
         }
 
-        public function get_itens($where = array(), $column = 'id', $order = 'DESC', $limit = NULL)
+        public function get_itens($where = array(), $column = 'id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id, ';
-                $data['fields'] .= $this->table.'.title as title, ';
                 $data['fields'] .= $this->table.'.description as description, ';
-                $data['fields'] .= $this->table.'.date_create as date_create, ';
-                $data['fields'] .= 'ctp_type_news.description as category,
-                                    ctp_users.name as user
+                $data['fields'] .= $this->table.'.synonyms as synonyms, ';
+                $data['fields'] .= $this->table.'.active as active,
+                                   ctp_type_business.description as type_business
                                     ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_news', 'where' => 'ctp_type_news.id = '.$this->table.'.id_news_category', 'join' => 'INNER'),
-                                        array('from' => 'ctp_users', 'where' => 'ctp_users.id = '.$this->table.'.id_user', 'join' => 'INNER')
+                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
                                     );
                 $data['where'] = $where;
                 $data['group'] = 'id';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                if(isset($limit) && !empty($limit)) $data['limit'] = $limit;
-                $retorno = $this->get_itens_($data);
-                return $retorno;
+                $return = $this->get_itens_($data);
+                return $return;
         }
 
         public function get_total_itens($where = array(), $column = 'id', $order = 'DESC')
@@ -100,7 +93,7 @@ class News_model extends MY_Model
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $retorno = $this->get_itens_($data);
-                return $retorno['qtde'];
+                $return = $this->get_itens_($data);
+                return $return['qtde'][0];
         }
 }

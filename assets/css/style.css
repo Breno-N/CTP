@@ -5,6 +5,9 @@ html, body{
     height: 100%;
     margin: 0;
 }
+textarea{
+    resize: none;
+}
 input, select, button, button.btn, a.btn, .navbar{
     border-radius: 0px!important;
 }
@@ -53,11 +56,37 @@ input, select, button, button.btn, a.btn, .navbar{
 .field-login legend{
     padding-top: 10px;
 }
-
+/* Contato */
+#contact .panel{
+    background-color:#FAFAFA;
+    border-radius: 0px;
+}
+#contact .panel-heading{
+    background-color: rgba(60, 147, 230, 0.8);
+    border-radius: 0px;
+}
+#contact .panel-heading h4{
+    color:#ffffff;
+    font-size: 26px;
+    border-bottom: 1px solid #FFFFFF;
+    padding-bottom: 10px;
+}
+#contact .btn{
+    color: #FFFFFF;
+    border:0px;
+    padding: 10px;
+}
+#contact .btn-primary{
+    background-color: #3C93E6;
+    
+}
+#contact .btn-default{
+    background-color: #ADBCC9;
+}
 
 /**** Admin ****/
 
-/* Content */
+/* Conteudo */
 #graphs{
     margin: 10px 0px;
 }
@@ -98,6 +127,11 @@ input, select, button, button.btn, a.btn, .navbar{
     width: 120px;
     height: auto;
     margin: 15px 0px;
+}
+#aside #img-user .title-user{
+    color: #ffffff;
+    font-size: 14px;
+    text-transform: uppercase; 
 }
 #aside .menu{
     color: #57657C;

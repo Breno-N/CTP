@@ -32,14 +32,14 @@
                             <tr>
                                 <td>Total de Pedidos</td>
                                 <td>Empreendedores</td>
-                                <td>Cidadões</td>
+                                <td>Cidadãos</td>
                                 <td>Negócios já abertos</td>
                             </tr>
                             <tr>
-                                <td>10.000</td>
-                                <td>2.000</td>
-                                <td>5.000</td>
-                                <td>1.500</td>
+                                <td><?php echo $all_requests; ?></td>
+                                <td><?php echo $businessman; ?></td>
+                                <td><?php echo $citizens; ?></td>
+                                <td><?php echo $open_requests; ?></td>
                             </tr>
                         </table>
                     </div>

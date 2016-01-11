@@ -10,8 +10,10 @@
     <div class="navbar-collapse collapse sidebar-navbar-collapse">
         <div id="img-user" class="text-center">
             <a href="<?php echo base_url().'admin/usuarios/editar/'.$this->session->userdata['id']; ?>" alt="avatar do usuario">
-                <img class="img-circle" src="/assets/images/user.jpg" title="avatar do usuario">
+                <img class="img-circle" src="<?php echo base_url().'assets/images/user.jpg'; ?>" title="avatar do usuario">
             </a>
+            <br>
+            <span class="title-user">Usuario: <?php echo $this->session->userdata['name']; ?></span>
         </div>
         <ul class="nav nav-pills nav-stacked menu">
             <span class="menu-title">Principal</span>
@@ -46,6 +48,16 @@
                 <li role="presentation">
                     <a href="<?php echo base_url().'admin/bairros/'; ?>">
                         <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Bairros
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="<?php echo base_url().'admin/negocios/'; ?>">
+                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Negócios
+                    </a>
+                </li>
+                <li role="presentation">
+                    <a href="<?php echo base_url().'admin/noticias/'; ?>">
+                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Noticias
                     </a>
                 </li>
                 <li role="presentation">

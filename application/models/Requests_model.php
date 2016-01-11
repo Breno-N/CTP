@@ -47,19 +47,33 @@ class Requests_model extends MY_Model
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
+                return (isset($return['itens']) ? $return['itens'] : array());
+        }
+        
+        public function get_select_by_business($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
+        {
+                $data['fields']  = $this->table.'.id_business as id,';
+                $data['fields'] .= $this->table.'.description as descricao';
+                $data['tables'] =  array(
+                                        array($this->table)
+                                    );
+                if(isset($where) && $where) $data['where'] = $where;
+                $data['column'] = $column;
+                $data['order'] = $order;
+                $return = $this->get_itens_($data);
                 return $return['itens'];
         }
         
         public function get_itens_by_type_business($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
         {
                 $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
-                $data['fields'] .= 'ctp_type_business.description as type_business';
+                $data['fields'] .= 'ctp_business.description as type_business';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business', 'join' => 'INNER'),
                                     );
                 $data['where'] = (isset($where) && $where) ? $where : 'ctp_requests.active = 1';
-                $data['group'] = 'ctp_type_business.description';
+                $data['group'] = 'ctp_business.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $data['limit'] = 5;
@@ -122,12 +136,15 @@ class Requests_model extends MY_Model
         public function get_item($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
         {
                 $data['fields'] = $this->table.'.*, 
+                                    ctp_business.description as business,
+                                    ctp_type_business.id as id_type_business,
                                     ctp_type_business.description as type_business,
                                     ctp_type_request_status.description as type_request_status
                                 ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),                    
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
                                         array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
                                     );
@@ -141,22 +158,23 @@ class Requests_model extends MY_Model
         public function get_itens($where = array(), $column = 'ctp_requests.id', $order = 'DESC', $offset = 0, $limit = 10)
         {
                 $data['fields']  = $this->table.'.id as id, ';
-                $data['fields'] .= $this->table.'.id_type_business as id_type_business, ';
+                $data['fields'] .= $this->table.'.id_business as id_business, ';
                 $data['fields'] .= $this->table.'.have_business_neighborhood as have_business_neighborhood, ';
                 $data['fields'] .= $this->table.'.request_public_agency as request_public_agency, ';
                 $data['fields'] .= $this->table.'.id_neighborhood as id_neighborhood, ';
-                $data['fields'] .= $this->table.'.title as title, ';
                 $data['fields'] .= $this->table.'.description as description, ';
                 $data['fields'] .= $this->table.'.quantity as quantity, ';
                 $data['fields'] .= $this->table.'.date_create as date_create, ';
                 $data['fields'] .= $this->table.'.date_opening as date_opening, ';
                 $data['fields'] .= $this->table.'.active as active, ';
-                $data['fields'] .= 'ctp_type_business.description as type_business,
+                $data['fields'] .= 'ctp_business.description as business,
+                                    ctp_type_business.description as type_business,
                                     ctp_type_request_status.description as type_request_status
                                     ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),                    
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
                                         array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
                                         array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
@@ -176,7 +194,7 @@ class Requests_model extends MY_Model
                 $data['fields'] = $this->table.'.id as id ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = '.$this->table.'.id_type_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business', 'join' => 'INNER'),
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
                                         array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
                                         array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')

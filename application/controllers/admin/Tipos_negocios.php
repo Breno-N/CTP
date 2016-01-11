@@ -22,13 +22,12 @@ class Tipos_negocios extends MY_Controller
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
-                        ->set_title('CTP - Admin - Tipos de Negócios')
+                        ->set_title('Admin - Tipos de Negócios')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
                         ->set_includes('js/dataTables/jquery.dataTables.min.js')
                         ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                        ->set_includes('js/chart/Chart.js')
                         ->set_includes('js/data_table.js')
                         ->set_includes('js/type_business.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
@@ -38,7 +37,7 @@ class Tipos_negocios extends MY_Controller
         
         private function _init_data_table()
         {
-                $data['itens'] = $this->type_business_model->get_itens('ctp_type_business.active = 1');
+                $data['itens'] = $this->type_business_model->get_itens();
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
                 $this->layout->set_html('admin/type_business/table', $data);
                 return $this->layout->get_html();
@@ -65,7 +64,7 @@ class Tipos_negocios extends MY_Controller
                         $data['function'] = $function;
                         $data['action'] = base_url().'admin/'.$classe.'/'.$function;
                         $this->layout
-                                    ->set_title('CTP - Admin - Negócios - Adicionar')
+                                    ->set_title('Admin - Negócios - Adicionar')
                                     ->set_description('')
                                     ->set_keywords('')
                                     ->set_includes('js/type_business.js')
@@ -102,7 +101,7 @@ class Tipos_negocios extends MY_Controller
                                 $data['item'] = $dados;
                                 $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                 $this->layout
-                                        ->set_title('CTP - Admin - Negócios - Editar')
+                                        ->set_title('Admin - Negócios - Editar')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/type_business.js')

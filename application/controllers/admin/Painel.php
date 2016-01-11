@@ -5,14 +5,14 @@ class Painel extends MY_Controller
         public function __construct() 
         {
                 parent::__construct();
-                $this->load->model(array('requests_model'));
+                $this->load->model(array('requests_model', 'news_model'));
         }
 
         public function index()
         {
-                $data['item'] = '';
+                $data['last_news'] = $this->get_last_news();
                 $this->layout
-                        ->set_title('CTP - Admin - Painel')
+                        ->set_title('Admin - Painel')
                         ->set_description('')
                         ->set_keywords('')
                         ->set_includes('js/chart/Chart.js')
@@ -28,6 +28,11 @@ class Painel extends MY_Controller
                 $charts['citys'] = $this->requests_model->get_itens_by_city();
                 
                 echo (empty($charts['type_business']) || empty($charts['neighborhood']) || empty($charts['citys'])) ? 0 : json_encode($charts);
+        }
+        
+        public function get_last_news()
+        {
+                return $this->news_model->get_itens('ctp_news.active = 1', 'id', 'DESC', 5);
         }
 
         private function _post()
