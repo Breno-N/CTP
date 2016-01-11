@@ -55,12 +55,12 @@
             }
         });
         
-        $('.uploadfiles').hide();
         $('#quantity').on('change', function(){
             var qtde = $(this).val();
             if(qtde != '' && qtde != null && qtde != undefined && qtde > 0){
-                $('.uploadfiles').show();
                 $('#files').attr('required', true);
+            }else{
+                $('#files').attr('required', false);
             }
         });
         
@@ -72,6 +72,7 @@
         }
         
         $('#id_type_business').on('change', function(){
+            $('#id_business').html('<option value="">Selecione...</option>');
             var type_business = $(this).val();
             if(type_business != '' && type_business != null && type_business != undefined){
                 get_type_business(type_business, '', '#id_business');
@@ -85,7 +86,6 @@
         }
         
         function build_select(itens, selected, place){
-            $(place).html('');
             var options = '<option value="">Selecione...</option>';
             if(itens.length > 0){
                 $(itens).each(function(k, v){
