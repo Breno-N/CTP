@@ -36,13 +36,29 @@ class Cadastro extends MY_Controller
                         $post['password'] = Bcrypt::hash($post['password']);
                         $post['date_create'] = date('Y-m-d');
                         $id = $this->users_model->insert($post);
-                        $data['info']['error'] = ($id) ? 0 : 1;
-                        $data['info']['message'] = ($id) ? 'Dados salvos com sucesso.' : 'Ocorreu um erro ao salvar os dados. Por favor tente novamente mais tarde.';
-                        $this->layout
-                                    ->set_title('Faz, Que Falta - Cadastro')
-                                    ->set_keywords('Faz, Que Falta - Cadastro')
-                                    ->set_description('Faça o seu cadastro na plataforma do Faz, Que Falta e veja a diferença no seu bairro.')
-                                    ->set_view('site/register/index', $data);
+                        if($id)
+                        {
+                                $session = array(
+                                    'id' => $id,
+                                    'name' => $post['name'],
+                                    'email' => $post['email'],
+                                    'type' => 1,
+                                    'authentication' => TRUE,
+                                    'admin' => FALSE,
+                                );
+                                $this->session->set_userdata($session);
+                                redirect('admin/painel/');
+                        }
+                        else
+                        {
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Ocorreu um erro ao salvar os dados. Por favor tente novamente mais tarde.';
+                                $this->layout
+                                            ->set_title('Faz, Que Falta - Cadastro')
+                                            ->set_keywords('Faz, Que Falta - Cadastro')
+                                            ->set_description('Faça o seu cadastro na plataforma do Faz, Que Falta e veja a diferença no seu bairro.')
+                                            ->set_view('site/register/index', $data);
+                        }
                 }
                 else
                 {

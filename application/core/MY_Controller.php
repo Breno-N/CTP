@@ -33,72 +33,7 @@ class MY_Controller extends CI_Controller
      */
     protected function _is_autorized($redirect = '')
     {
-            //if($this->session->userdata['type'] != '3') redirect($redirect);
             if(!$this->session->userdata['admin']) redirect($redirect);
-    }
-    
-    /*
-     * Função para montar query com base nos filtros de pesquisa.
-     * Retorna string
-     * 
-     * @author Breno Henrique Moreno Nunes
-     * @params string $table nome da tabela
-     * @params array $fields campos de filtro
-     * @params array $filter_dafult filtro que sera padrão
-     * @return string 
-     */
-    public function build_filter($table = '', $fields = array(), $filter_default = '')
-    {
-            $retorno = $filter_default;
-            if(isset($fields['param']) && !empty($fields['param']))
-            {
-                    foreach($fields['param'] as $key => $value)
-                    {
-                            if(isset($value) && !empty($value))
-                            {
-                                    $filter[] = $table.'.'.$key.(is_int($value) ? ' = '.$value : ' LIKE "%'.$value.'%" ');
-                            }
-                    }
-            }
-            if(isset($filter) && !empty($filter)) 
-            {
-                    $filter = implode(' AND ', $filter);
-                    $retorno = (isset($filter_default) && !empty($filter_default)) ? $filter_default.' AND '.$filter : $filter;
-            }
-            return $retorno;
-    }
-    
-    /*
-     * Função para montar utl com base nos filtros de pesquisa.
-     * Retorna string
-     * 
-     * @author Breno Henrique Moreno Nunes
-     * @params array $fields campos de filtro
-     * @params array $get campos de filtro preenchidos
-     * @return string 
-     */
-    public function build_url($fields = array(), $get = array())
-    {
-            if(isset($fields) && !empty($fields))
-            {
-                foreach($fields as $key => $value)
-                {
-                        if(isset($get['param'][$key]) && !empty($get['param'][$key])) 
-                        {
-                                $fields[$key] = 'param['.$key.']='.$get['param'][$key];
-                        }
-                        elseif(isset($get[$key]) && !empty($get[$key]))
-                        {
-                            $fields[$key] = $key.'='.$get[$key];
-                        }
-                        else
-                        {
-                            $fields[$key] = $key.'=';
-                        }
-                }
-                $fields = implode('&', $fields);
-                return $fields;
-            }
     }
     
     /*
@@ -153,21 +88,6 @@ class MY_Controller extends CI_Controller
     }
     
     /*
-    * Função para montar paginação de acordo com configuração passada.
-    * Retorna string html
-    * 
-    * @author Breno Henrique Moreno Nunes
-    * @params array $config
-    * @return string 
-    */
-    public function get_pagination($config =  array())
-    {
-            $this->load->library('pagination');
-            $this->pagination->initialize($config);
-            return $this->pagination->create_links();
-    }
-    
-    /*
      * Função para encaminhar emails utilizando a função mail do PHP.
      * Retorna TRUE caso o endereço seja aceito para o encaminhamento do email, ou
      * FALSE se não for aceito ou ocorrer erro de validação. 
@@ -192,39 +112,5 @@ class MY_Controller extends CI_Controller
                     $retorno = $this->email->send();
             }
             return $retorno;
-    }
-    
-    public function create_ckeditor($texto = '')
-    {
-        $retorno =  NULL;
-        if(isset($texto) && $texto)
-        {
-            $this->load->helper('ckeditor_helper');
-            // Array com as configurações pra essa instância do CKEditor ( você pode ter mais de uma )
-            $data = array
-            (
-                //id da textarea a ser substituída pelo CKEditor
-                'id'   => $texto,
-
-                // caminho da pasta do CKEditor relativo a pasta raiz do CodeIgniter
-                'path' => 'js/ckeditor',
-
-                // configurações opcionais
-                'config' => array
-                (
-                    'toolbar' => "Full",
-                    'width'   => "100%",
-                    'height'  => "200px",
-                    'filebrowserBrowseUrl'      => base_url().'js/ckeditor/ckfinder/ckfinder.html',
-                    'filebrowserImageBrowseUrl' => base_url().'js/ckeditor/ckfinder/ckfinder.html?Type=Images',
-                    'filebrowserFlashBrowseUrl' => base_url().'js/ckeditor/ckfinder/ckfinder.html?Type=Flash',
-                    'filebrowserUploadUrl'      => base_url().'js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Files',
-                    'filebrowserImageUploadUrl' => base_url().'js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Images',
-                    'filebrowserFlashUploadUrl' => base_url().'js/ckeditor/ckfinder/core/connector/php/connector.php?command=QuickUpload&type=Flash'
-                )
-            );
-            $retorno = $data;
-        }
-        return $retorno;
     }
 }

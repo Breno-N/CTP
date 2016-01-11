@@ -35,9 +35,11 @@ class Requisicoes extends MY_Controller
                                 //->set_includes('css/dataTables/Buttons-1.1.0/buttons.dataTables.min.css')
                                 ->set_includes('js/dataTables/jquery.dataTables.min.js')
                                 ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                                //->set_includes('js/dataTables/Buttons-1.1.0/dataTables.buttons.min.js')
-                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
-                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
+                                ->set_includes('js/dataTables/Buttons-1.1.0/dataTables.buttons.min.js')
+                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
+                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
+                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.flash.min.js')
+                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.print.min.js')
                                 ->set_includes('js/data_table.js')
                                 ->set_includes('js/requests.js')
                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
@@ -171,23 +173,23 @@ class Requisicoes extends MY_Controller
         
         public function apoiar()
         {
-            $support = $this->_post();
-            $update = 0;
-            if(isset($support['request']) && !empty($support['request']))
-            {
-                    $have_support = $this->user_request_model->get_item('ctp_user_request.id_request = '.$support['request'].' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
-                    if(!isset($have_support))
-                    {
-                            $data_user_request['id_user'] = $this->session->userdata['id'];
-                            $data_user_request['id_request'] = $support['request'];
-                            if($this->user_request_model->insert($data_user_request))
-                            {
-                                $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$support['request']);
-                                $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$support['request'], 1);
-                            }
-                    }
-            }
-            echo json_encode($update);
+                $support = $this->_post();
+                $update = 0;
+                if(isset($support['request']) && !empty($support['request']))
+                {
+                        $have_support = $this->user_request_model->get_item('ctp_user_request.id_request = '.$support['request'].' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                        if(!isset($have_support))
+                        {
+                                $data_user_request['id_user'] = $this->session->userdata['id'];
+                                $data_user_request['id_request'] = $support['request'];
+                                if($this->user_request_model->insert($data_user_request))
+                                {
+                                        $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$support['request']);
+                                        $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$support['request'], 1);
+                                }
+                        }
+                }
+                echo json_encode($update);
         }
         
         public function download($id = '', $description = '')
@@ -215,6 +217,11 @@ class Requisicoes extends MY_Controller
                 return $this->type_request_status_model->get_select(NULL, 'description', 'ASC');
         }
         
+        private function get_neighborhood()
+        {
+                return $this->users_model->get_neighborhood('ctp_users.id = '.$this->session->userdata['id']);
+        }
+        
         public function get_type_business()
         {
                 return $this->type_business_model->get_select('ctp_type_business.active = 1', 'description', 'ASC');
@@ -223,10 +230,10 @@ class Requisicoes extends MY_Controller
         public function get_business()
         {
                 $data = $this->_get();
-                $return = $this->business_model->get_select('ctp_business.id_type_business = '.$data['type_business'], 'description', 'ASC');
+                $return = $this->business_model->get_select('ctp_business.id_type_business = '.$data['type_business'].' AND ctp_business.active = 1', 'description', 'ASC');
                 if(isset($return) && !empty($return))
                 {
-                    $return = $this->have_business_neighborhood_request($return);
+                        $return = $this->have_business_neighborhood_request($return);
                 }
                 echo json_encode($return);
         }
@@ -239,21 +246,23 @@ class Requisicoes extends MY_Controller
                         $ids[] = $item->id;
                 }
                 $ids = implode(',', $ids);
-                $find = $this->requests_model->get_select_by_business('ctp_requests.id_business IN ('.$ids.') ');
-                foreach ($find as $object)
+                $find = $this->requests_model->get_select_by_business('ctp_requests.id_business IN ('.$ids.') AND ctp_requests.active = 1');
+                if(isset($find) && !empty($find))
                 {
-                        unset($all[$object->id]);
+                        foreach ($find as $object)
+                        {
+                                unset($all[$object->id]);
+                        }
+                        foreach ($all as $single)
+                        {
+                                $return[] = $single;
+                        }
                 }
-                foreach ($all as $single)
+                else
                 {
-                        $return[] = $single;
+                        $return = $itens;
                 }
                 return $return;
-        }
-        
-        private function get_neighborhood()
-        {
-                return $this->users_model->get_neighborhood('ctp_users.id = '.$this->session->userdata['id']);
         }
         
         private function _get()

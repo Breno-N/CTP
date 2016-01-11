@@ -61,7 +61,7 @@ class Requests_model extends MY_Model
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
-                return $return['itens'];
+                return (isset($return['itens']) ? $return['itens'] : array());
         }
         
         public function get_itens_by_type_business($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
