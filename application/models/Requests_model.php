@@ -52,7 +52,8 @@ class Requests_model extends MY_Model
         
         public function get_select_by_business($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
         {
-                $data['fields']  = $this->table.'.id_business as id,';
+                $data['fields']  = $this->table.'.id as id,';
+                $data['fields'] .= $this->table.'.id_business as id_business,';
                 $data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =  array(
                                         array($this->table)
@@ -61,7 +62,7 @@ class Requests_model extends MY_Model
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
-                return (isset($return['itens']) ? $return['itens'] : array());
+                return (isset($return['itens'][0]) ? $return['itens'][0] : array());
         }
         
         public function get_itens_by_type_business($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')

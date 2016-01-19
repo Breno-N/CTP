@@ -22,7 +22,7 @@
                                 <td><?php echo $item->type_request_status; ?></td>
                                 <td><?php echo $item->date_create; ?></td>
                                 <td>
-                                    <a href="<?php echo $action_editar.$item->id; ?>" class="btn btn-default btn-update">
+                                    <a href="<?php echo $action_detalhes.$item->id; ?>" class="btn btn-default btn-update">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Detalhes
                                     </a>
                                 </td>

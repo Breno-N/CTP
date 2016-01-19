@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url().'admin/requisicoes/'; ?>">
+                <a href="<?php echo base_url().'admin/pedidos/'; ?>">
                     <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Pedidos
                 </a>
             </li>

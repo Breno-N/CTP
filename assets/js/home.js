@@ -6,6 +6,8 @@
        
         var url_default = '/ctp/home/';
         
+        $('#myModal').modal('show');
+        
         if($("#graphs").length > 0){
             $('#graphs').hide();
             init_charts();

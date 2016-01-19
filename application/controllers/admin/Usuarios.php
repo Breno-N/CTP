@@ -188,7 +188,8 @@ class Usuarios extends MY_Controller
                                 {
                                         $session = array(
                                             'nome' => $data['name'],
-                                            'tipo' => $data['id_type_user']
+                                            'type' => $data['id_type_user'],
+                                            'neighborhood' => $dados->id_neighborhood,
                                         );
                                 }
                                 $this->session->set_userdata($session);

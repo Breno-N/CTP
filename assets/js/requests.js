@@ -5,7 +5,7 @@
     $(function(){
         
         var selecteds = [];
-        var url_default = '/ctp/admin/requisicoes/';
+        var url_default = '/ctp/admin/pedidos/';
         
         $('.btn-update').on('click', function(e){
             e.stopPropagation();
@@ -23,6 +23,7 @@
             }
         });
         
+        /*
         $('#btn-delete').on('click', function(e){
             e.preventDefault();
             if(selecteds.length > 0){
@@ -40,6 +41,7 @@
                 window.alert('Nenhum registro selecionado.');
             }
         });
+        */
         
         $('#request-support').on('click', function(e){
             var request = $(this).attr('data-id');
@@ -78,6 +80,33 @@
                 get_type_business(type_business, '', '#id_business');
             }
         });
+        
+        $('.form-link-warning').hide();
+        
+        $('#id_business').on('change', function(){
+            var business = $(this).val();
+            if(business != '' && business != null && business != undefined){
+                have_business_neighborhood_request(business);
+            }
+        });
+        
+        function have_business_neighborhood_request(business){
+            $.getJSON(url_default + 'have_business_neighborhood_request', {business : business}).then(function(result){
+                change_form(result.id);
+            });
+        }
+        
+        function change_form(id){
+            if(id != '' && id != null && id != undefined){
+                $('.form-link-warning').show();
+                $('.form-input').hide();
+                $('#link-support').attr('href', url_default + 'detalhes/' + id);
+            }else{
+                $('.form-link-warning').hide();
+                $('.form-input').show();
+                $('#link-support').attr('href', '');
+            }
+        }
         
         function get_type_business(param, selected, place){
             $.getJSON(url_default + 'get_business', {type_business : param}).then(function(result){

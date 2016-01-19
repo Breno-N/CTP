@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Requisicoes extends MY_Controller
+class Pedidos extends MY_Controller
 {
         private $validate = array(
                                     //array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
@@ -35,15 +35,15 @@ class Requisicoes extends MY_Controller
                                 //->set_includes('css/dataTables/Buttons-1.1.0/buttons.dataTables.min.css')
                                 ->set_includes('js/dataTables/jquery.dataTables.min.js')
                                 ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                                ->set_includes('js/dataTables/Buttons-1.1.0/dataTables.buttons.min.js')
-                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
-                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
-                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.flash.min.js')
-                                ->set_includes('js/dataTables/Buttons-1.1.0/buttons.print.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/dataTables.buttons.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.bootstrap.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.html5.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.flash.min.js')
+                                //->set_includes('js/dataTables/Buttons-1.1.0/buttons.print.min.js')
                                 ->set_includes('js/data_table.js')
                                 ->set_includes('js/requests.js')
                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                ->set_breadcrumbs('Requisições', 'admin/requisicoes/', 1)
+                                ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 1)
                                 ->set_view('admin/requests/add_list', $data, 'template/admin/');
                 }
                 else
@@ -56,7 +56,7 @@ class Requisicoes extends MY_Controller
         {
                 $default_filter = ($this->session->userdata['type'] != '1') ? 'ctp_requests.active = 1' : 'ctp_requests.active = 1 AND (ctp_user_request.id_user = '.$this->session->userdata['id'].' OR ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].')';
                 $data['itens'] = $this->requests_model->get_itens($default_filter);
-                $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
+                $data['action_detalhes'] = base_url().'admin/'.strtolower(__CLASS__).'/detalhes/';
                 $this->layout->set_html('admin/requests/table', $data);
                 return $this->layout->get_html();
         }
@@ -85,7 +85,7 @@ class Requisicoes extends MY_Controller
                                         $this->user_request_model->insert($data_user_request);
                                         if(!empty($_FILES['files']['name'])) $this->do_upload($id);
                                 }
-                                redirect('admin/requisicoes/editar/'.$id.'/1');
+                                redirect('admin/pedidos/detalhes/'.$id.'/1');
                         }
                         else
                         {
@@ -97,13 +97,13 @@ class Requisicoes extends MY_Controller
                                 $data['status'] = $this->get_status();
                                 $data['type_business'] = $this->get_type_business();
                                 $this->layout
-                                            ->set_title('CTP - Admin - Requisições - Adicionar')
+                                            ->set_title('Admin - Pedidos - Adicionar')
                                             ->set_description('')
                                             ->set_keywords('')
                                             ->set_includes('js/requests.js')
                                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                            ->set_breadcrumbs('Requisições', 'admin/requisicoes/', 0)
-                                            ->set_breadcrumbs('Adicionar', 'admin/requisicoes/', 1)
+                                            ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
+                                            ->set_breadcrumbs('Adicionar', 'admin/pedidos/', 1)
                                             ->set_view('admin/requests/add_requests', $data, 'template/admin/');
                         }
                     
@@ -114,7 +114,7 @@ class Requisicoes extends MY_Controller
                 }
         }
         
-        public function editar($codigo = '', $ok = FALSE)
+        public function detalhes($codigo = '', $ok = FALSE)
         {
                 if(isset($codigo) && $codigo)
                 {
@@ -122,7 +122,7 @@ class Requisicoes extends MY_Controller
                         if($codigo && !empty($_FILES['files']['name']))
                         {
                                 $this->do_upload($codigo);
-                                redirect('admin/requisicoes/editar/'.$codigo.'/1');
+                                redirect('admin/requisicoes/detalhes/'.$codigo.'/1');
                         }
                         else
                         {
@@ -138,13 +138,13 @@ class Requisicoes extends MY_Controller
                                 $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
                                 $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
                                 $this->layout
-                                        ->set_title('Admin - Requisições - Editar')
+                                        ->set_title('Admin - Pedidos - Detalhes')
                                         ->set_description('')
                                         ->set_keywords('')
                                         ->set_includes('js/requests.js')
                                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Requisições', 'admin/requisicoes/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/requisicoes/editar', 1)
+                                        ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
+                                        ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
                                         ->set_view('admin/requests/add_requests',$data , 'template/admin/');
                         }
                 }
@@ -154,9 +154,10 @@ class Requisicoes extends MY_Controller
                 }
         }
         
+        /*
         public function remover()
         {
-                $this->_is_autorized('admin/requisicoes/adicionar');
+                $this->_is_autorized('admin/pedidos/adicionar');
                 $itens = $this->_post();
                 $qtde = 0;
                 foreach($itens['selecteds'] as $item)
@@ -170,6 +171,7 @@ class Requisicoes extends MY_Controller
                 }
                 echo json_encode($qtde);
         }
+        */
         
         public function apoiar()
         {
@@ -231,38 +233,14 @@ class Requisicoes extends MY_Controller
         {
                 $data = $this->_get();
                 $return = $this->business_model->get_select('ctp_business.id_type_business = '.$data['type_business'].' AND ctp_business.active = 1', 'description', 'ASC');
-                if(isset($return) && !empty($return))
-                {
-                        $return = $this->have_business_neighborhood_request($return);
-                }
                 echo json_encode($return);
         }
         
-        private function have_business_neighborhood_request($itens = array())
+        public function have_business_neighborhood_request()
         {
-                foreach ($itens as $item)
-                {
-                        $all[$item->id] = $item;
-                        $ids[] = $item->id;
-                }
-                $ids = implode(',', $ids);
-                $find = $this->requests_model->get_select_by_business('ctp_requests.id_business IN ('.$ids.') AND ctp_requests.active = 1');
-                if(isset($find) && !empty($find))
-                {
-                        foreach ($find as $object)
-                        {
-                                unset($all[$object->id]);
-                        }
-                        foreach ($all as $single)
-                        {
-                                $return[] = $single;
-                        }
-                }
-                else
-                {
-                        $return = $itens;
-                }
-                return $return;
+                $data = $this->_get();
+                $return = $this->requests_model->get_select_by_business('ctp_requests.id_business = '.$data['business'].' AND ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].' AND ctp_requests.active = 1', 'description', 'ASC');
+                echo json_encode($return);
         }
         
         private function _get()
