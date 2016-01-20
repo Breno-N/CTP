@@ -113,4 +113,11 @@ class MY_Controller extends CI_Controller
             }
             return $retorno;
     }
+    
+    protected function error($data = array())
+    {
+            $this->layout
+                    ->set_title('Admin - Erro')
+                    ->set_view('admin/error/error', $data, 'template/admin/');
+    }
 }

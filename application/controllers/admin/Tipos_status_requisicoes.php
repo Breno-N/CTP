@@ -94,22 +94,29 @@ class Tipos_status_requisicoes extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $this->layout
-                                        ->set_title('Admin - Usuários - Editar')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/type_request_status.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/tipos_status_requisicoes/editar', 1)
-                                        ->set_view('admin/type_request_status/add_type_request_status',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $this->layout
+                                                ->set_title('Admin - Usuários - Editar')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/type_request_status.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 0)
+                                                ->set_breadcrumbs('Editar', 'admin/tipos_status_requisicoes/editar', 1)
+                                                ->set_view('admin/type_request_status/add_type_request_status',$data , 'template/admin/');
+                                }
                         }
                 }
                 else

@@ -127,27 +127,34 @@ class Pedidos extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $data['status'] = $this->get_status();
-                                $data['type_business'] = $this->get_type_business();
-                                $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
-                                $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
-                                $data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
-                                $this->layout
-                                        ->set_title('Admin - Pedidos - Detalhes')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/requests.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
-                                        ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
-                                        ->set_view('admin/requests/add_requests',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $data['status'] = $this->get_status();
+                                        $data['type_business'] = $this->get_type_business();
+                                        $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
+                                        $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                                        $data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
+                                        $this->layout
+                                                ->set_title('Admin - Pedidos - Detalhes')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/requests.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
+                                                ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
+                                                ->set_view('admin/requests/add_requests',$data , 'template/admin/');
+                                }
                         }
                 }
                 else

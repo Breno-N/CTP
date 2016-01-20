@@ -92,13 +92,13 @@
                         <?php if(isset($item)):?>
                         <input type="number" name="quantity" id="quantity" min="<?php echo $item->quantity + 1; ?>" value="<?php echo $item->quantity; ?>" class="form-control" disabled="disabled">
                         <?php else:?>
-                        <input type="number" name="quantity" id="quantity" min="2" value="" class="form-control">
+                        <input type="number" name="quantity" id="quantity" min="0" value="" class="form-control">
                         <?php endif;?>
                     </div>
                 </div>
             </div>
             <?php if(!isset($item) || $item->user_create == $this->session->userdata['email']):?>
-                <div class="row form-section uploadfiles form-input">
+                <div class="row form-section uploadfiles">
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label for="files">Upload de Arquivo</label>
@@ -113,7 +113,7 @@
                 </div>
             <?php endif;?>
             <?php if(isset($attachments['itens']) && !empty($attachments['itens'])): ?>
-                <div class="row form-section form-input">
+                <div class="row form-section uploadfiles">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                         <h4>Arquivos Anexados</h4>
                     </div>

@@ -197,25 +197,32 @@ class Usuarios extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['states'] = $this->get_state();
-                                $data['types_user'] = $this->get_type_user();
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $this->layout
-                                        ->set_title('Admin - Usuários - Editar')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/mask/jquery.mask.js')
-                                        ->set_includes('js/users.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/usuarios/editar', 1)
-                                        ->set_view('admin/users/add_users',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['states'] = $this->get_state();
+                                        $data['types_user'] = $this->get_type_user();
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $this->layout
+                                                ->set_title('Admin - Usuários - Editar')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/mask/jquery.mask.js')
+                                                ->set_includes('js/users.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
+                                                ->set_breadcrumbs('Editar', 'admin/usuarios/editar', 1)
+                                                ->set_view('admin/users/add_users',$data , 'template/admin/');
+                                }
                         }
                 }
                 else

@@ -5,6 +5,7 @@
         <group>
             <file>file:/C:/xampp/htdocs/ctp/assets/js/requests.js</file>
             <file>file:/C:/xampp/htdocs/ctp/application/models/Requests_model.php</file>
+            <file>file:/C:/xampp/htdocs/ctp/application/views/admin/requests/add_requests.php</file>
             <file>file:/C:/xampp/htdocs/ctp/application/controllers/admin/Pedidos.php</file>
         </group>
     </open-files>
