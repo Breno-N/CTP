@@ -3,7 +3,6 @@
 class Pedidos extends MY_Controller
 {
         private $validate = array(
-                                    //array('field'=> 'title', 'label' => 'Titulo', 'rules' => 'required|trim'),
                                     array('field'=> 'id_business', 'label' => 'Categoria', 'rules' => 'required|trim'),
                                     array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
                                     array('field'=> 'quantity', 'label' => 'Reforçar Pedidos', 'rules' => 'integer|trim'),
@@ -12,7 +11,9 @@ class Pedidos extends MY_Controller
         public function __construct() 
         {
                 parent::__construct();
-                $this->load->model(array('requests_model', 'users_model', 'user_request_model', 'neighborhood_model', 'attachment_model', 'business_model', 'type_business_model', 'type_request_status_model'));
+                $this->load->model(array('requests_model', 'users_model', 'user_request_model', 
+                    'neighborhood_model', 'attachment_model', 'business_model', 'type_business_model', 
+                    'type_request_status_model', 'requests_comments_model'));
         }
         
         public function index()
@@ -137,6 +138,7 @@ class Pedidos extends MY_Controller
                                 $data['type_business'] = $this->get_type_business();
                                 $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
                                 $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                                $data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
                                 $this->layout
                                         ->set_title('Admin - Pedidos - Detalhes')
                                         ->set_description('')
@@ -153,25 +155,6 @@ class Pedidos extends MY_Controller
                         redirect('painel');
                 }
         }
-        
-        /*
-        public function remover()
-        {
-                $this->_is_autorized('admin/pedidos/adicionar');
-                $itens = $this->_post();
-                $qtde = 0;
-                foreach($itens['selecteds'] as $item)
-                {
-                        $exists = $this->requests_model->get_total_itens('ctp_requests.id = '.$item);
-                        if($exists)
-                        {
-                                $deleted = $this->requests_model->update(array('active' => 0),'ctp_requests.id = '.$item);
-                                if($deleted) $qtde++;
-                        }
-                }
-                echo json_encode($qtde);
-        }
-        */
         
         public function apoiar()
         {
@@ -192,6 +175,30 @@ class Pedidos extends MY_Controller
                         }
                 }
                 echo json_encode($update);
+        }
+        
+        public function comentar()
+        {
+                $return = 0;
+                $comment = $this->_post();
+                if(isset($comment['id_request']) && !empty($comment['description']) && $this->session->userdata['can_post'])
+                {
+                        $comment['id_user'] = $this->session->userdata['id'];
+                        $comment['date'] = date('Y-m-d H:i:s');
+                        $return = $this->requests_comments_model->insert($comment);
+                }
+                echo json_encode($return);
+        }
+        
+        public function descomentar()
+        {
+                $return = 0;
+                $id = $this->_post();
+                if(isset($id['id']) && $this->session->userdata['admin'])
+                {
+                        $return = $this->requests_comments_model->update(array('active' => 0), 'ctp_requests_comments.id = '.$id['id']);
+                }
+                echo json_encode($return);
         }
         
         public function download($id = '', $description = '')

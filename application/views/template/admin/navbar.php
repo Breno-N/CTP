@@ -38,7 +38,7 @@
                 </a>
             </li>
         </ul>
-        <?php if($this->session->userdata['type'] == '3'): ?>
+        <?php if($this->session->userdata['admin']): ?>
             <ul class="nav nav-pills nav-stacked menu">Administrativo
                 <li role="presentation">
                     <a href="<?php echo base_url().'admin/usuarios/'; ?>">

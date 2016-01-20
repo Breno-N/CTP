@@ -44,7 +44,6 @@
                                 <option value="">Selecione...</option>
                             </select>
                         <?php endif; ?>
-                        
                     </div>
                 </div>
             </div>
@@ -133,12 +132,44 @@
                     </div>
                 </div>
             <?php endif; ?>
-            <?php if(isset($item) && !isset($request_support)): ?>
-                <div class="row form-section">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                        <button type="button" class="btn btn-success" id="request-support" data-id="<?php echo $item->id; ?>">Apoiar Pedido</button>
+            <?php if(isset($item)): ?>
+                <?php if(!isset($request_support)): ?>
+                    <div class="row form-section">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="button" class="btn btn-success" id="request-support" data-id="<?php echo $item->id; ?>">Apoiar Pedido</button>
+                        </div>
                     </div>
-                </div>
+                <?php endif; ?>
+                <?php if(isset($comments['itens']) && !empty($comments['itens'])): ?>
+                    <div class="row form-section form-input">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="list-group">
+                                <?php foreach($comments['itens'] as $comment): ?>
+                                    <div class="list-group-item">
+                                        <h4 class="list-group-item-heading"><?php echo $comment->name; ?> - <?php echo $comment->date; ?></h4>
+                                        <p class="list-group-item-text">
+                                            <?php echo $comment->description; ?>
+                                        </p>
+                                        <button type="button" class="btn btn-danger comment-delete" data-id="<?php echo $comment->id; ?>">Excluir</button>
+                                    </div>
+                                <?php endforeach; ?>
+                            </div>
+                        </div>
+                    </div>
+                <?php endif;?>
+                <?php if($this->session->userdata['can_post']): ?>
+                    <div class="row form-section form-input">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <div class="form-group">
+                                <label for="comment">Quer falar algo sobre o pedido ?</label>
+                                <textarea name="comment" id="comment" class="form-control" ></textarea>
+                            </div>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <button type="button" class="btn btn-primary" id="comment-save" data-id="<?php echo $item->id; ?>">Salvar Comentário</button>
+                        </div>
+                    </div>
+                <?php endif; ?>
             <?php endif; ?>
         </form>
     </div>

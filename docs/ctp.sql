@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: 02-Dez-2015 às 18:20
+-- Generation Time: 20-Jan-2016 às 17:53
 -- Versão do servidor: 5.6.21
 -- PHP Version: 5.6.3
 
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `ctp_address` (
   `number` varchar(10) NOT NULL,
   `complement` varchar(255) NOT NULL,
   `zip_code` varchar(20) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_address`
@@ -64,7 +64,9 @@ INSERT INTO `ctp_address` (`id`, `id_neighborhood`, `street`, `number`, `complem
 (24, 3, 'Travessa Antônio Constantino Machado', '2', 'apartamento', '83010-220'),
 (25, 11, 'Rua Afonso Dissenha', '5', 'casa', '83020-220'),
 (26, 2, 'Rua Guilherme Gasparello', '6', 'casa', '83020-240'),
-(27, 2, 'Rua Afonso Dissenha', '4', 'casa', '83020-250');
+(27, 2, 'Rua Afonso Dissenha', '4', 'casa', '83020-250'),
+(28, 12, 'Rua Afonso Dissenha', '1', 'casa', '83020-220'),
+(29, 2, 'Quinze de Novembro', '5', 'casa', '83020-210');
 
 -- --------------------------------------------------------
 
@@ -78,6 +80,32 @@ CREATE TABLE IF NOT EXISTS `ctp_attachment` (
   `description` varchar(255) NOT NULL,
   `path` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ctp_business`
+--
+
+CREATE TABLE IF NOT EXISTS `ctp_business` (
+`id` int(11) NOT NULL,
+  `id_type_business` int(11) NOT NULL,
+  `description` varchar(255) NOT NULL,
+  `synonyms` text NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `ctp_business`
+--
+
+INSERT INTO `ctp_business` (`id`, `id_type_business`, `description`, `synonyms`, `active`) VALUES
+(1, 1, 'Farmácia', 'Drogaria - Postinho', 1),
+(2, 1, 'Dentista', '', 1),
+(3, 1, 'Oftalmologista', '', 1),
+(4, 1, 'Pediatra', '', 1),
+(5, 1, 'Hospital', '', 1),
+(6, 5, 'Tenis', '', 1);
 
 -- --------------------------------------------------------
 
@@ -5702,7 +5730,7 @@ CREATE TABLE IF NOT EXISTS `ctp_neighborhood` (
   `id_city` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '0' COMMENT '1 - Sim\n0 - Não'
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_neighborhood`
@@ -5718,7 +5746,8 @@ INSERT INTO `ctp_neighborhood` (`id`, `id_city`, `description`, `active`) VALUES
 (8, 3135, 'Afonso Pena', 1),
 (9, 105, 'TEste2', 0),
 (10, 1130, 'Teste22', 1),
-(11, 290, 'Teste de rua', 0);
+(11, 290, 'Teste de rua', 0),
+(12, 2801, 'Braga', 0);
 
 -- --------------------------------------------------------
 
@@ -5732,8 +5761,21 @@ CREATE TABLE IF NOT EXISTS `ctp_news` (
   `id_user` int(11) NOT NULL,
   `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
-  `date_create` date DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `date_create` date DEFAULT NULL,
+  `active` int(1) NOT NULL DEFAULT '1'
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `ctp_news`
+--
+
+INSERT INTO `ctp_news` (`id`, `id_news_category`, `id_user`, `title`, `description`, `date_create`, `active`) VALUES
+(1, 3, 25, 'Apenas teste', 'testando formulário de noticiasdsdasdasdasdas', '2015-12-04', 1),
+(2, 2, 25, 'Teste 2', 'teste 2', '2015-12-04', 1),
+(3, 6, 25, 'sdfsdafasdf', 'fdhsjakfhajkhfjksdfasdgfgas', '2015-12-04', 1),
+(4, 4, 25, 'apenas testando', 'hasjklhdjlashhjrhweuirhuweiqruiqweohrqweu', '2015-12-07', 1),
+(5, 4, 25, 'mais um teste', 'hasjklhdjlashhjrhweuirhuweiqruiqweohrqweu', '2015-12-07', 1),
+(6, 3, 25, 'teste de novo', 'teste dsajkasjkdjaskdjaskldjklasjkdjaskdjklasjdklasjdkla', '2015-12-07', 1);
 
 -- --------------------------------------------------------
 
@@ -5743,37 +5785,54 @@ CREATE TABLE IF NOT EXISTS `ctp_news` (
 
 CREATE TABLE IF NOT EXISTS `ctp_requests` (
 `id` int(11) NOT NULL,
-  `id_type_business` int(11) NOT NULL,
-  `id_type_request_status` int(11) NOT NULL DEFAULT '1' COMMENT '1 - Sim\n0 - Não',
+  `id_business` int(11) NOT NULL,
+  `id_type_request_status` int(11) NOT NULL DEFAULT '3' COMMENT '1 - Sim\n0 - Não',
   `id_neighborhood` int(11) NOT NULL,
   `have_business_neighborhood` int(1) NOT NULL COMMENT '1 - Sim\n0 - Não',
   `request_public_agency` int(1) NOT NULL COMMENT '1 - Sim\n0 - Não',
-  `title` varchar(255) NOT NULL,
   `description` text NOT NULL,
   `quantity` int(11) NOT NULL DEFAULT '1',
   `user_create` varchar(255) NOT NULL,
   `date_create` date DEFAULT NULL,
   `date_opening` date DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=52 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=56 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_requests`
 --
 
-INSERT INTO `ctp_requests` (`id`, `id_type_business`, `id_type_request_status`, `id_neighborhood`, `have_business_neighborhood`, `request_public_agency`, `title`, `description`, `quantity`, `user_create`, `date_create`, `date_opening`, `active`) VALUES
-(40, 1, 1, 2, 1, 0, 'Teste', 'apenas testando', 2, 't@t.com.br', '2015-11-30', NULL, 1),
-(41, 2, 1, 2, 0, 1, 'Teste2', 'Apenas teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(42, 1, 1, 2, 1, 1, 'Teste3', 'apenas teste3', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(43, 2, 1, 2, 0, 0, 'Teste 4', 'Apenas teste 4', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(44, 1, 1, 2, 0, 1, 'Teste 5', 'Apenas teste 5', 2, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(45, 1, 1, 2, 1, 0, 'Teste 6', 'apenas teste 6', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(46, 3, 1, 2, 0, 0, 'Teste 7', 'apenas mais um teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(47, 4, 1, 2, 0, 0, 'Teste8', 'apenas teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(48, 2, 1, 2, 0, 0, 'Teste 9', 'Mias um teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(49, 3, 1, 2, 0, 0, 'Teste10', 'Mais um teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(50, 1, 1, 2, 1, 1, 'Teste11', 'mAIS teste', 1, 'teste@teste.com.br', '2015-12-01', NULL, 1),
-(51, 6, 1, 2, 0, 0, 'Teste 12', 'teste', 2, 'teste@teste.com.br', '2015-12-01', NULL, 1);
+INSERT INTO `ctp_requests` (`id`, `id_business`, `id_type_request_status`, `id_neighborhood`, `have_business_neighborhood`, `request_public_agency`, `description`, `quantity`, `user_create`, `date_create`, `date_opening`, `active`) VALUES
+(40, 1, 3, 2, 1, 0, 'apenas testando', 2, 't@t.com.br', '2015-11-30', NULL, 1),
+(52, 5, 3, 2, 1, 1, 'teste', 2, 't@t.com.br', '2016-01-08', NULL, 1),
+(53, 3, 3, 2, 0, 1, 'Teste', 1, 't@t.com.br', '2016-01-08', NULL, 0),
+(54, 2, 3, 2, 1, 0, 'tes', 8, 't@t.com.br', '2016-01-08', NULL, 1),
+(55, 4, 3, 12, 1, 1, 'dgshdghasgdhasgdhgsas', 3, 'admin@teste.com.br', '2016-01-08', NULL, 1);
+
+-- --------------------------------------------------------
+
+--
+-- Estrutura da tabela `ctp_requests_comments`
+--
+
+CREATE TABLE IF NOT EXISTS `ctp_requests_comments` (
+`id` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `id_request` int(11) NOT NULL,
+  `description` text NOT NULL,
+  `date` datetime NOT NULL,
+  `active` int(1) NOT NULL DEFAULT '0'
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Extraindo dados da tabela `ctp_requests_comments`
+--
+
+INSERT INTO `ctp_requests_comments` (`id`, `id_user`, `id_request`, `description`, `date`, `active`) VALUES
+(1, 25, 54, 'Apenas testando', '2016-01-20 13:11:31', 1),
+(2, 26, 54, 'Gostaria de adicionar apenas mais um teste a esse pedido', '2016-01-20 13:13:24', 1),
+(3, 36, 54, 'Esta faltando dentistas mulheres bonitas', '2016-01-20 13:14:45', 1),
+(4, 25, 54, 'testando', '2016-01-20 17:39:05', 1);
 
 -- --------------------------------------------------------
 
@@ -5845,19 +5904,20 @@ CREATE TABLE IF NOT EXISTS `ctp_type_business` (
 `id` int(11) NOT NULL,
   `description` varchar(255) NOT NULL,
   `active` int(1) NOT NULL DEFAULT '1'
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_type_business`
 --
 
 INSERT INTO `ctp_type_business` (`id`, `description`, `active`) VALUES
-(1, 'Serviço', 1),
+(1, 'Saúde', 1),
 (2, 'Venda', 1),
 (3, 'Tecnologia', 1),
 (4, 'Marketing', 1),
 (5, 'Esporte', 1),
-(6, 'Alimentação', 1);
+(6, 'Alimentação', 1),
+(7, 'Segurança', 1);
 
 -- --------------------------------------------------------
 
@@ -5925,8 +5985,7 @@ CREATE TABLE IF NOT EXISTS `ctp_type_users` (
 INSERT INTO `ctp_type_users` (`id`, `description`, `active`) VALUES
 (1, 'Assinante', 1),
 (2, 'Assinante Plus', 1),
-(3, 'Administrador', 1),
-(4, 'Usuário de Teste', 1);
+(5487, 'Administrador', 1);
 
 -- --------------------------------------------------------
 
@@ -5946,42 +6005,46 @@ CREATE TABLE IF NOT EXISTS `ctp_users` (
   `phone` varchar(25) NOT NULL,
   `cpf_cnpj` varchar(50) NOT NULL,
   `is_pj` int(1) NOT NULL COMMENT '1 - Sim\n0 - Não',
+  `can_post` int(1) NOT NULL DEFAULT '1',
   `date_create` date DEFAULT NULL,
   `active` int(1) NOT NULL DEFAULT '1' COMMENT '1 - Sim\n0 - Não'
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_users`
 --
 
-INSERT INTO `ctp_users` (`id`, `id_address`, `id_type_user`, `name`, `email`, `password`, `age`, `genre`, `phone`, `cpf_cnpj`, `is_pj`, `date_create`, `active`) VALUES
-(2, 3, 2, 'teste1', 'teste1@teste.com.br', '$2a$08$MTE3NTgxMDM4NTU2NTQzYOfn9whRjnbkc2lJEGLHJqZXoryb.4n9i', 19, 'M', '(41)3081-3834', '111.111.111.11', 0, '2015-10-25', 1),
-(3, 4, 2, 'tes', 'te@teste.com', '$2a$08$MTkyNjQ1NTY2MjU2MzRmNuuwSV/IIwUEJ6b7tY9Gja2xOfDcmow2.', 19, 'M', '(41)3081-3834', '111.111.111-11', 0, '2015-10-31', 0),
-(4, 5, 1, 'teste2', 'teste2@teste2.com.br', '$2a$08$NDA2NTA0MjE1NTY1NDNhNOtgOJX99Dd9Zuf3vzHytn3kIhqvYE82W', 19, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-24', 1),
-(5, 6, 3, 'teste3', 'teste3@teste.com.br', '$2a$08$NjIzMTE5NDM2NTY1NDNiNO2GOGnZL6MCuC8o74L1uycoAO3YkeHBa', 31, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-24', 1),
-(6, 7, 2, 'teste4', 'teste4@teste.com.br', '$2a$08$MTk4NDUxNDY1ODU2NTQzYeWzcW/eNV36naja4XKiWvrYc2XoIltkO', 21, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-24', 1),
-(7, 8, 2, 'teste5', 'teste5@teste.com.br', '$2a$08$MjI3OTU1MjUwNTY1NDNiZeZxLVQ8m2qjhEfWoVNc8T9c9EOXd/ZQ.', 25, 'F', '(41)3333-3333', '11.111.111/1111-11', 1, '2015-11-24', 1),
-(8, 9, 3, 'teste6', 'teste6@teste.com.br', '$2a$08$MzA1MTQ1ODY4NTY1NDNjNucUTksSRycs8a8lYg9JUy06BL51qU9ii', 18, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-24', 1),
-(9, 10, 1, 'teste7', 'teste7@teste.com.br', '$2a$08$MTgwOTUzNzYxNzU2NTQzYuRUuZYGS9WCjkBZRvg5guZatcAx2JrHK', 19, 'F', '(41)3333-3333', '222.222.222-22', 0, '2015-11-24', 1),
-(10, 11, 1, 'teste8', 'teste8@teste.com.br', '$2a$08$MTI2MTE5OTM0NDU2NTQzYuqThioFdTw2hHIqU85Gox4.mdH76lQS2', 18, 'M', '(41)3333-3333', '333.333.333-33', 0, '2015-11-24', 1),
-(11, 12, 1, 'teste9', 'teste9@teste.com.br', '$2a$08$MzE1NTUzMDc4NTY1NDNkOOJvdFM0xOUYYbKtqfaXg5ucDdt66SPUW', 22, 'F', '(41)3333-3333', '555.555.555-55', 0, '2015-11-24', 1),
-(12, 13, 3, 'teste10', 'teste10@teste.com.br', '$2a$08$MTkzNzYyMzI4NTY1NDNkYuEtQW/DO34uxwrlmtjUEZLOb7x4X.4cq', 27, 'M', '(41)3333-3333', '444.444.444-44', 0, '2015-11-24', 1),
-(13, 14, 2, 'teste12', 'teste11@teste.com.br', '$2a$08$MTg2ODE4NzAyMjU2NTQzZ.9nWiJ7fwUcK18TcBtSHzjTuhYQJCG.K', 20, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-24', 1),
-(14, 15, 1, 'teste13', 'teste12@teste.com.br', '$2a$08$MjAyMDMxMzg0MTU2NTQzZO0sUwWqNT6PMLRrOCSKi4TD3lPrxzFFe', 18, 'F', '(41)3333-3333', '999.999.999-99', 0, '2015-11-24', 1),
-(15, 16, 2, 'teste', 'teste13@teste.com.br', '$2a$08$MTQ1MDczODQzNzU2NTRhZezWjqwos4e4zxeEAFz81CbvCnmTFElPa', 23, 'M', '(41)3333-3333', '777.777.777-77', 0, '2015-11-24', 0),
-(16, 17, 1, 'teste14', 'teste14@teste.com.br', '$2a$08$MjE0NjA4MDQzODU2NTRhZeZBWOHKs8f1kQebY9Kt58GEWjBdlhMqy', 18, 'F', '(41)3333-3333', '689.754.321-54', 0, '2015-11-24', 1),
-(17, 18, 1, 'teste16', 'teste15@teste.com.br', '$2a$08$MzI5NzM1MTQxNTY1NGIwZeKLna1tHlNhfDQu/KlZQDXylBXR/S2pm', 76, 'M', '(41)3333-3333', '888.888.888-88', 0, '2015-11-24', 1),
-(18, 19, 2, 'teste17', 'teste16@teste.com.br', '$2a$08$MTAxNDczMDc0MTU2NTRiMO1MCW8ofd5vRo2wWu1UkyKm47pOpW9pu', 22, 'F', '(41)3333-3333', '777.777.777-77', 0, '2015-11-24', 1),
-(19, 20, 1, 'teste18', 'teste17@teste.com.br', '$2a$08$MTAyNDc4MTc1NDU2NTRiMOFBAyMEqjK1AmJEwaIxyxvhbzpBTk6s2', 27, 'M', '(41)3333-3333', '666.666.666-66', 0, '2015-11-24', 1),
-(20, 21, 2, 'teste19', 'teste18@teste.com.br', '$2a$08$MTEzODA1MzIyOTU2NTRiMOlpQFhN6m6P2mf.1wsyEAyo6eK9/JKia', 23, 'F', '(41)3333-3333', '888.888.888-88', 0, '2015-11-24', 1),
-(21, 22, 2, 'teste21', 'teste19@teste.com.br', '$2a$08$Njk1MzAxMTE1NjU0YjE5NuInVzNXzjJrQpOUsC5Fiu080L8MY9AfO', 27, 'F', '(41)3333-3333', '879.654.123-25', 0, '2015-11-24', 1),
-(22, 23, 2, 'teste22', 'teste20@teste.com.br', '$2a$08$MTc4ODM1ODk5MjU2NTRiMeoLkzvkpDx99r5A6lVsMwDWn7htJEq0W', 30, 'F', '(41)3333-3333', '444.445.555-55', 0, '2015-11-24', 1),
-(23, 24, 4, 'teste', 'teste21@teste.com.br', '$2a$08$NjcwNjE2NzY5NTY1NzBhNuUbswGDi.LlGEZEe3QzQVZf7U1HosYbS', 20, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-26', 0),
-(24, 25, 4, 'simples', 'teste22@teste.com.br', '$2a$08$NDY4OTgxODU4NTY1NzBjM.vPzLIngLR0T4TkI48pmg.Tx1ZmmtfPK', 26, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-26', 0),
-(25, 26, 3, 't', 't@t.com.br', '$2a$08$MzUzMjMyNDA2NTY1ODg2YuXMN8x6wP2T3o100JPiynEdm.eckiaGi', 19, 'M', '(41)3333-3333', '111.111.111-11', 0, '2015-11-27', 1),
-(26, 27, 1, 'teste', 'teste@teste.com.br', '$2a$08$NjM0Nzc5NDM0NTY1YzY2YeUeesaYnuT5oBmsZOrvaRIP2SPWSChR.', 18, 'M', '(41)3333-3333', '555.555.555-55', 0, '2015-11-30', 1),
-(27, 0, 0, 'teste cadastrso', 'testecadastro@teste.com.br', '$2a$08$MzYwMTQ2MDc3NTY1ZGU5Nuof06nK9P93dLOkoVJCrXVSiMycDiOki', 25, 'M', '', '', 0, NULL, 1),
-(30, 0, 1, 'cadastro', 'cadastro@teste.com.br', '$2a$08$MTU4OTQ1ODg3NTY1ZWJjYegkq0PLtRsS4IZcATC50vrBIqIJiBsFC', 26, 'M', '', '', 0, '2015-12-02', 1);
+INSERT INTO `ctp_users` (`id`, `id_address`, `id_type_user`, `name`, `email`, `password`, `age`, `genre`, `phone`, `cpf_cnpj`, `is_pj`, `can_post`, `date_create`, `active`) VALUES
+(2, 3, 2, 'teste1', 'teste1@teste.com.br', '$2a$08$MTE3NTgxMDM4NTU2NTQzYOfn9whRjnbkc2lJEGLHJqZXoryb.4n9i', 19, 'M', '(41)3081-3834', '111.111.111.11', 0, 1, '2015-10-25', 1),
+(3, 4, 2, 'tes', 'te@teste.com', '$2a$08$MTkyNjQ1NTY2MjU2MzRmNuuwSV/IIwUEJ6b7tY9Gja2xOfDcmow2.', 19, 'M', '(41)3081-3834', '111.111.111-11', 0, 1, '2015-10-31', 0),
+(4, 5, 1, 'teste2', 'teste2@teste2.com.br', '$2a$08$NDA2NTA0MjE1NTY1NDNhNOtgOJX99Dd9Zuf3vzHytn3kIhqvYE82W', 19, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-24', 1),
+(5, 6, 5487, 'teste3', 'teste3@teste.com.br', '$2a$08$NjIzMTE5NDM2NTY1NDNiNO2GOGnZL6MCuC8o74L1uycoAO3YkeHBa', 31, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-24', 1),
+(6, 7, 2, 'teste4', 'teste4@teste.com.br', '$2a$08$MTk4NDUxNDY1ODU2NTQzYeWzcW/eNV36naja4XKiWvrYc2XoIltkO', 21, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-24', 1),
+(7, 8, 2, 'teste5', 'teste5@teste.com.br', '$2a$08$MjI3OTU1MjUwNTY1NDNiZeZxLVQ8m2qjhEfWoVNc8T9c9EOXd/ZQ.', 25, 'F', '(41)3333-3333', '11.111.111/1111-11', 1, 1, '2015-11-24', 1),
+(8, 9, 5487, 'teste6', 'teste6@teste.com.br', '$2a$08$MzA1MTQ1ODY4NTY1NDNjNucUTksSRycs8a8lYg9JUy06BL51qU9ii', 18, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-24', 1),
+(9, 10, 1, 'teste7', 'teste7@teste.com.br', '$2a$08$MTgwOTUzNzYxNzU2NTQzYuRUuZYGS9WCjkBZRvg5guZatcAx2JrHK', 19, 'F', '(41)3333-3333', '222.222.222-22', 0, 1, '2015-11-24', 1),
+(10, 11, 1, 'teste8', 'teste8@teste.com.br', '$2a$08$MTI2MTE5OTM0NDU2NTQzYuqThioFdTw2hHIqU85Gox4.mdH76lQS2', 18, 'M', '(41)3333-3333', '333.333.333-33', 0, 1, '2015-11-24', 1),
+(11, 12, 1, 'teste9', 'teste9@teste.com.br', '$2a$08$MzE1NTUzMDc4NTY1NDNkOOJvdFM0xOUYYbKtqfaXg5ucDdt66SPUW', 22, 'F', '(41)3333-3333', '555.555.555-55', 0, 1, '2015-11-24', 1),
+(12, 13, 5487, 'teste10', 'teste10@teste.com.br', '$2a$08$MTkzNzYyMzI4NTY1NDNkYuEtQW/DO34uxwrlmtjUEZLOb7x4X.4cq', 27, 'M', '(41)3333-3333', '444.444.444-44', 0, 1, '2015-11-24', 1),
+(13, 14, 2, 'teste12', 'teste11@teste.com.br', '$2a$08$MTg2ODE4NzAyMjU2NTQzZ.9nWiJ7fwUcK18TcBtSHzjTuhYQJCG.K', 20, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-24', 1),
+(14, 15, 1, 'teste13', 'teste12@teste.com.br', '$2a$08$MjAyMDMxMzg0MTU2NTQzZO0sUwWqNT6PMLRrOCSKi4TD3lPrxzFFe', 18, 'F', '(41)3333-3333', '999.999.999-99', 0, 1, '2015-11-24', 1),
+(15, 16, 2, 'teste', 'teste13@teste.com.br', '$2a$08$MTQ1MDczODQzNzU2NTRhZezWjqwos4e4zxeEAFz81CbvCnmTFElPa', 23, 'M', '(41)3333-3333', '777.777.777-77', 0, 1, '2015-11-24', 0),
+(16, 17, 1, 'teste14', 'teste14@teste.com.br', '$2a$08$MjE0NjA4MDQzODU2NTRhZeZBWOHKs8f1kQebY9Kt58GEWjBdlhMqy', 18, 'F', '(41)3333-3333', '689.754.321-54', 0, 1, '2015-11-24', 1),
+(17, 18, 1, 'teste16', 'teste15@teste.com.br', '$2a$08$MzI5NzM1MTQxNTY1NGIwZeKLna1tHlNhfDQu/KlZQDXylBXR/S2pm', 76, 'M', '(41)3333-3333', '888.888.888-88', 0, 1, '2015-11-24', 1),
+(18, 19, 2, 'teste17', 'teste16@teste.com.br', '$2a$08$MTAxNDczMDc0MTU2NTRiMO1MCW8ofd5vRo2wWu1UkyKm47pOpW9pu', 22, 'F', '(41)3333-3333', '777.777.777-77', 0, 1, '2015-11-24', 1),
+(19, 20, 1, 'teste18', 'teste17@teste.com.br', '$2a$08$MTAyNDc4MTc1NDU2NTRiMOFBAyMEqjK1AmJEwaIxyxvhbzpBTk6s2', 27, 'M', '(41)3333-3333', '666.666.666-66', 0, 1, '2015-11-24', 1),
+(20, 21, 2, 'teste19', 'teste18@teste.com.br', '$2a$08$MTEzODA1MzIyOTU2NTRiMOlpQFhN6m6P2mf.1wsyEAyo6eK9/JKia', 23, 'F', '(41)3333-3333', '888.888.888-88', 0, 1, '2015-11-24', 1),
+(21, 22, 2, 'teste21', 'teste19@teste.com.br', '$2a$08$Njk1MzAxMTE1NjU0YjE5NuInVzNXzjJrQpOUsC5Fiu080L8MY9AfO', 27, 'F', '(41)3333-3333', '879.654.123-25', 0, 1, '2015-11-24', 1),
+(22, 23, 2, 'teste22', 'teste20@teste.com.br', '$2a$08$MTc4ODM1ODk5MjU2NTRiMeoLkzvkpDx99r5A6lVsMwDWn7htJEq0W', 30, 'F', '(41)3333-3333', '444.445.555-55', 0, 1, '2015-11-24', 1),
+(25, 26, 5487, 't', 't@t.com.br', '$2a$08$MzUzMjMyNDA2NTY1ODg2YuXMN8x6wP2T3o100JPiynEdm.eckiaGi', 19, 'M', '(41)3333-3333', '111.111.111-11', 0, 1, '2015-11-27', 1),
+(26, 27, 1, 'teste', 'teste@teste.com.br', '$2a$08$NjM0Nzc5NDM0NTY1YzY2YeUeesaYnuT5oBmsZOrvaRIP2SPWSChR.', 18, 'M', '(41)3333-3333', '555.555.555-55', 0, 1, '2015-11-30', 1),
+(30, 0, 1, 'cadastro', 'cadastro@teste.com.br', '$2a$08$MTU4OTQ1ODg3NTY1ZWJjYegkq0PLtRsS4IZcATC50vrBIqIJiBsFC', 26, 'M', '', '', 0, 1, '2015-12-02', 1),
+(31, 0, 1, 'cadastro2', 'cadastro2@teste.com.br', '$2a$08$MjA3ODY0OTA5OTU2NjAxZeey.jxoUsPCDjRmseU607siEnjbKDluq', 30, 'M', '', '', 0, 1, '2015-12-03', 1),
+(32, 28, 5487, 'admin', 'admin@teste.com.br', '$2a$08$MTY4MDgzOTUxNzU2NjE1YO/oFn/mpSzI/O5yjAb6/B7nVlR/o7UTW', 20, 'M', '(41)3333-3333', '888.888.888-88', 0, 1, '2015-12-04', 1),
+(33, 0, 1, 'testador', 'testador@t.com.br', '$2a$08$MTA4MDQzMjIwNTY4YWIxO.i4yaYBxcou06bMXEXRzY0gdvnWGM6mq', 15, 'M', '', '', 0, 1, '2016-01-04', 1),
+(34, 0, 1, 'test', 'test@tes.com.br', '$2a$08$NTY4NTQ1NjI0NTY5Mzg3YumQhhwo3ST7AXvZpvI65uf1jbEHEPnLi', 25, 'M', '', '', 0, 1, '2016-01-11', 1),
+(35, 0, 1, 't3', 't3@t3.com.br', '$2a$08$NzcwNTk5MTc0NTY5ZTEwYe7fb2o7kbKUrlQ/Nq5OHeGSDR.qZFwja', 18, 'M', '(41)9599-9999', '012.345.678-91', 0, 1, '2016-01-19', 1),
+(36, 29, 2, 'br', 'br@br.com.br', '$2a$08$MTU4MDMzNDk5MjU2OWUzNOlnBE7ysTspX3BWbOXCv4h8kJbhInoXy', 20, 'M', '(41)9599-9999', '000.000.000-00', 0, 1, '2016-01-19', 1);
 
 -- --------------------------------------------------------
 
@@ -5993,7 +6056,7 @@ CREATE TABLE IF NOT EXISTS `ctp_user_request` (
 `id` int(11) NOT NULL,
   `id_user` int(11) NOT NULL,
   `id_request` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=63 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
 
 --
 -- Extraindo dados da tabela `ctp_user_request`
@@ -6003,6 +6066,10 @@ INSERT INTO `ctp_user_request` (`id`, `id_user`, `id_request`) VALUES
 (40, 25, 40),
 (61, 25, 51),
 (62, 25, 44),
+(63, 25, 52),
+(64, 25, 53),
+(65, 25, 54),
+(69, 25, 55),
 (49, 26, 40),
 (50, 26, 41),
 (51, 26, 42),
@@ -6014,7 +6081,12 @@ INSERT INTO `ctp_user_request` (`id`, `id_user`, `id_request`) VALUES
 (57, 26, 48),
 (58, 26, 49),
 (59, 26, 50),
-(60, 26, 51);
+(60, 26, 51),
+(70, 26, 54),
+(66, 32, 54),
+(67, 32, 52),
+(68, 32, 55),
+(71, 36, 54);
 
 --
 -- Indexes for dumped tables
@@ -6031,6 +6103,12 @@ ALTER TABLE `ctp_address`
 --
 ALTER TABLE `ctp_attachment`
  ADD PRIMARY KEY (`id`,`id_request`);
+
+--
+-- Indexes for table `ctp_business`
+--
+ALTER TABLE `ctp_business`
+ ADD PRIMARY KEY (`id`,`id_type_business`);
 
 --
 -- Indexes for table `ctp_citys`
@@ -6066,7 +6144,13 @@ ALTER TABLE `ctp_news`
 -- Indexes for table `ctp_requests`
 --
 ALTER TABLE `ctp_requests`
- ADD PRIMARY KEY (`id`,`id_type_business`,`id_type_request_status`,`id_neighborhood`), ADD KEY `id_type_business_idx` (`id_type_business`), ADD KEY `id_type_request_status_idx` (`id_type_request_status`), ADD KEY `id_fk_neighborhood_requests_idx` (`id_neighborhood`);
+ ADD PRIMARY KEY (`id`,`id_business`,`id_type_request_status`,`id_neighborhood`), ADD KEY `id_type_business_idx` (`id_business`), ADD KEY `id_type_request_status_idx` (`id_type_request_status`), ADD KEY `id_fk_neighborhood_requests_idx` (`id_neighborhood`);
+
+--
+-- Indexes for table `ctp_requests_comments`
+--
+ALTER TABLE `ctp_requests_comments`
+ ADD PRIMARY KEY (`id`,`id_user`,`id_request`);
 
 --
 -- Indexes for table `ctp_request_exclusivity`
@@ -6124,12 +6208,17 @@ ALTER TABLE `ctp_user_request`
 -- AUTO_INCREMENT for table `ctp_address`
 --
 ALTER TABLE `ctp_address`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=30;
 --
 -- AUTO_INCREMENT for table `ctp_attachment`
 --
 ALTER TABLE `ctp_attachment`
 MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `ctp_business`
+--
+ALTER TABLE `ctp_business`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ctp_citys`
 --
@@ -6144,17 +6233,22 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 -- AUTO_INCREMENT for table `ctp_neighborhood`
 --
 ALTER TABLE `ctp_neighborhood`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=12;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=13;
 --
 -- AUTO_INCREMENT for table `ctp_news`
 --
 ALTER TABLE `ctp_news`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `ctp_requests`
 --
 ALTER TABLE `ctp_requests`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=52;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=56;
+--
+-- AUTO_INCREMENT for table `ctp_requests_comments`
+--
+ALTER TABLE `ctp_requests_comments`
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 --
 -- AUTO_INCREMENT for table `ctp_state`
 --
@@ -6164,7 +6258,7 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=28;
 -- AUTO_INCREMENT for table `ctp_type_business`
 --
 ALTER TABLE `ctp_type_business`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=7;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `ctp_type_news`
 --
@@ -6184,12 +6278,12 @@ MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
 -- AUTO_INCREMENT for table `ctp_users`
 --
 ALTER TABLE `ctp_users`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=37;
 --
 -- AUTO_INCREMENT for table `ctp_user_request`
 --
 ALTER TABLE `ctp_user_request`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=63;
+MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=72;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
