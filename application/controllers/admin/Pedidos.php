@@ -144,7 +144,7 @@ class Pedidos extends MY_Controller
                                         $data['type_business'] = $this->get_type_business();
                                         $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
                                         $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
-                                        $data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
+                                        //$data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
                                         $this->layout
                                                 ->set_title('Admin - Pedidos - Detalhes')
                                                 ->set_description('')
@@ -153,7 +153,7 @@ class Pedidos extends MY_Controller
                                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                                 ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
                                                 ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
-                                                ->set_view('admin/requests/add_requests',$data , 'template/admin/');
+                                                ->set_view('admin/requests/add_requests', $data, 'template/admin/');
                                 }
                         }
                 }
@@ -184,6 +184,7 @@ class Pedidos extends MY_Controller
                 echo json_encode($update);
         }
         
+        /*
         public function comentar()
         {
                 $return = 0;
@@ -207,6 +208,7 @@ class Pedidos extends MY_Controller
                 }
                 echo json_encode($return);
         }
+         */
         
         public function download($id = '', $description = '')
         {

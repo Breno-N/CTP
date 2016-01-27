@@ -140,25 +140,25 @@
                         </div>
                     </div>
                 <?php endif; ?>
-                <?php if(isset($comments['itens']) && !empty($comments['itens'])): ?>
-                    <div class="row form-section form-input">
+                <?php //if(isset($comments['itens']) && !empty($comments['itens'])): ?>
+                    <!--<div class="row form-section form-input">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="list-group">
-                                <?php foreach($comments['itens'] as $comment): ?>
+                                <?php //foreach($comments['itens'] as $comment): ?>
                                     <div class="list-group-item">
-                                        <h4 class="list-group-item-heading"><?php echo $comment->name; ?> - <?php echo $comment->date; ?></h4>
+                                        <h4 class="list-group-item-heading"><?php //echo $comment->name; ?> - <?php //echo $comment->date; ?></h4>
                                         <p class="list-group-item-text">
-                                            <?php echo $comment->description; ?>
+                                            <?php //echo $comment->description; ?>
                                         </p>
-                                        <button type="button" class="btn btn-danger comment-delete" data-id="<?php echo $comment->id; ?>">Excluir</button>
+                                        <button type="button" class="btn btn-danger comment-delete" data-id="<?php //echo $comment->id; ?>">Excluir</button>
                                     </div>
-                                <?php endforeach; ?>
+                                <?php //endforeach; ?>
                             </div>
                         </div>
-                    </div>
-                <?php endif;?>
-                <?php if($this->session->userdata['can_post']): ?>
-                    <div class="row form-section form-input">
+                    </div>-->
+                <?php //endif; ?>
+                <?php //if($this->session->userdata['can_post']): ?>
+                    <!--<div class="row form-section form-input">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="form-group">
                                 <label for="comment">Quer falar algo sobre o pedido ?</label>
@@ -166,10 +166,10 @@
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <button type="button" class="btn btn-primary" id="comment-save" data-id="<?php echo $item->id; ?>">Salvar Comentário</button>
+                            <button type="button" class="btn btn-primary" id="comment-save" data-id="<?php //echo $item->id; ?>">Salvar Comentário</button>
                         </div>
-                    </div>
-                <?php endif; ?>
+                    </div>-->
+                <?php //endif; ?>
             <?php endif; ?>
         </form>
     </div>

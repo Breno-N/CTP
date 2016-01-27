@@ -64,7 +64,7 @@ class Requests_comments_model extends MY_Model
                 return (isset($return['itens'][0]) ? $return['itens'][0] : NULL) ;
         }
 
-        public function get_itens($where = array(), $column = 'id', $order = 'DESC')
+        public function get_itens($where = array(), $column = 'id', $order = 'DESC', $limit = 5)
         {
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.id_user as id_user, ';
@@ -81,7 +81,31 @@ class Requests_comments_model extends MY_Model
                 $data['group'] = 'id';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $data['limit'] = 10;
+                $data['limit'] = $limit;
+                $return = $this->get_itens_($data);
+                return $return;
+        }
+        
+        public function get_itens_by_request($where = array(), $column = 'id', $order = 'DESC')
+        {
+                $data['fields']  = $this->table.'.id as id, ';
+                $data['fields'] .= $this->table.'.id_request as id_request, ';
+                $data['fields'] .= $this->table.'.description as description,';
+                $data['fields'] .= 'ctp_users.name as user,
+                                    ctp_business.description as business,
+                                    ctp_type_business.description as type_business,
+                                    ';
+                $data['tables'] =  array(
+                                        array($this->table),
+                                        array('from' => 'ctp_users', 'where' => 'ctp_users.id = '.$this->table.'.id_user', 'join' => 'INNER'),
+                                        array('from' => 'ctp_requests', 'where' => 'ctp_requests.id = '.$this->table.'.id_request', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = ctp_requests.id_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),
+                                    );
+                $data['where'] = $where;
+                $data['group'] = 'id';
+                $data['column'] = $column;
+                $data['order'] = $order;
                 $return = $this->get_itens_($data);
                 return $return;
         }

@@ -22,7 +22,8 @@
                 $(this).removeClass('alert-success');
             }
         });
-       
+        
+        /*
         $('#comment-save').on('click', function(){
             var comment = $('#comment').val();
             if(comment != '' && comment != null && comment != undefined){
@@ -55,6 +56,7 @@
                 alert('Não é possivel descomentar.');
             }
         });
+        */
         
         $('#request-support').on('click', function(e){
             var request = $(this).attr('data-id');
@@ -74,14 +76,12 @@
         $('.form-link-warning').hide();
         
         $('#quantity').on({
-            
             change : function(){
                 calculate_requests($(this).val());
             },
             keyup : function(){
                 calculate_requests($(this).val());
             },
-            
         });
         
         function calculate_requests(qtde){

@@ -6,12 +6,16 @@
        
         var url_default = '/ctp/home/';
         
-        $('#myModal').modal('show');
-        
         if($("#graphs").length > 0){
             $('#graphs').hide();
             init_charts();
         }
+        
+        get_cookie_video();
+        
+        $('.button-close-video').on('click', function(){
+           set_cookie_video();
+        });
         
         function init_charts(){
             var ctxBarTypeBusiness = $("#ctx-bar-type-business").get(0).getContext("2d"); 
@@ -55,6 +59,18 @@
                     new Chart(ctxDoughnutCitys).Doughnut(dataDoughnutCitys, {animation:true, responsive:true});
                 }
             });
+        }
+        
+        function get_cookie_video(){
+            $.getJSON(url_default + 'get_cookie_video').then(function(result){
+                if(result == '0'){
+                    $('#myModal').modal('show');
+                }
+            });
+        }
+        
+        function set_cookie_video(){
+            $.post(url_default + 'set_cookie_video');
         }
         
     });

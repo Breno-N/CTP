@@ -173,7 +173,7 @@ class Usuarios extends MY_Controller
 
                                 $data_neighborhood['id_city'] = $data['id_city'];
                                 $data_neighborhood['description'] = $data['neighborhood'];
-                                $data_neighborhood['filtro'] = 'ctp_neighborhood.id = '.$dados->id_neighborhood;
+                                $data_neighborhood['filtro'] = (isset($dados->id_neighborhood) && empty($dados->id_neighborhood)) ? 'ctp_neighborhood.id = '.$dados->id_neighborhood : '';
 
                                 $data_address['zip_code'] = $data['zip_code'];
                                 $data_address['street'] = $data['street'];
