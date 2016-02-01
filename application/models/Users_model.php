@@ -52,12 +52,12 @@ class Users_model extends MY_Model
         
         public function get_neighborhood($where = array(), $column = 'ctp_users.id', $order = 'DESC')
         {
-                $data['fields'] = 'ctp_neighborhood.id as id_neighborhood';
+                $data['fields'] = 'ctp_address.id_neighborhood as id_neighborhood';
                 $data['tables'] =   array(
                                         array($this->table),
-                                        array('from' => 'ctp_address', 'where' => 'ctp_address.id = '.$this->table.'.id_address', 'join' => 'INNER'),
-                                        array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = ctp_address.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = ctp_address.id_neighborhood', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -70,22 +70,18 @@ class Users_model extends MY_Model
         {
                 $data['fields'] = $this->table.'.*, 
                         ctp_type_users.description as type_user,
-                        ctp_address.street as street,
-                        ctp_address.number as number,
-                        ctp_address.complement as complement,
-                        ctp_address.zip_code as zip_code,
-                        ctp_neighborhood.id as id_neighborhood,
-                        ctp_neighborhood.description as neighborhood,
-                        ctp_citys.id as id_city_selected,
-                        ctp_citys.id_state as id_state_selected,
+                        CONCAT(ctp_address.type_street, " ", ctp_address.street) as street,
+                        ctp_neighborhoods.id as id_neighborhood,
+                        ctp_neighborhoods.description as neighborhood,
+                        ctp_citys.id_state as state,
                         ctp_citys.description as city,
                         ';
                 $data['tables'] =   array(
                                         array($this->table),
                                         array('from' => 'ctp_type_users', 'where' => 'ctp_type_users.id = '.$this->table.'.id_type_user AND ctp_type_users.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_address', 'where' => 'ctp_address.id = '.$this->table.'.id_address', 'join' => 'LEFT'),
-                                        array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = ctp_address.id_neighborhood', 'join' => 'LEFT'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'LEFT'),
+                                        array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'LEFT'),
+                                        array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = ctp_address.id_neighborhood', 'join' => 'LEFT'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'LEFT'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -103,13 +99,14 @@ class Users_model extends MY_Model
                 $data['fields'] .= $this->table.'.genre as genre, ';
                 $data['fields'] .= $this->table.'.active as active, ';
                 $data['fields'] .= $this->table.'.date_create as date_create, ';
+                $data['fields'] .= $this->table.'.id_address as id_address, ';
                 $data['fields'] .= 'ctp_type_users.description as type_user ';
                 $data['tables'] =   array(
                                         array($this->table),
                                         array('from' => 'ctp_type_users', 'where' => 'ctp_type_users.id = '.$this->table.'.id_type_user AND ctp_type_users.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_address', 'where' => 'ctp_address.id = '.$this->table.'.id_address', 'join' => 'INNER'),
-                                        array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = ctp_address.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = ctp_address.id_neighborhood', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'INNER'),
                                     );
                 $data['where'] = $where;
                 $data['group'] = 'id';

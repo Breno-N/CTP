@@ -3,10 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/xampp/htdocs/ctp/assets/js/requests.js</file>
-            <file>file:/C:/xampp/htdocs/ctp/application/models/Requests_model.php</file>
-            <file>file:/C:/xampp/htdocs/ctp/application/controllers/admin/Pedidos.php</file>
+            <file>file:/C:/xampp/htdocs/ctp/application/models/Users_model.php</file>
             <file>file:/C:/xampp/htdocs/ctp/application/controllers/admin/Usuarios.php</file>
+            <file>file:/C:/xampp/htdocs/ctp/assets/js/users.js</file>
+            <file>file:/C:/xampp/htdocs/ctp/application/views/admin/users/add_users.php</file>
         </group>
     </open-files>
 </project-private>

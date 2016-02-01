@@ -28,7 +28,7 @@ class Pedidos extends MY_Controller
                         $data['data_table'] = $this->_init_data_table();
                         $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                         $this->layout
-                                ->set_title('Admin - Requisições')
+                                ->set_title('Admin - Pedidos')
                                 ->set_description('')
                                 ->set_keywords('')
                                 ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
@@ -76,6 +76,7 @@ class Pedidos extends MY_Controller
                                 $data['request_public_agency'] = (isset($data['request_public_agency']) ? 1 : 0 );
                                 $data['have_business_neighborhood'] = (isset($data['have_business_neighborhood']) ? 1 : 0 );
                                 $data['id_neighborhood'] = $this->session->userdata['neighborhood'];
+                                $data['quantity'] = (isset($data['quantity']) && !empty($data['quantity']) ? $data['quantity'] : 1);
                                 $data['user_create'] = $this->session->userdata['email'];
                                 $data['date_create'] = date('Y-m-d');
                                 $id = $this->requests_model->insert($data);
