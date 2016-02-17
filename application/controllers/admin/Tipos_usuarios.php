@@ -94,22 +94,29 @@ class Tipos_usuarios extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $this->layout
-                                        ->set_title('Admin - Tipos de Usuários - Editar')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/type_users.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Tipos de Usuários', 'admin/tipos_usuarios/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/tipos_usuarios/editar', 1)
-                                        ->set_view('admin/type_users/add_type_users',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $this->layout
+                                                ->set_title('Admin - Tipos de Usuários - Editar')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/type_users.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Tipos de Usuários', 'admin/tipos_usuarios/', 0)
+                                                ->set_breadcrumbs('Editar', 'admin/tipos_usuarios/editar', 1)
+                                                ->set_view('admin/type_users/add_type_users',$data , 'template/admin/');
+                                }
                         }
                 }
                 else

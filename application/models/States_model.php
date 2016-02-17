@@ -2,7 +2,7 @@
 
 class States_model extends MY_Model
 {
-        private $table = 'ctp_state'; 
+        private $table = 'ctp_states'; 
 
         public function __construct()
         {
@@ -36,10 +36,10 @@ class States_model extends MY_Model
                 return $this->db->affected_rows();
         }
 
-        public function get_select($where = array(), $column = 'ctp_state.id', $order = 'DESC')
+        public function get_select($where = array(), $column = 'ctp_states.id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id,';
-                $data['fields'] .= $this->table.'.initials as descricao';
+                $data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =   array(
                                         array($this->table)
                                     );
@@ -50,7 +50,7 @@ class States_model extends MY_Model
                 return $return['itens'];
         }
 
-        public function get_item($where = array(), $column = 'ctp_state.id', $order = 'DESC')
+        public function get_item($where = array(), $column = 'ctp_states.id', $order = 'DESC')
         {
                 $data['fields'] = $this->table.'.*';
                 $data['tables'] =   array(
@@ -63,25 +63,23 @@ class States_model extends MY_Model
                 return (isset($return['itens'][0]) ? $return['itens'][0] : NULL) ;
         }
 
-        public function get_itens($where = array(), $column = 'ctp_state.id', $order = 'DESC')
+        public function get_itens($where = array(), $column = 'ctp_states.id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id, ';
-                $data['fields'] .= $this->table.'.region as region, ';
                 $data['fields'] .= $this->table.'.description as description, ';
-                $data['fields'] .= $this->table.'.initials as initials, ';
-                $data['fields'] .= $this->table.'.active as active ';
+                $data['fields'] .= $this->table.'.cod_ibge as cod_ibge ';
                 $data['tables'] =   array(
                                         array($this->table)
                                     );
                 $data['where'] = $where;
-                $data['group'] = 'ctp_state.id';
+                $data['group'] = 'ctp_states.id';
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
                 return $return;
         }
 
-        public function get_total_itens($where = array(), $column = 'ctp_state.id', $order = 'DESC')
+        public function get_total_itens($where = array(), $column = 'ctp_states.id', $order = 'DESC')
         {
                 $data['fields'] = $this->table.'.id as id ';
                 $data['tables'] =   array(

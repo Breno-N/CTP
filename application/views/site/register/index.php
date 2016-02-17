@@ -41,7 +41,7 @@
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                         <div class="form-group">
                             <label for="age">* Idade</label>
-                            <input type="number" min="0" name="age" id="age" class="form-control" value="<?php echo set_value('age'); ?>" required="required" />
+                            <input type="number" min="18" name="age" id="age" class="form-control" value="<?php echo set_value('age'); ?>" required="required" />
                         </div>
                     </div>
                     <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">

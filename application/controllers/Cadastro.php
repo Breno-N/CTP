@@ -42,6 +42,7 @@ class Cadastro extends MY_Controller
                                     'id' => $id,
                                     'name' => $post['name'],
                                     'email' => $post['email'],
+                                    'neighborhood' => '',
                                     'type' => 1,
                                     'authentication' => TRUE,
                                     'admin' => FALSE,

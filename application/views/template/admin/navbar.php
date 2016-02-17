@@ -28,7 +28,7 @@
                 </a>
             </li>
             <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url().'admin/requisicoes/'; ?>">
+                <a href="<?php echo base_url().'admin/pedidos/'; ?>">
                     <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Pedidos
                 </a>
             </li>
@@ -38,16 +38,11 @@
                 </a>
             </li>
         </ul>
-        <?php if($this->session->userdata['type'] == '3'): ?>
+        <?php if($this->session->userdata['admin']): ?>
             <ul class="nav nav-pills nav-stacked menu">Administrativo
                 <li role="presentation">
                     <a href="<?php echo base_url().'admin/usuarios/'; ?>">
                         <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuários
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/bairros/'; ?>">
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Bairros
                     </a>
                 </li>
                 <li role="presentation">

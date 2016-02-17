@@ -18,6 +18,15 @@
             </div>
         </div>
         <?php endif; ?>
+        <?php if(isset($error) && !empty($error)): ?>
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
+                <div class="alert alert-warning">
+                    <?php echo $error; ?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
         <?php if(validation_errors()): ?>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 ">
@@ -49,6 +58,7 @@
                         <input type="password" name="password" id="password" class="form-control" value=""/>
                     </div>
                 </div>
+                <?php if($this->session->userdata['admin']): ?>
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
                         <label for="id_type_user">Tipo</label>
@@ -60,6 +70,7 @@
                         ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </div>
             <div class="row form-section">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -108,63 +119,24 @@
             <div class="row form-section zip-code">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
-                        <label for="zip-code">CEP</label>
-                        <input type="text" name="zip_code" id="zip-code" class="form-control" value="<?php echo set_value('zip_code', (isset($item->zip_code) && $item->zip_code) ? $item->zip_code : '') ?>" required="required" />
+                        <label for="id-address">CEP</label>
+                        <input type="text" name="id_address" id="id-address" class="form-control" value="<?php echo set_value('id_address', (isset($item->id_address) && !empty($item->id_address)) ? $item->id_address : '') ?>" <?php echo (isset($item->id_address) && !empty($item->id_address) ? 'disabled="disabled"' : 'required="required"') ?> />
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="state">UF</label>
-                        <?php
-                            $config['itens'] = $states;
-                            $config['nome'] = 'state';
-                            $config['extra'] = 'class="form-control"';
-                            echo form_select($config, set_value('state', (isset($item->id_state_selected) && $item->id_state_selected) ? $item->id_state_selected : '' ))
-                        ?>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="city">Cidade</label>
-                        <input type="hidden" name="id_city_selected" id="id_city_selected" value="<?php echo set_value('id_city_selected', (isset($item->id_city_selected) && $item->id_city_selected) ? $item->id_city_selected : '') ?>">
-                        <select name="id_city" id="city" class="form-control">
-                            <option value="">Selecione...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="neighborhood">Bairro</label>
-                        <input type="text" name="neighborhood" id="neighborhood" class="form-control" value="<?php echo set_value('neighborhood', (isset($item->neighborhood) && $item->neighborhood) ? $item->neighborhood : '') ?>" required="required" />
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="street">Rua</label>
-                        <input type="text" name="street" id="street" class="form-control" value="<?php echo set_value('street', (isset($item->street) && $item->street) ? $item->street : '') ?>" />
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="number">Número</label>
-                        <input type="number" name="number" id="number" class="form-control" min="1" value="<?php echo set_value('number', (isset($item->number) && $item->number) ? $item->number : '') ?>" />
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                    <div class="form-group">
-                        <label for="complement">Complemento</label>
-                        <input type="text" name="complement" id="complement" class="form-control" value="<?php echo set_value('complement', (isset($item->complement) && $item->complement) ? $item->complement : '') ?>" />
+            <div class="row form-address <?php echo (isset($item->id_address) ? 'filled' : 'not-filled'); ?>">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <div class="alert <?php echo (isset($item->id_address) ? 'alert-info' : ''); ?>">
+                        <?php if(isset($item->id_address)): ?>
+                            <?php echo $item->state.' - '.$item->city.' - '.$item->neighborhood.' - '.$item->street ; ?>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
             <div class="row form-section">
                 <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                    <button type="submit" class="btn btn-primary">Salvar</button>
-                    <button type="reset" class="btn btn-default">Limpar</button>
+                    <button type="submit" id="submit" class="btn btn-primary">Salvar</button>
+                    <!--<button type="reset" id="reset" class="btn btn-default">Limpar</button>-->
                 </div>
             </div>
         </form>

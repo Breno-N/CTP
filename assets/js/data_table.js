@@ -5,7 +5,8 @@
        
         $('#data-table').DataTable({
             'lengthMenu': [ 5, 10, 25, 50, 75, 100, 250, 500 ],
-            //'dom' : 'lfrtip', 
+            //'dom' : 'Bfrtip',
+            //'dom' : 'lfrtip',
             //buttons: [ 'copy', 'csv', 'excel', 'pdf', 'print' ],
             buttons: [
                 {
@@ -13,12 +14,14 @@
                     text: 'Copiar'
                 },
                 {
-                    extend: 'csv',
-                    text: 'Exportar CSV'
-                },
-                {
-                    extend: 'excel',
-                    text: 'Exportar EXCEL'
+                    extend: 'csvHtml5',
+                    text: 'Exportar CSV',
+                    exportOptions: {
+                        columns: ':not(:last-child)',
+                        modifier: {
+                            search: 'none'
+                        }
+                    }
                 },
                 {
                     extend: 'pdf',

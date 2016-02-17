@@ -97,23 +97,30 @@ class Noticias extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $data['news_categories'] = $this->_get_news_categories();
-                                $this->layout
-                                        ->set_title('Admin - Notícias - Editar')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/news.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/noticias/editar', 1)
-                                        ->set_view('admin/news/add_news',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $data['news_categories'] = $this->_get_news_categories();
+                                        $this->layout
+                                                ->set_title('Admin - Notícias - Editar')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/news.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
+                                                ->set_breadcrumbs('Editar', 'admin/noticias/editar', 1)
+                                                ->set_view('admin/news/add_news',$data , 'template/admin/');
+                                }
                         }
                 }
                 else

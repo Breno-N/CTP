@@ -47,6 +47,14 @@ function curl_executavel($url)
         return $retorno;
 }
 
+/*
+* Função que monta select html de acordo com valores passados por parametros
+* @author Breno Henrique Moreno Nunes
+* 
+* @params array $itens array com itens do select
+* @params string $selected valor do item selecionado se tiver
+* @return string $retorno string contendo html montado
+*/
 function form_select($itens = array(), $selected = '')
 {
         $retorno  = '<select name="'.$itens['nome'].'" id="'.$itens['nome'].'" '.$itens['extra'].'>';
@@ -60,5 +68,35 @@ function form_select($itens = array(), $selected = '')
         }
         $retorno .= '</select>';
         return $retorno;
-    
+}
+
+function read_csv($file = '')
+{
+        //$f = fopen(str_replace('\\', '/', getcwd()).'/uploads/e.csv', 'r');
+        if ($file) 
+        {
+                // Ler cabecalho do arquivo
+                //$cabecalho = fgetcsv($f, 0, $delimitador, $cerca);
+                $cabecalho = fgetcsv($f, 0, ',');
+                $c = explode(';', $cabecalho[0]);
+
+                // Enquanto nao terminar o arquivo
+                //while (!feof($f)) 
+                for ($i = 0; $i < 5; $i++) 
+                {
+                        // Ler uma linha do arquivo
+                        $linha = fgetcsv($f, 0, ',');
+                        
+                        if (!$linha) continue;
+                        
+                        $l = explode(';', $linha[0]);
+
+                        for($j = 0; $j <= 10; $j++)
+                        {
+                                $r[$c[$j]] = iconv('ISO-8859-1', 'UTF-8', $l[$j]);
+                        }
+                        var_dump($r).PHP_EOL;
+                }
+                fclose($f);
+        }
 }

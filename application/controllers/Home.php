@@ -6,6 +6,7 @@ class Home extends MY_Controller
         {
                 parent::__construct(FALSE);
                 $this->load->model(array('requests_model', 'users_model'));
+                $this->load->helper('cookie');
         }
 
         public function index()
@@ -36,5 +37,21 @@ class Home extends MY_Controller
                 $table['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user <> 3 AND ctp_users.id_type_user <> 2');
                 $table['open_requests'] = $this->requests_model->get_total_itens('ctp_requests.id_type_request_status = 1');
                 return $table;
+        }
+        
+        public function get_cookie_video()
+        {
+                $cookie = $this->input->cookie('video_presentation');
+                echo json_encode(isset($cookie) ? 1 : 0);
+        }
+        
+        public function set_cookie_video()
+        {
+                $cookie = array(
+                    'name' => 'video_presentation',
+                    'value' => 1,
+                    'expire' => 60 * 60 * 24 * 7 
+                ); 
+                $this->input->set_cookie($cookie);
         }
 }

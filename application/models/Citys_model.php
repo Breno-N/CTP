@@ -42,7 +42,7 @@ class Citys_model extends MY_Model
                 $data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =   array(
                                         array($this->table),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = '.$this->table.'.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = '.$this->table.'.id_state', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -56,7 +56,7 @@ class Citys_model extends MY_Model
                 $data['fields'] = $this->table.'.* ';
                 $data['tables'] =   array(
                                         array($this->table),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = '.$this->table.'.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = '.$this->table.'.id_state', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -69,10 +69,10 @@ class Citys_model extends MY_Model
         {
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.description as city, ';
-                $data['fields'] .= 'ctp_state.description as state ';
+                $data['fields'] .= 'ctp_states.description as state ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = '.$this->table.'.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = '.$this->table.'.id_state', 'join' => 'INNER'),
                                     );
                 $data['where'] = $where;
                 $data['group'] = 'ctp_citys.id';

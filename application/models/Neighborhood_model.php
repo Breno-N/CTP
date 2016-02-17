@@ -2,7 +2,7 @@
 
 class Neighborhood_model extends MY_Model
 {
-        private $table = 'ctp_neighborhood'; 
+        private $table = 'ctp_neighborhoods'; 
 
         public function __construct()
         {
@@ -36,7 +36,7 @@ class Neighborhood_model extends MY_Model
                 return $this->db->affected_rows();
         }
         
-        public function get_neighborhood_by_user($where = array(), $column = 'ctp_neighborhood.id', $order = 'DESC')
+        public function get_neighborhood_by_user($where = array(), $column = 'ctp_neighborhoods.id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id';
                 $data['tables'] =   array(
@@ -51,14 +51,14 @@ class Neighborhood_model extends MY_Model
                 return $return['itens'][0]->id;
         }
 
-        public function get_select($where = array(), $column = 'ctp_neighborhood.id', $order = 'DESC')
+        public function get_select($where = array(), $column = 'ctp_neighborhoods.id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id,';
                 $data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =   array(
                                         array($this->table),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city AND ctp_citys.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = ctp_citys.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -67,15 +67,15 @@ class Neighborhood_model extends MY_Model
                 return $return['itens'];
         }
 
-        public function get_item($where = array(), $column = 'ctp_neighborhood.id', $order = 'DESC')
+        public function get_item($where = array(), $column = 'ctp_neighborhoods.id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.*, ';
                 $data['fields'] .= 'ctp_citys.id as id_city_selected, ';
-                $data['fields'] .= 'ctp_state.id as id_state_selected ';
+                $data['fields'] .= 'ctp_states.id as id_state_selected ';
                 $data['tables'] =   array(
                                         array($this->table),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city AND ctp_citys.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = ctp_citys.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
@@ -84,20 +84,18 @@ class Neighborhood_model extends MY_Model
                 return (isset($return['itens'][0]) ? $return['itens'][0] : NULL) ;
         }
 
-        public function get_itens($where = array(), $column = 'ctp_neighborhood.id', $order = 'DESC', $group = 'ctp_citys.id')
+        public function get_itens($where = array(), $column = 'ctp_neighborhoods.id', $order = 'DESC', $group = 'ctp_citys.id')
         {
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.description as description, ';
-                $data['fields'] .= $this->table.'.active as active, ';
                 $data['fields'] .= 'ctp_citys.description as city, ';
-                $data['fields'] .= 'ctp_state.description as state ';
+                $data['fields'] .= 'ctp_states.description as state ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city AND ctp_citys.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = ctp_citys.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 $data['where'] = $where;
-                //$data['group'] = 'ctp_citys.id';
                 $data['group'] = $group;
                 $data['column'] = $column;
                 $data['order'] = $order;
@@ -105,13 +103,13 @@ class Neighborhood_model extends MY_Model
                 return $return;
         }
 
-        public function get_total_itens($where = array(), $column = 'ctp_neighborhood.id', $order = 'DESC')
+        public function get_total_itens($where = array(), $column = 'ctp_neighborhoods.id', $order = 'DESC')
         {
                 $data['fields'] = $this->table.'.id as id ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city AND ctp_citys.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_state', 'where' => 'ctp_state.id = ctp_citys.id_state AND ctp_state.active = 1', 'join' => 'INNER'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;

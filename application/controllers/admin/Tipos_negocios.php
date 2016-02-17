@@ -93,22 +93,29 @@ class Tipos_negocios extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                $data['item'] = $dados;
-                                $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                $this->layout
-                                        ->set_title('Admin - Negócios - Editar')
-                                        ->set_description('')
-                                        ->set_keywords('')
-                                        ->set_includes('js/type_business.js')
-                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                        ->set_breadcrumbs('Tipos de Negócios', 'admin/tipos_negocios/', 0)
-                                        ->set_breadcrumbs('Editar', 'admin/tipos_negocios/editar', 1)
-                                        ->set_view('admin/type_business/add_type_business',$data , 'template/admin/');
+                                if(!isset($dados) || empty($dados))
+                                {
+                                        $this->error();
+                                }
+                                else
+                                {
+                                        $classe = strtolower(__CLASS__);
+                                        $function = strtolower(__FUNCTION__);
+                                        $data['classe'] = $classe;
+                                        $data['function'] = $function;
+                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                        $data['item'] = $dados;
+                                        $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $this->layout
+                                                ->set_title('Admin - Negócios - Editar')
+                                                ->set_description('')
+                                                ->set_keywords('')
+                                                ->set_includes('js/type_business.js')
+                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                                ->set_breadcrumbs('Tipos de Negócios', 'admin/tipos_negocios/', 0)
+                                                ->set_breadcrumbs('Editar', 'admin/tipos_negocios/editar', 1)
+                                                ->set_view('admin/type_business/add_type_business',$data , 'template/admin/');
+                                }
                         }
                 }
                 else
