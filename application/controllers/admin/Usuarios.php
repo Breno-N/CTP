@@ -18,7 +18,7 @@ class Usuarios extends MY_Controller
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
                                     array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
                                     array('field'=> 'password', 'label' => 'Senha', 'rules' => 'max_length[255]|trim'),
-                                    array('field'=> 'id_type_user', 'label' => 'Tipo', 'rules' => 'required|trim'),
+                                    //array('field'=> 'id_type_user', 'label' => 'Tipo', 'rules' => 'required|trim'),
                                     array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'min_length[13]|max_length[14]|trim'),
@@ -142,7 +142,6 @@ class Usuarios extends MY_Controller
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
-                                unset($data['id_address']);
                                 if(isset($data['password']) && !empty($data['password'])) 
                                 {
                                         $data['password'] = Bcrypt::hash($data['password']);
@@ -151,14 +150,20 @@ class Usuarios extends MY_Controller
                                 {
                                         unset($data['password']);
                                 }
+                                if(isset($this->session->userdata['neighborhood']) && !empty($this->session->userdata['neighborhood']))
+                                {
+                                        unset($data['id_address']);
+                                        $session['neighborhood'] = $dados->id_neighborhood;
+                                }
+                                else
+                                {
+                                        $session['neighborhood'] = $this->get_neighborhood_by_address($data['id_address']);
+                                }
                                 $id = $this->users_model->update($data, 'ctp_users.id = '.$codigo);
                                 if($this->session->userdata['id'] == $codigo)
                                 {
-                                        $session = array(
-                                            'nome' => $data['name'],
-                                            'type' => $data['id_type_user'],
-                                            'neighborhood' => $dados->id_neighborhood,
-                                        );
+                                        $session['nome'] = $data['name'];
+                                        $session['type'] = $data['id_type_user'];
                                 }
                                 $this->session->set_userdata($session);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');
@@ -227,6 +232,11 @@ class Usuarios extends MY_Controller
                                 echo json_encode($retorno);
                         }
                 }
+        }
+        
+        private function get_neighborhood_by_address($address)
+        {
+                return $this->address_model->get_neighborhood_by_address('ctp_address.zip_code = '.$address);
         }
         
         public function get_type_user()

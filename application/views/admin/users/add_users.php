@@ -120,7 +120,7 @@
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="form-group">
                         <label for="id-address">CEP</label>
-                        <input type="text" name="id_address" id="id-address" class="form-control" value="<?php echo set_value('id_address', (isset($item->id_address) && $item->id_address) ? $item->id_address : '') ?>" <?php echo (isset($item->id_address) ? 'disabled="disabled"' : 'required="required"') ?> />
+                        <input type="text" name="id_address" id="id-address" class="form-control" value="<?php echo set_value('id_address', (isset($item->id_address) && !empty($item->id_address)) ? $item->id_address : '') ?>" <?php echo (isset($item->id_address) && !empty($item->id_address) ? 'disabled="disabled"' : 'required="required"') ?> />
                     </div>
                 </div>
             </div>

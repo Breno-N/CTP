@@ -40,7 +40,7 @@ class Bairros extends MY_Controller
         
         private function _init_data_table()
         {
-                $data['itens'] = $this->neighborhood_model->get_itens('ctp_neighborhood.active = 1');
+                $data['itens'] = $this->neighborhood_model->get_itens();
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
                 $this->layout->set_html('admin/neighborhood/table', $data);
                 return $this->layout->get_html();
@@ -55,7 +55,6 @@ class Bairros extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
-                        $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $data = $this->_unset_fields($data);
                         $id = $this->neighborhood_model->insert($data);
                         redirect('admin/bairros/editar/'.$id.'/1');
@@ -124,26 +123,9 @@ class Bairros extends MY_Controller
                 }
         }
         
-        public function remover()
-        {
-                $this->_is_autorized('admin/painel/');
-                $itens = $this->_post();
-                $qtde = 0;
-                foreach($itens['selecteds'] as $item)
-                {
-                        $exists = $this->neighborhood_model->get_total_itens('ctp_neighborhood.id = '.$item);
-                        if($exists)
-                        {
-                                $deleted = $this->neighborhood_model->update(array('active' => 0),'ctp_neighborhood.id = '.$item);
-                                if($deleted) $qtde++;
-                        }
-                }
-                echo json_encode($qtde);
-        }
-        
         public function get_states()
         {
-                return $this->states_model->get_select('', 'ctp_state.description', 'ASC');
+                return $this->states_model->get_select('', 'ctp_states.description', 'ASC');
         }
         
         public function get_citys()
@@ -152,9 +134,12 @@ class Bairros extends MY_Controller
                 $data = $this->_get();
                 if(isset($data['id']) && !empty($data['id']))
                 {
-                        $retorno = $this->citys_model->get_select('ctp_citys.id_state = '.$data['id'], 'ctp_citys.description', 'ASC');
+                        $retorno = $this->citys_model->get_select('ctp_citys.id_state = "'.$data['id'].'" ', 'ctp_citys.description', 'ASC');
+                        if(isset($retorno) && !empty($retorno))
+                        {
+                                echo json_encode($retorno);
+                        }
                 }
-                echo json_encode($retorno);
         }
         
         private function _unset_fields($data = array())

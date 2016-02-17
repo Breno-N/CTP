@@ -49,6 +49,17 @@ class Address_model extends MY_Model
                 $retorno = $this->get_itens_($data);
                 return $retorno['itens'];
         }
+        
+        public function get_neighborhood_by_address($where = array())
+        {
+                $data['fields']  = $this->table.'.id_neighborhood as id_neighborhood '; 
+                $data['tables'] =   array(
+                                        array($this->table),
+                                    );
+                if(isset($where) && $where) $data['where'] = $where;
+                $retorno = $this->get_itens_($data);
+                return (isset($retorno['itens'][0]->id_neighborhood) ? $retorno['itens'][0]->id_neighborhood : NULL) ;
+        }
 
         public function get_item($where = array(), $column = 'ctp_address.zip_code', $order = 'DESC')
         {

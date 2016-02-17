@@ -46,11 +46,6 @@
                     </a>
                 </li>
                 <li role="presentation">
-                    <a href="<?php echo base_url().'admin/bairros/'; ?>">
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span> Bairros
-                    </a>
-                </li>
-                <li role="presentation">
                     <a href="<?php echo base_url().'admin/negocios/'; ?>">
                         <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Negócios
                     </a>

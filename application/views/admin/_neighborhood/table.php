@@ -8,7 +8,6 @@
                             <th>Estado</th>
                             <th>Cidade</th>
                             <th>Descrição</th>
-                            <th>Ativo</th>
                             <th>Ação</th>
                         </tr>
                     </thead>
@@ -18,7 +17,6 @@
                                 <td><?php echo $item->state; ?></td>
                                 <td><?php echo $item->city; ?></td>
                                 <td><?php echo $item->description; ?></td>
-                                <td><?php echo $item->active; ?></td>
                                 <td>
                                     <a href="<?php echo $action_editar.$item->id; ?>" class="btn btn-default btn-update">
                                         <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Detalhes
