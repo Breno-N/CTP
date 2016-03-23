@@ -10,7 +10,7 @@ class Usuarios extends MY_Controller
                                     array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
-                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|min_length[14]|max_length[14]|trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|is_unique[ctp_users.cpf]|trim'),
                                     array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'required|max_length[9]|trim'),
                                 ); 
         
@@ -20,7 +20,7 @@ class Usuarios extends MY_Controller
                                     array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
-                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|min_length[14]|max_length[14]|trim'),
+                                    //array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|trim'),
                                 ); 
 
         public function __construct() 

@@ -11,7 +11,7 @@ class Acesso extends MY_Controller
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'trim'),
                                     array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'required|trim|valid_email|is_unique[ctp_users.email]'),
                                     array('field'=> 'password', 'label' => 'Senha', 'rules' => 'required|trim'),
-                                    array('field'=> 'cpf_cnpj', 'label' => 'CPF', 'rules' => 'trim'),
+                                    array('field'=> 'cpf_cnpj', 'label' => 'CPF', 'rules' => 'trim|is_unique[ctp_users.cpf]'),
                                     array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'trim'),
                                 ); 
         
