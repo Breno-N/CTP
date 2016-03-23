@@ -1,81 +1,96 @@
-<div class="navbar" role="navigation">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".sidebar-navbar-collapse">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-    </div>
-    <div class="navbar-collapse collapse sidebar-navbar-collapse">
-        <div id="img-user" class="text-center">
-            <a href="<?php echo base_url().'admin/usuarios/editar/'.$this->session->userdata['id']; ?>" alt="avatar do usuario">
-                <img class="img-circle" src="<?php echo base_url().'assets/images/user.jpg'; ?>" title="avatar do usuario">
-            </a>
-            <br>
-            <span class="title-user">Usuario: <?php echo $this->session->userdata['name']; ?></span>
-        </div>
-        <ul class="nav nav-pills nav-stacked menu">
-            <span class="menu-title">Principal</span>
-            <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url(); ?>">
-                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Site
+<aside id="aside">
+    <nav id="sideNav">
+        <ul class="nav nav-list">
+            <li class="">
+                <a class="dashboard" href="<?php echo base_url().'admin/painel/'; ?>">
+                    <i class="main-icon fa fa-dashboard"></i> <span>Painel de Controle</span>
                 </a>
             </li>
-            <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url().'admin/painel/'; ?>">
-                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span> Painel
+            <li>
+                <a class="dashboard" href="<?php echo base_url().'admin/pedidos/'; ?>">
+                    <i class="main-icon fa fa-comments-o"></i> <span>Pedidos</span>
                 </a>
             </li>
-            <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url().'admin/pedidos/'; ?>">
-                    <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Pedidos
+            <li class="">
+                <a class="dashboard" href="<?php echo base_url(); ?>">
+                    <i class="main-icon fa fa-sitemap"></i> <span>Site</span>
                 </a>
             </li>
-            <li role="presentation" class="menu-body">
-                <a href="<?php echo base_url().'login/logoff'; ?>">
-                    <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Sair
+            <?php if(isset($this->session->userdata['admin']) && $this->session->userdata['admin']): ?>
+            <li>
+                <a class="dashboard" href="<?php echo base_url().'admin/usuarios/'; ?>">
+                    <i class="main-icon fa fa-users"></i> <span>Usuários</span>
                 </a>
+            </li>
+            <li>
+                <a class="dashboard" href="<?php echo base_url().'admin/negocios/'; ?>">
+                    <i class="main-icon fa fa-briefcase"></i> <span>Negócios</span>
+                </a>
+            </li>
+            <li>
+                <a class="dashboard" href="<?php echo base_url().'admin/noticias/'; ?>">
+                    <i class="main-icon fa fa-newspaper-o"></i> <span>Noticias</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                <i class="fa fa-menu-arrow pull-right"></i>
+                <i class="main-icon fa fa-tags"></i> <span>Tipos</span>
+                </a>
+                <ul>
+                    <li>
+                        <a class="dashboard" href="<?php echo base_url().'admin/tipos_usuarios/'; ?>">
+                            <i class="main-icon fa fa-tag"></i> <span>Usuários</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dashboard" href="<?php echo base_url().'admin/tipos_negocios/'; ?>">
+                            <i class="main-icon fa fa-tag"></i> <span>Negócios</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dashboard" href="<?php echo base_url().'admin/tipos_noticias/'; ?>">
+                            <i class="main-icon fa fa-tag"></i> <span>Notícias</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dashboard" href="<?php echo base_url().'admin/tipos_status_requisicoes/'; ?>">
+                            <i class="main-icon fa fa-tag"></i> <span>Status de Pedidos</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <?php endif; ?>
+        </ul>
+    </nav>
+    <span id="asidebg"></span>
+</aside>
+<header id="header">
+    <button id="mobileMenuBtn"></button>
+    <span class="logo pull-left">
+        <img src="<?php echo base_url().'/assets/admin/images/logo_light.png'?>" alt="admin panel" height="35" />
+    </span>
+    <nav>
+        <ul class="nav pull-right">
+            <li class="dropdown pull-left">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
+                    <img class="user-avatar" alt="" src="<?php echo base_url().'/assets/admin/images/noavatar.jpg'?>" height="34" /> 
+                    <span class="user-name">
+                        <span class="hidden-xs">
+                            <?php echo (isset($this->session->userdata['name']) && !empty($this->session->userdata['name']) ? $this->session->userdata['name'] : ''); ?><i class="fa fa-angle-down"></i>
+                        </span>
+                    </span>
+                </a>
+                <ul class="dropdown-menu hold-on-click">
+                    <li>
+                        <a href="<?php echo base_url().'admin/usuarios/editar/'.(isset($this->session->userdata['id']) && $this->session->userdata['id'] ? $this->session->userdata['id'] : 0); ?>"><i class="fa fa-cogs"></i> Settings</a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="<?php echo base_url().'acesso/logoff'; ?>"><i class="fa fa-power-off"></i> Log Out</a>
+                    </li>
+                </ul>
             </li>
         </ul>
-        <?php if($this->session->userdata['admin']): ?>
-            <ul class="nav nav-pills nav-stacked menu">Administrativo
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/usuarios/'; ?>">
-                        <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuários
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/negocios/'; ?>">
-                        <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span> Negócios
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/noticias/'; ?>">
-                        <span class="glyphicon glyphicon-book" aria-hidden="true"></span> Noticias
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/tipos_usuarios/'; ?>">
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tipos de Usuários
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/tipos_negocios/'; ?>">
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tipos de Negócios
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/tipos_noticias/'; ?>">
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tipos de Notícias
-                    </a>
-                </li>
-                <li role="presentation">
-                    <a href="<?php echo base_url().'admin/tipos_status_requisicoes/'; ?>">
-                        <span class="glyphicon glyphicon-tags" aria-hidden="true"></span> Tipos de Status de Pedidos
-                    </a>
-                </li>
-            </ul>
-        <?php endif; ?>
-    </div><!--/.nav-collapse -->
-</div><!--/.nav-default -->
+    </nav>
+</header>

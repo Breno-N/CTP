@@ -57,7 +57,7 @@ class Type_news_model extends MY_Model
                                 ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_type_news as ctn', 'where' => 'ctn.id = '.$this->table.'.id_master', 'join' => 'INNER')
+                                        array('from' => 'ctp_type_news as ctn', 'where' => 'ctn.id = '.$this->table.'.id_master', 'join' => 'LEFT')
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;

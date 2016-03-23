@@ -1,19 +1,26 @@
 <head>
-    <title><?php echo ((isset($title) && $title) ? $title : '') ?></title>
     <meta charset="UTF-8">
+    <title><?php echo ((isset($title) && $title) ? $title : '') ?></title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="<?php echo ((isset($description) && $description) ? $description : '') ?>">
     <meta name="keywords" content="<?php echo ((isset($keywords) && $keywords) ? $keywords : '') ?>">
-    <link rel="stylesheet" href="<?php echo base_url().'assets/css/bootstrap/bootstrap.min.css'; ?>">
-    <link rel="stylesheet" href="<?php echo base_url().'assets/css/style.css'; ?>">
-    <script src="<?php echo base_url().'assets/js/bootstrap/jquery.js'; ?>"></script>
-    <script src="<?php echo base_url().'assets/js/bootstrap/bootstrap.js'; ?>"></script>
-    <?php echo implode(PHP_EOL, $includes); ?>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
+    
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+    
+    <!-- WEB FONTS : use %7C instead of | (pipe) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+
+    <!-- CORE CSS -->
+    <link href="<?php echo base_url().'assets/admin/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
+
+    <!-- THEME CSS -->
+    <link href="<?php echo base_url().'assets/admin/css/essentials.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/admin/css/layout.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/admin/css/color_scheme/green.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
+
+    <!-- CUSTOM CSS -->
+    <?php foreach ($css as $style) { echo $style; } ?>
+    
 </head>

@@ -36,10 +36,23 @@ class Business_model extends MY_Model
                 return $this->db->affected_rows();
         }
 
+        public function get_business_by_name($business = '', $column = 'description', $order = 'ASC')
+        {
+                $data['fields']  = $this->table.'.id as id';
+                $data['tables'] =  array(
+                                        array($this->table)
+                                    );
+                $data['where'] = 'ctp_business.description = "'.$business.'" AND ctp_business.active = 1';
+                $data['column'] = $column;
+                $data['order'] = $order;
+                $return = $this->get_itens_($data);
+                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? $return['itens'][0]->id : 0);
+        }
+        
         public function get_select($where = array(), $column = 'id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id,';
-                $data['fields'] .= $this->table.'.description as descricao';
+                $data['fields'] .= $this->table.'.description as name';
                 $data['tables'] =  array(
                                         array($this->table)
                                     );
@@ -68,7 +81,6 @@ class Business_model extends MY_Model
         {
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.description as description, ';
-                $data['fields'] .= $this->table.'.synonyms as synonyms, ';
                 $data['fields'] .= $this->table.'.active as active,
                                    ctp_type_business.description as type_business
                                     ';

@@ -50,19 +50,20 @@ class Requests_model extends MY_Model
                 return (isset($return['itens']) ? $return['itens'] : array());
         }
         
-        public function get_select_by_business($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
+        public function get_select_business($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
         {
-                $data['fields']  = $this->table.'.id as id,';
-                $data['fields'] .= $this->table.'.id_business as id_business,';
-                $data['fields'] .= $this->table.'.description as descricao';
+                $data['fields']  = $this->table.'.id as id';
+                //$data['fields'] .= $this->table.'.id_business as id_business,';
+                //$data['fields'] .= $this->table.'.description as descricao';
                 $data['tables'] =  array(
-                                        array($this->table)
+                                        array($this->table),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business AND ctp_business.active = 1', 'join' => 'INNER'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
-                return (isset($return['itens'][0]) ? $return['itens'][0] : array());
+                return (isset($return['itens'][0]->id) ? $return['itens'][0]->id : array());
         }
         
         public function get_itens_by_type_business($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
@@ -85,7 +86,6 @@ class Requests_model extends MY_Model
         public function get_itens_by_neighborhood($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
         {
                 $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
-                //$data['fields'] .= 'CONCAT("Bairro: ", ctp_neighborhood.description, " / Cidade: ", ctp_citys.description) as neighborhood';
                 $data['fields'] .= 'ctp_neighborhoods.description as neighborhood';
                 $data['tables'] =   array(
                                         array($this->table),
@@ -104,7 +104,6 @@ class Requests_model extends MY_Model
         public function get_itens_by_city($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
         {
                 $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
-                //$data['fields'] .= 'CONCAT("Cidade: ", ctp_citys.description," / UF: ", ctp_state.initials ) as city';
                 $data['fields'] .= 'ctp_citys.description as city';
                 $data['tables'] =   array(
                                         array($this->table),

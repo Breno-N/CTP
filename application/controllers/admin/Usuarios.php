@@ -5,24 +5,22 @@ class Usuarios extends MY_Controller
         private $validate = array(
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
                                     array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
-                                    array('field'=> 'password', 'label' => 'Senha', 'rules' => 'max_length[255]|trim'),
+                                    array('field'=> 'password', 'label' => 'Senha', 'rules' => 'required|trim'),
                                     array('field'=> 'id_type_user', 'label' => 'Tipo', 'rules' => 'required|trim'),
                                     array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
-                                    array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'min_length[13]|max_length[14]|trim'),
-                                    array('field'=> 'cpf_cnpj', 'label' => 'CPF/CNPJ', 'rules' => 'required|min_length[14]|max_length[18]|trim'),
+                                    array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|min_length[14]|max_length[14]|trim'),
                                     array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'required|max_length[9]|trim'),
                                 ); 
         
         private $validate_edit = array(
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
                                     array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
-                                    array('field'=> 'password', 'label' => 'Senha', 'rules' => 'max_length[255]|trim'),
-                                    //array('field'=> 'id_type_user', 'label' => 'Tipo', 'rules' => 'required|trim'),
                                     array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
-                                    array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
-                                    array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'min_length[13]|max_length[14]|trim'),
-                                    array('field'=> 'cpf_cnpj', 'label' => 'CPF/CNPJ', 'rules' => 'required|min_length[14]|max_length[18]|trim'),
+                                    array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'trim'),
+                                    array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|min_length[14]|max_length[14]|trim'),
                                 ); 
 
         public function __construct() 
@@ -43,24 +41,20 @@ class Usuarios extends MY_Controller
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
                         ->set_title('Admin - Usuários')
-                        ->set_description('')
-                        ->set_keywords('')
-                        ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
-                        ->set_includes('js/dataTables/jquery.dataTables.min.js')
-                        ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                        ->set_includes('js/chart/Chart.js')
-                        ->set_includes('js/data_table.js')
-                        ->set_includes('js/users.js')
+                        ->set_css('admin/css/layout-datatables.css')
+                        ->set_js('admin/js/data_table.js')
+                        ->set_js('admin/js/update_delete.js')
+                        ->set_js('admin/js/users.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                         ->set_breadcrumbs('Usuários', 'admin/usuarios/', 1)
-                        ->set_view('admin/users/add_list', $data, 'template/admin/');
+                        ->set_view('pages/admin/contents/users', $data, 'template/admin/');
         }
         
         private function _init_data_table()
         {
                 $data['itens'] = $this->users_model->get_itens('ctp_users.active = 1');
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
-                $this->layout->set_html('admin/users/table', $data);
+                $this->layout->set_html('pages/admin/tables/users', $data);
                 return $this->layout->get_html();
         }
         
@@ -68,12 +62,6 @@ class Usuarios extends MY_Controller
         {
                 $this->_is_autorized('admin/painel/');
                 $this->form_validation->set_rules($this->validate); 
-                $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
-                $this->form_validation->set_message('valid_email','O campo "{field}" deve ser um E-mail válido');
-                $this->form_validation->set_message('is_unique','"{field}" inválido');
-                $this->form_validation->set_message('max_length','O campo "{field}" não pode exceder o tamanho de "{param}" caracteres');
-                $this->form_validation->set_message('min_length','O campo "{field}" dever ter no minimo "{param}" caracteres');
-                $this->form_validation->set_message('integer','O campo "{field}" dever ser numérico');
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
@@ -83,6 +71,7 @@ class Usuarios extends MY_Controller
                                 $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash('123') ;
                                 $data['date_create'] = date('Y-m-d');
                                 $id = $this->users_model->insert($data);
+                                $this->logs->save('Usuarios inserido ID : '.$id);
                                 redirect('admin/usuarios/editar/'.$id.'/1');
                         }
                         else
@@ -96,14 +85,12 @@ class Usuarios extends MY_Controller
                                 $data['error'] = 'Endereço Inexistente';
                                 $this->layout
                                             ->set_title('CTP - Admin - Usuários - Adicionar')
-                                            ->set_description('')
-                                            ->set_keywords('')
-                                            ->set_includes('js/mask/jquery.mask.js')
-                                            ->set_includes('js/users.js')
+                                            ->set_js('admin/js/address.js')
+                                            ->set_js('admin/js/cpf.js')
                                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                             ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                                             ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
-                                            ->set_view('admin/users/add_users', $data, 'template/admin/');
+                                            ->set_view('pages/admin/forms/users', $data, 'template/admin/');
                         }
                 }
                 else
@@ -116,14 +103,12 @@ class Usuarios extends MY_Controller
                         $data['types_user'] = $this->get_type_user();
                         $this->layout
                                     ->set_title('CTP - Admin - Usuários - Adicionar')
-                                    ->set_description('')
-                                    ->set_keywords('')
-                                    ->set_includes('js/mask/jquery.mask.js')
-                                    ->set_includes('js/users.js')
+                                    ->set_js('admin/js/address.js')
+                                    ->set_js('admin/js/cpf.js')
                                     ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                     ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                                     ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
-                                    ->set_view('admin/users/add_users', $data, 'template/admin/');
+                                    ->set_view('pages/admin/forms/users', $data, 'template/admin/');
                 }
         }
         
@@ -133,12 +118,6 @@ class Usuarios extends MY_Controller
                 {
                         $dados = $this->users_model->get_item('ctp_users.id = '.$codigo);
                         $this->form_validation->set_rules($this->validate_edit); 
-                        $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
-                        $this->form_validation->set_message('valid_email','O campo "{field}" deve ser um E-mail válido');
-                        $this->form_validation->set_message('is_unique','O campo "{field}" deve ser unico');
-                        $this->form_validation->set_message('max_length','O campo "{field}" não pode exceder o tamanho de "{param}" caracteres');
-                        $this->form_validation->set_message('min_length','O campo "{field}" dever ter no minimo "{param}" caracteres');
-                        $this->form_validation->set_message('integer','O campo "{field}" dever ser numérico');
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
@@ -157,7 +136,7 @@ class Usuarios extends MY_Controller
                                 }
                                 else
                                 {
-                                        $session['neighborhood'] = $this->get_neighborhood_by_address($data['id_address']);
+                                        $session['neighborhood'] = $this->_get_neighborhood_by_address($data['id_address']);
                                 }
                                 $id = $this->users_model->update($data, 'ctp_users.id = '.$codigo);
                                 if($this->session->userdata['id'] == $codigo)
@@ -166,6 +145,7 @@ class Usuarios extends MY_Controller
                                         $session['type'] = $data['id_type_user'];
                                 }
                                 $this->session->set_userdata($session);
+                                $this->logs->save('Usuarios editado ID : '.$codigo);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');
                         }
                         else
@@ -186,14 +166,11 @@ class Usuarios extends MY_Controller
                                         $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
                                         $this->layout
                                                 ->set_title('Admin - Usuários - Editar')
-                                                ->set_description('')
-                                                ->set_keywords('')
-                                                ->set_includes('js/mask/jquery.mask.js')
-                                                ->set_includes('js/users.js')
+                                                ->set_js('admin/js/address.js')
                                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                                 ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                                                 ->set_breadcrumbs('Editar', 'admin/usuarios/editar', 1)
-                                                ->set_view('admin/users/add_users',$data , 'template/admin/');
+                                                ->set_view('pages/admin/forms/users',$data , 'template/admin/');
                                 }
                         }
                 }
@@ -215,35 +192,22 @@ class Usuarios extends MY_Controller
                         {
                                 $deleted = $this->users_model->update(array('active' => 0),'ctp_users.id = '.$item);
                                 if($deleted) $qtde++;
+                                $this->logs->save('Usuarios excluido ID : '.$item);
                         }
                 }
                 echo json_encode($qtde);
         }
         
-        public function get_address()
+        public function get_type_user()
         {
-                $retorno = array();
-                $data = $this->_get();
-                if(isset($data['zip_code']) && !empty($data['zip_code']))
-                {
-                        $retorno = $this->address_model->get_item('ctp_address.zip_code = '.$data['zip_code']);
-                        if(isset($retorno) && !empty($retorno))
-                        {
-                                echo json_encode($retorno);
-                        }
-                }
+                return $this->type_users_model->get_select('ctp_type_users.active = 1', 'ctp_type_users.description', 'ASC');
         }
-        
-        private function get_neighborhood_by_address($address)
+
+        private function _get_neighborhood_by_address($address)
         {
                 return $this->address_model->get_neighborhood_by_address('ctp_address.zip_code = '.$address);
         }
         
-        public function get_type_user()
-        {
-                return $this->type_users_model->get_select();
-        }
-
         private function _get()
         {
                 return sanitize($this->input->get(NULL, TRUE));

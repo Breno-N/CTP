@@ -2,34 +2,17 @@
 
 class Home extends MY_Controller
 {
+        private $validate = array(
+                                    array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|trim'),
+                                    array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
+                                ); 
+    
         public function __construct() 
         {
                 parent::__construct(FALSE);
                 $this->load->model(array('requests_model', 'users_model'));
-                $this->load->helper('cookie');
         }
 
-        public function index()
-        {
-                $data = $this->get_itens_table();
-                $this->layout
-                        ->set_title('Faz, Que Falta')
-                        ->set_keywords('Faz, Que Falta')
-                        ->set_description('Faz, Que Falta, o sistema que ajuda na melhoria de seu bairro.')
-                        ->set_includes('js/chart/Chart.js')
-                        ->set_includes('js/home.js')
-                        ->set_view('site/home', $data);
-        }
-        
-        public function get_charts()
-        {
-                $charts['type_business'] = $this->requests_model->get_itens_by_type_business();
-                $charts['neighborhood'] = $this->requests_model->get_itens_by_neighborhood();
-                $charts['citys'] = $this->requests_model->get_itens_by_city();
-                
-                echo (empty($charts['type_business']) || empty($charts['neighborhood']) || empty($charts['citys'])) ? 0 : json_encode($charts);
-        }
-        
         public function get_itens_table()
         {
                 $table['all_requests'] = $this->requests_model->get_total_itens();
@@ -39,19 +22,46 @@ class Home extends MY_Controller
                 return $table;
         }
         
-        public function get_cookie_video()
+        public function index()
         {
-                $cookie = $this->input->cookie('video_presentation');
-                echo json_encode(isset($cookie) ? 1 : 0);
+                $this->form_validation->set_rules($this->validate); 
+                if($this->form_validation->run())
+                {
+                        $post = $this->_post();
+                        $pedido_session = array(
+                            'pedido_session' => array(
+                                'business' => $post['business'],
+                                'description' => $post['description'],
+                                'have_business_neighborhood' => (isset($post['have_business_neighborhood']) ? 1 : 0),
+                                'request_public_agency' => (isset($post['request_public_agency']) ? 1 : 0),
+                                'quantity' => 1,
+                            )
+                        );
+                        $this->session->set_tempdata($pedido_session, NULL, 600);
+                        if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
+                        {
+                                redirect('acesso');
+                        }
+                        else
+                        {
+                                redirect('admin/pedidos/adicionar');
+                        }
+                }
+                else
+                {
+                        $data = $this->get_itens_table();
+                        $data['action'] = base_url().'home';
+                        $this->layout
+                                ->set_title('Faz, Que Falta')
+                                ->set_keywords('Faz, Que Falta')
+                                ->set_description('')
+                                ->set_js('site/js/business_autocomplete.js')
+                                ->set_view('pages/site/home', $data);
+                }
         }
         
-        public function set_cookie_video()
+        private function _post()
         {
-                $cookie = array(
-                    'name' => 'video_presentation',
-                    'value' => 1,
-                    'expire' => 60 * 60 * 24 * 7 
-                ); 
-                $this->input->set_cookie($cookie);
+                return sanitize($this->input->post(NULL, TRUE));
         }
 }

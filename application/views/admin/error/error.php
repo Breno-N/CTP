@@ -1,1 +1,0 @@
-Erro ao tentar realizar operação. <a href="<?php echo base_url().'admin/painel'; ?>">Clique aqui</a> e volte a tela inicial.

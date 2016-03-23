@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
     {
             parent::__construct();
 
-            $this->load->library(array('layout'));
+            $this->load->library(array('layout', 'logs'));
 
             if(isset($login) && $login) $this->_is_authenticated();
     }
@@ -20,10 +20,7 @@ class MY_Controller extends CI_Controller
      */
     private function _is_authenticated()
     {
-            if(!$this->session->userdata('authentication'))
-            {
-                    redirect('login');
-            }
+            if(!$this->session->userdata('authentication')) redirect('acesso');
     }
     
     /**
@@ -118,6 +115,6 @@ class MY_Controller extends CI_Controller
     {
             $this->layout
                     ->set_title('Admin - Erro')
-                    ->set_view('admin/error/error', $data, 'template/admin/');
+                    ->set_view('errors/html/error_action', $data, 'template/admin/');
     }
 }

@@ -4,7 +4,7 @@ class Contato extends MY_Controller
 {
         private $validate = array(
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|trim'),
-                                    array('field'=> 'cc', 'label' => 'E-mail', 'rules' => 'valid_email|required|trim'),
+                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|required|trim'),
                                     array('field'=> 'subject', 'label' => 'Assunto', 'rules' => 'required|trim'),
                                     array('field'=> 'message', 'label' => 'Mensagem', 'rules' => 'required|trim'),
                                 ); 
@@ -12,7 +12,6 @@ class Contato extends MY_Controller
         public function __construct() 
         {
                 parent::__construct(FALSE);
-                $this->load->model(array('requests_model'));
         }
 
         public function index()
@@ -23,8 +22,6 @@ class Contato extends MY_Controller
                 $data['function'] = $function;
                 $data['action'] = base_url().$classe.'/'.$function;
                 $this->form_validation->set_rules($this->validate); 
-                $this->form_validation->set_message('required','O campo "{field}" é obrigatório');
-                $this->form_validation->set_message('valid_email','O campo {"field}" deve ser um E-mail válido');
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
@@ -37,7 +34,9 @@ class Contato extends MY_Controller
                                     ->set_title('Faz, Que Falta - Contato')
                                     ->set_keywords('Faz, Que Falta - Contato')
                                     ->set_description('')
-                                    ->set_view('site/contact/index', $data);
+                                    ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
+                                    ->set_js('site/js/contact.js')
+                                    ->set_view('pages/site/contact', $data);
                 }
                 else
                 {
@@ -45,7 +44,9 @@ class Contato extends MY_Controller
                             ->set_title('Faz, Que Falta - Contato')
                             ->set_keywords('Faz, Que Falta - Contato')
                             ->set_description('')
-                            ->set_view('site/contact/index', $data);
+                            ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
+                            ->set_js('site/js/contact.js')
+                            ->set_view('pages/site/contact', $data);
                 }
         }
         

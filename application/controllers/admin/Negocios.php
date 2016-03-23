@@ -9,7 +9,7 @@ class Negocios extends MY_Controller
 
         public function __construct() 
         {
-                parent::__construct();
+                parent::__construct(FALSE);
                 $this->load->model(array('business_model', 'type_business_model'));
         }
         
@@ -24,23 +24,20 @@ class Negocios extends MY_Controller
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
                         ->set_title('Admin - Negócios')
-                        ->set_description('')
-                        ->set_keywords('')
-                        ->set_includes('css/dataTables/dataTables.bootstrap.min.css')
-                        ->set_includes('js/dataTables/jquery.dataTables.min.js')
-                        ->set_includes('js/dataTables/dataTables.bootstrap.min.js')
-                        ->set_includes('js/data_table.js')
-                        ->set_includes('js/business.js')
+                        ->set_css('admin/css/layout-datatables.css')
+                        ->set_js('admin/js/data_table.js')
+                        ->set_js('admin/js/update_delete.js')
+                        ->set_js('admin/js/business.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                         ->set_breadcrumbs('Negócios', 'admin/negocios/', 1)
-                        ->set_view('admin/business/add_list', $data, 'template/admin/');
+                        ->set_view('pages/admin/contents/business', $data, 'template/admin/');
         }
         
         private function _init_data_table()
         {
                 $data['itens'] = $this->business_model->get_itens();
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
-                $this->layout->set_html('admin/business/table', $data);
+                $this->layout->set_html('pages/admin/tables/business', $data);
                 return $this->layout->get_html();
         }
        
@@ -48,13 +45,12 @@ class Negocios extends MY_Controller
         {
                 $this->_is_autorized('admin/painel/');
                 $this->form_validation->set_rules($this->validate); 
-                $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $id = $this->business_model->insert($data);
+                        $this->logs->save('Negócios inserido ID : '.$id);
                         redirect('admin/negocios/editar/'.$id.'/1');
                 }
                 else
@@ -67,13 +63,10 @@ class Negocios extends MY_Controller
                         $data['type_business'] = $this->get_type_business();
                         $this->layout
                                     ->set_title('Admin - Negócios - Adicionar')
-                                    ->set_description('')
-                                    ->set_keywords('')
-                                    ->set_includes('js/business.js')
                                     ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                     ->set_breadcrumbs('Negócios', 'admin/negocios/', 0)
                                     ->set_breadcrumbs('Adicionar', 'admin/negocios/', 1)
-                                    ->set_view('admin/business/add_business', $data, 'template/admin/');
+                                    ->set_view('pages/admin/forms/business', $data, 'template/admin/');
                 }
         }
         
@@ -84,13 +77,12 @@ class Negocios extends MY_Controller
                 {
                         $dados = $this->business_model->get_item('ctp_business.id = '.$codigo);
                         $this->form_validation->set_rules($this->validate); 
-                        $this->form_validation->set_message('required','O campo {field} é obrigatório');
-                        $this->form_validation->set_message('max_length','O campo {field} não pode exceder o tamanho de {param} caracteres');
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
                                 $data['active'] = (isset($data['active']) ? 1 : 0 );
                                 $this->business_model->update($data, 'ctp_business.id = '.$codigo);
+                                $this->logs->save('Negócios editado ID : '.$codigo);
                                 redirect('admin/negocios/editar/'.$codigo.'/1');
                         }
                         else
@@ -111,13 +103,10 @@ class Negocios extends MY_Controller
                                     $data['type_business'] = $this->get_type_business();
                                     $this->layout
                                             ->set_title('Admin - Negócios - Editar')
-                                            ->set_description('')
-                                            ->set_keywords('')
-                                            ->set_includes('js/business.js')
                                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                             ->set_breadcrumbs('Negócios', 'admin/negocios/', 0)
                                             ->set_breadcrumbs('Editar', 'admin/negocios/editar', 1)
-                                            ->set_view('admin/business/add_business', $data, 'template/admin/');
+                                            ->set_view('pages/admin/forms/business', $data, 'template/admin/');
                                 }
                         }
                 }
@@ -139,6 +128,7 @@ class Negocios extends MY_Controller
                         {
                                 $deleted = $this->business_model->update(array('active' => 0),'ctp_business.id = '.$item);
                                 if($deleted) $qtde++;
+                                $this->logs->save('Negócios excluido ID : '.$item);
                         }
                 }
                 echo json_encode($qtde);

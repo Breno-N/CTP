@@ -7,6 +7,18 @@ class Layout
          * @property array 
          */
         private $includes = array();
+        
+        /**
+         * Propriedade privada da classe que representa os arquivos javascripts
+         * @property array 
+         */
+        private $js = array();
+        
+        /**
+         * Propriedade privada da classe que representa os arquivos css
+         * @property array 
+         */
+        private $css = array();
 
          /**
          * Propriedade privada da classe que representa o titulo da pagina
@@ -64,6 +76,31 @@ class Layout
         {
                 return $this->includes;
         }
+        
+        /**
+         * Função que recupera o atributo privado que leva o nome da função, ou seja
+         * get_$propriedade, vai retornar a propriedade da classe.
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @return object
+         */
+        public function get_js()
+        {
+                return $this->js;
+        }
+        
+        /**
+         * Função que recupera o atributo privado que leva o nome da função, ou seja
+         * get_$propriedade, vai retornar a propriedade da classe.
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @return object
+         */
+        public function get_css()
+        {
+                return $this->css;
+        }
+
 
          /**
          * Função que recupera o valor atributo privado que leva o nome da função, ou seja
@@ -131,7 +168,7 @@ class Layout
                 return $this->html;
         }
 
-         /**
+        /**
          * Função que seta o valor do atributo privado que leva o nome da função, ou seja
          * set_$propriedade, vai setar o valor que receber por parâmetro na propriedade da classe.
          * 
@@ -152,6 +189,42 @@ class Layout
                                     $this->includes[] = '<link rel="stylesheet" href="'.base_url().'assets/'.$includes.'" />';
                                     break;
                         }
+                        return $this;
+                }
+        }
+        
+        /**
+         * Função que seta o valor do atributo privado que leva o nome da função, ou seja
+         * set_$propriedade, vai setar o valor que receber por parâmetro na propriedade da classe.
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @param array|NULL|string $js
+         * @return object $this retorna a instancia do objeto da classe
+         */
+        public function set_js($js = NULL, $externo = 0)
+        {
+                if(isset($js) && $js)
+                {
+                        $href = ($externo ? $js : base_url().'assets/'.$js);
+                        $this->js[] = '<script type="text/javascript" src="'.$href.'"></script>';
+                        return $this;
+                }
+        }
+        
+        /**
+         * Função que seta o valor do atributo privado que leva o nome da função, ou seja
+         * set_$propriedade, vai setar o valor que receber por parâmetro na propriedade da classe.
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @param array|NULL|string $css
+         * @return object $this retorna a instancia do objeto da classe
+         */
+        public function set_css($css = NULL, $externo = 0)
+        {
+                if(isset($css) && $css)
+                {
+                        $href = ($externo ? $css : base_url().'assets/'.$css);
+                        $this->css[] = '<link rel="stylesheet" href="'.$href.'" />';
                         return $this;
                 }
         }
@@ -247,17 +320,19 @@ class Layout
          * @param array  $data dados adicionais a passar para a view.
          * @param string $template string indicando o caminho do layout padrão a ser carregado.
          */
-        public function set_view($view = '', $data = NULL, $template = 'template/')
+        public function set_view($view = '', $data = NULL, $template = 'template/site/')
         {
                 $header['title'] = $this->get_title();
                 $header['description'] = $this->get_description();
                 $header['keywords'] = $this->get_keywords();
                 $header['includes'] = $this->get_includes();
+                $header['css'] = $this->get_css();
                 $navbar['breadcrumbs'] = $this->get_breadcrumbs();
                 $dados['header'] = $this->CI->load->view($template.'header', $header, TRUE);
                 $dados['navbar'] = $this->CI->load->view($template.'navbar', $navbar, TRUE);
                 $dados['footer'] = $this->CI->load->view($template.'footer', NULL, TRUE);
                 $dados['content'] = $this->CI->load->view($view, $data, TRUE);
+                $dados['js'] = $this->get_js();
                 $this->CI->load->view($template.'layout', $dados);
         }
 }
