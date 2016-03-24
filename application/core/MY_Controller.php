@@ -36,7 +36,7 @@ class MY_Controller extends CI_Controller
     protected function save_log($message = '', $user = '')
     {
             $data['description'] = $message;
-            $data['user'] = (isset($this->CI->session->userdata['email']) && !empty($this->CI->session->userdata['email']) ? $this->CI->session->userdata['email'] : $user);
+            $data['user'] = (isset($this->session->userdata['email']) && !empty($this->session->userdata['email']) ? $this->session->userdata['email'] : $user);
             $data['date'] = date('Y-m-d H:i:s');
             $this->load->model('logs_model');
             $this->logs_model->insert($data);
@@ -125,6 +125,6 @@ class MY_Controller extends CI_Controller
     {
             $this->layout
                     ->set_title('Admin - Erro')
-                    ->set_view('errors/html/error_action', $data, 'template/admin/');
+                    ->set_view('pages/admin/contents/error', $data, 'template/admin/');
     }
 }

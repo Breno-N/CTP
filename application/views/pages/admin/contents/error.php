@@ -4,9 +4,7 @@
     </header>
     <div class="margin-left-20 margin-top-20">
         <p>
-            Erro ao tentar realizar operação. <a href="<?php echo base_url().'admin/painel'; ?>">Clique aqui</a> e volte a tela inicial.
+            Erro ao tentar realizar operação. <a href="<?php echo base_url().'admin/painel'; ?>">Clique aqui</a> e volte ao painel.
         </p>
     </div>
 </section>
-
-

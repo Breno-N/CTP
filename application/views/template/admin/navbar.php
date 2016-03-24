@@ -83,7 +83,7 @@
                 </a>
                 <ul class="dropdown-menu hold-on-click">
                     <li>
-                        <a href="<?php echo base_url().'admin/usuarios/editar/'; ?>"><i class="fa fa-cogs"></i> Configurações</a>
+                        <a href="<?php echo base_url().'admin/usuarios/editar/'.$this->session->userdata['id']; ?>"><i class="fa fa-cogs"></i> Configurações</a>
                     </li>
                     <li class="divider"></li>
                     <li>
