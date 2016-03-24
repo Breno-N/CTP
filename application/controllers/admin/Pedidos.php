@@ -74,12 +74,12 @@ class Pedidos extends MY_Controller
                                 $id = $this->requests_model->insert($data);
                                 if($id)
                                 {
-                                        $this->logs->save('Pedidos inserido ID : '.$id);
+                                        $this->save_log('Pedidos inserido ID : '.$id);
                                         $data_user_request['id_request'] = $id;
                                         $data_user_request['id_user'] = $this->session->userdata['id'];
                                         $id_user_request = $this->user_request_model->insert($data_user_request);
-                                        $this->logs->save('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
-                                        if(!empty($_FILES['files']['name'])) $this->do_upload($id);
+                                        $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                        if(!empty($_FILES['files']['name'])) $this->do_upload($id, '/uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx', 'Arquivo');
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');
                         }
@@ -129,10 +129,10 @@ class Pedidos extends MY_Controller
                                                 $id_user_request = $this->user_request_model->insert($data_user_request);
                                                 if($id_user_request)
                                                 {
-                                                        $this->logs->save('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                                        $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                                         $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$business_exists_neighborhood);
                                                         $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$business_exists_neighborhood);
-                                                        $this->logs->save('Pedidos apoiado ID : '.$business_exists_neighborhood);
+                                                        $this->save_log('Pedidos apoiado ID : '.$business_exists_neighborhood);
                                                         $this->session->unset_userdata('pedido_session');
                                                         redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/3');
                                                 }
@@ -152,11 +152,11 @@ class Pedidos extends MY_Controller
                                         $id = $this->requests_model->insert($data);
                                         if($id)
                                         {
-                                                $this->logs->save('Pedidos inserido ID : '.$id);
+                                                $this->save_log('Pedidos inserido ID : '.$id);
                                                 $data_user_request['id_request'] = $id;
                                                 $data_user_request['id_user'] = $this->session->userdata['id'];
                                                 $id_user_request = $this->user_request_model->insert($data_user_request);
-                                                $this->logs->save('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                                $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                         }
                                         $this->session->unset_userdata('pedido_session');
                                         redirect('admin/pedidos/detalhes/'.$id.'/1');
@@ -172,7 +172,7 @@ class Pedidos extends MY_Controller
                         $dados = $this->requests_model->get_item('ctp_requests.id = '.$codigo);
                         if($codigo && !empty($_FILES['files']['name']))
                         {
-                                $this->do_upload($codigo);
+                                $this->do_upload($codigo, '/uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx', 'Arquivo');
                                 redirect('admin/requisicoes/detalhes/'.$codigo.'/1');
                         }
                         else
@@ -192,9 +192,8 @@ class Pedidos extends MY_Controller
                                         $data['ok'] = (isset($ok) && $ok) ? $ok : FALSE;
                                         $data['status'] = $this->get_status();
                                         $data['type_business'] = $this->get_type_business();
-                                        $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_request = '.$codigo);
+                                        $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" ');
                                         $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
-                                        //$data['comments'] = $this->requests_comments_model->get_itens('ctp_requests_comments.id_request = '.$codigo.' AND ctp_requests_comments.active = 1');
                                         $this->layout
                                                 ->set_title('Admin - Pedidos - Detalhes')
                                                 ->set_js('admin/js/business_autocomplete.js')
@@ -226,46 +225,21 @@ class Pedidos extends MY_Controller
                                 $id_user_request = $this->user_request_model->insert($data_user_request);
                                 if($id_user_request)
                                 {
-                                        $this->logs->save('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                        $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                         $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$support['request']);
                                         $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$support['request']);
-                                        $this->logs->save('Pedidos apoiado ID : '.$support['request']);
+                                        $this->save_log('Pedidos apoiado ID : '.$support['request']);
                                 }
                         }
                 }
                 echo json_encode($update);
         }
         
-        /*
-        public function comentar()
-        {
-                $return = 0;
-                $comment = $this->_post();
-                if(isset($comment['id_request']) && !empty($comment['description']) && $this->session->userdata['can_post'])
-                {
-                        $comment['id_user'] = $this->session->userdata['id'];
-                        $comment['date'] = date('Y-m-d H:i:s');
-                        $return = $this->requests_comments_model->insert($comment);
-                }
-                echo json_encode($return);
-        }
-        
-        public function descomentar()
-        {
-                $return = 0;
-                $id = $this->_post();
-                if(isset($id['id']) && $this->session->userdata['admin'])
-                {
-                        $return = $this->requests_comments_model->update(array('active' => 0), 'ctp_requests_comments.id = '.$id['id']);
-                }
-                echo json_encode($return);
-        }
-         */
-        
         public function download($id = '', $description = '')
         {
-                if(empty($id) || empty($description)) exit();
-                $file = $this->attachment_model->get_item('ctp_attachment.id_request = '.$id.' AND ctp_attachment.description = "'.$description.'"');
+                $this->_is_autorized('admin/painel/');
+                if(empty($id)) exit();
+                $file = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$id.' AND ctp_attachment.type = "Arquivo" ');
                 header('Content-Type: application/octet-stream');
                 header("Content-Transfer-Encoding: Binary"); 
                 header('Content-Disposition: attachment; filename="'.$file->description.'"');

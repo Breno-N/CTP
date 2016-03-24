@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
     {
             parent::__construct();
 
-            $this->load->library(array('layout', 'logs'));
+            $this->load->library(array('layout'));
 
             if(isset($login) && $login) $this->_is_authenticated();
     }
@@ -31,6 +31,15 @@ class MY_Controller extends CI_Controller
     protected function _is_autorized($redirect = '')
     {
             if(!$this->session->userdata['admin']) redirect($redirect);
+    }
+    
+    protected function save_log($message = '', $user = '')
+    {
+            $data['description'] = $message;
+            $data['user'] = (isset($this->CI->session->userdata['email']) && !empty($this->CI->session->userdata['email']) ? $this->CI->session->userdata['email'] : $user);
+            $data['date'] = date('Y-m-d H:i:s');
+            $this->load->model('logs_model');
+            $this->logs_model->insert($data);
     }
     
     /*
@@ -59,15 +68,16 @@ class MY_Controller extends CI_Controller
     * @params string $dir
     * @return array $data 
     */
-    public function do_upload($id = '')
+    public function do_upload($id = '', $path = '', $ext = 'pdf|doc|docx', $type = '', $max_size = 2048)
     {
             $data = array();
-            $dir = str_replace('\\', '/', getcwd()).'/uploads/files/'.date('Y/m/d').'/'.$id;
+            //$dir = str_replace('\\', '/', getcwd()).'/uploads/files/'.date('Y/m/d').'/'.$id;
+            $dir = str_replace('\\', '/', getcwd()).$path.$id;
             if(!is_dir($dir)) $this->build_dir($dir);
 
             $config['upload_path'] = $dir;
-            $config['allowed_types'] = 'pdf|doc|docx';
-            $config['max_size'] = 2048;
+            $config['allowed_types'] = $ext;
+            $config['max_size'] = $max_size;
            
             $this->load->library('upload', $config);
 
@@ -78,7 +88,7 @@ class MY_Controller extends CI_Controller
             else
             {
                 $this->load->model('attachment_model');
-                $this->attachment_model->insert(array('id_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $this->upload->data('full_path')));
+                $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $this->upload->data('full_path'), 'type' => $type));
                 $data['upload'] = array('success' => $this->upload->data());
             }
             return $data;

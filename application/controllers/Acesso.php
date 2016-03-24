@@ -58,7 +58,7 @@ class Acesso extends MY_Controller
                                     'admin' => ($user->id_type_user == 5487) ? TRUE : FALSE,
                                 );
                                 $this->session->set_userdata($session);
-                                $this->logs->save('Usuário logou no sistema');
+                                $this->save_log('Usuário logou no sistema');
                                 redirect('admin/painel/index');
                         }
                         else
@@ -118,7 +118,7 @@ class Acesso extends MY_Controller
                                 );
                                 $session['neighborhood'] = (isset($post['id_address']) ? $this->address_model->get_neighborhood_by_address('ctp_address.zip_code = '.$post['id_address']) : '');
                                 $this->session->set_userdata($session);
-                                $this->logs->save('Usuário se registrou e logou no sistema');
+                                $this->save_log('Usuário se registrou e logou no sistema');
                                 redirect('admin/painel/');
                         }
                         else
@@ -165,7 +165,7 @@ class Acesso extends MY_Controller
                                 $update = $this->users_model->update('ctp_users.email = "'.$data['email'].'"', $password);
                                 if($update)
                                 {
-                                        $this->logs->save('Usuário solicitou nova senha', $data['email']);
+                                        $this->save_log('Usuário solicitou nova senha', $data['email']);
                                         $email['from']   = 'email@sistema.com.br';
                                         $email['to'] = $data['email'];
                                         $email['subject'] = 'Recuperação de senha';
@@ -190,7 +190,7 @@ class Acesso extends MY_Controller
         
         public function logoff()
         {
-                $this->logs->save('Usuário deslogou do sistema');
+                $this->save_log('Usuário deslogou do sistema');
                 $this->session->sess_destroy();
                 redirect('home');
         }

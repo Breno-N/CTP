@@ -83,11 +83,11 @@
                 </a>
                 <ul class="dropdown-menu hold-on-click">
                     <li>
-                        <a href="<?php echo base_url().'admin/usuarios/editar/'.(isset($this->session->userdata['id']) && $this->session->userdata['id'] ? $this->session->userdata['id'] : 0); ?>"><i class="fa fa-cogs"></i> Settings</a>
+                        <a href="<?php echo base_url().'admin/usuarios/editar/'; ?>"><i class="fa fa-cogs"></i> Configurações</a>
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="<?php echo base_url().'acesso/logoff'; ?>"><i class="fa fa-power-off"></i> Log Out</a>
+                        <a href="<?php echo base_url().'acesso/logoff'; ?>"><i class="fa fa-power-off"></i> Sair </a>
                     </li>
                 </ul>
             </li>

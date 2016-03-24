@@ -21,6 +21,7 @@ class Noticias extends MY_Controller
         
         public function listar()
         {
+                $this->_is_autorized('admin/painel/');
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
@@ -53,7 +54,7 @@ class Noticias extends MY_Controller
                         $data['date_create'] = date('Y-m-d');
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $id = $this->news_model->insert($data);
-                        $this->logs->save('Noticias inserido ID : '.$id);
+                        $this->save_log('Noticias inserido ID : '.$id);
                         redirect('admin/noticias/editar/'.$id.'/1');
                 }
                 else
@@ -85,7 +86,7 @@ class Noticias extends MY_Controller
                                 $data = $this->_post();
                                 $data['active'] = (isset($data['active']) ? 1 : 0 );
                                 $this->news_model->update($data, 'ctp_news.id = '.$codigo);
-                                $this->logs->save('Noticias editado ID : '.$codigo);
+                                $this->save_log('Noticias editado ID : '.$codigo);
                                 redirect('admin/noticias/editar/'.$codigo.'/1');
                         }
                         else
@@ -131,7 +132,7 @@ class Noticias extends MY_Controller
                         {
                                 $deleted = $this->news_model->update(array('active' => 0),'ctp_news.id = '.$item);
                                 if($deleted) $qtde++;
-                                $this->logs->save('Noticias excluido ID : '.$deleted);
+                                $this->save_log('Noticias excluido ID : '.$deleted);
                         }
                 }
                 echo json_encode($qtde);

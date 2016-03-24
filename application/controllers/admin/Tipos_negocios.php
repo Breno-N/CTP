@@ -19,6 +19,7 @@ class Tipos_negocios extends MY_Controller
         
         public function listar()
         {
+                $this->_is_autorized('admin/painel/');
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
@@ -49,7 +50,7 @@ class Tipos_negocios extends MY_Controller
                         $data = $this->_post();
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $id = $this->type_business_model->insert($data);
-                        $this->logs->save('Tipos de negócios inserido ID : '.$id);
+                        $this->save_log('Tipos de negócios inserido ID : '.$id);
                         redirect('admin/tipos_negocios/editar/'.$id.'/1');
                 }
                 else
@@ -80,7 +81,7 @@ class Tipos_negocios extends MY_Controller
                                 $data = $this->_post();
                                 $data['active'] = (isset($data['active']) ? 1 : 0 );
                                 $this->type_business_model->update($data, 'ctp_type_business.id = '.$codigo);
-                                $this->logs->save('Tipos de negócios editado ID : '.$codigo);
+                                $this->save_log('Tipos de negócios editado ID : '.$codigo);
                                 redirect('admin/tipos_negocios/editar/'.$codigo.'/1');
                         }
                         else
@@ -125,7 +126,7 @@ class Tipos_negocios extends MY_Controller
                         {
                                 $deleted = $this->type_business_model->update(array('active' => 0),'ctp_type_business.id = '.$item);
                                 if($deleted) $qtde++;
-                                $this->logs->save('Tipos de negócios excluido ID : '.$item);
+                                $this->save_log('Tipos de negócios excluido ID : '.$item);
                         }
                 }
                 echo json_encode($qtde);

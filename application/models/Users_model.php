@@ -95,7 +95,7 @@ class Users_model extends MY_Model
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.name as name, ';
                 $data['fields'] .= $this->table.'.email as email, ';
-                $data['fields'] .= $this->table.'.age as age, ';
+                $data['fields'] .= $this->table.'.birthday as birthday, ';
                 $data['fields'] .= $this->table.'.genre as genre, ';
                 $data['fields'] .= $this->table.'.active as active, ';
                 $data['fields'] .= $this->table.'.date_create as date_create, ';

@@ -20,6 +20,7 @@ class Negocios extends MY_Controller
         
         public function listar()
         {
+                $this->_is_autorized('admin/painel/');
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
@@ -50,7 +51,7 @@ class Negocios extends MY_Controller
                         $data = $this->_post();
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $id = $this->business_model->insert($data);
-                        $this->logs->save('Negócios inserido ID : '.$id);
+                        $this->save_log('Negócios inserido ID : '.$id);
                         redirect('admin/negocios/editar/'.$id.'/1');
                 }
                 else
@@ -82,7 +83,7 @@ class Negocios extends MY_Controller
                                 $data = $this->_post();
                                 $data['active'] = (isset($data['active']) ? 1 : 0 );
                                 $this->business_model->update($data, 'ctp_business.id = '.$codigo);
-                                $this->logs->save('Negócios editado ID : '.$codigo);
+                                $this->save_log('Negócios editado ID : '.$codigo);
                                 redirect('admin/negocios/editar/'.$codigo.'/1');
                         }
                         else
@@ -128,7 +129,7 @@ class Negocios extends MY_Controller
                         {
                                 $deleted = $this->business_model->update(array('active' => 0),'ctp_business.id = '.$item);
                                 if($deleted) $qtde++;
-                                $this->logs->save('Negócios excluido ID : '.$item);
+                                $this->save_log('Negócios excluido ID : '.$item);
                         }
                 }
                 echo json_encode($qtde);

@@ -16,7 +16,6 @@
                             <tr>
                                 <th>Nome</th>
                                 <th>Email</th>
-                                <th>Idade</th>
                                 <th>Tipo</th>
                                 <th>Ação</th>
                             </tr>
@@ -26,7 +25,6 @@
                             <tr class="text-justify data-item" data-id="<?php echo $item->id; ?>">
                                 <td><?php echo $item->name; ?></td>
                                 <td><?php echo $item->email; ?></td>
-                                <td><?php echo $item->age; ?></td>
                                 <td><?php echo $item->type_user; ?></td>
                                 <td>
                                     <a href="<?php echo $action_editar.$item->id; ?>" class="btn btn-3d btn-default btn-update">

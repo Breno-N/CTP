@@ -66,7 +66,7 @@ class Attachment_model extends MY_Model
         public function get_itens($where = array(), $column = 'id', $order = 'DESC')
         {
                 $data['fields']  = $this->table.'.id as id, ';
-                $data['fields'] .= $this->table.'.id_request as id_request, ';
+                $data['fields'] .= $this->table.'.id_user_request as id_user_request, ';
                 $data['fields'] .= $this->table.'.description as description, ';
                 $data['fields'] .= $this->table.'.path as path ';
                 $data['tables'] =  array(

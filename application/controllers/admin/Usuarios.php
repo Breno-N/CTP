@@ -4,10 +4,10 @@ class Usuarios extends MY_Controller
 {
         private $validate = array(
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
-                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
+                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'required|valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
                                     array('field'=> 'password', 'label' => 'Senha', 'rules' => 'required|trim'),
                                     array('field'=> 'id_type_user', 'label' => 'Tipo', 'rules' => 'required|trim'),
-                                    array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
+                                    array('field'=> 'birthday', 'label' => 'Idade', 'rules' => 'trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
                                     array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|is_unique[ctp_users.cpf]|trim'),
@@ -15,19 +15,21 @@ class Usuarios extends MY_Controller
                                 ); 
         
         private $validate_edit = array(
-                                    array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
-                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
-                                    array('field'=> 'age', 'label' => 'Idade', 'rules' => 'integer|trim'),
+                                    //array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
+                                    //array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
+                                    array('field'=> 'birthday', 'label' => 'Data de Nascimento', 'rules' => 'trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
-                                    //array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'trim'),
+                                    array('field'=> 'cep', 'label' => 'CPF', 'rules' => 'trim'),
                                 ); 
 
         public function __construct() 
         {
                 parent::__construct();
                 $this->load->library(array('bcrypt'));
-                $this->load->model(array('users_model', 'type_users_model', 'address_model', 'neighborhood_model', 'citys_model', 'states_model'));
+                $this->load->model(array('users_model', 'type_users_model', 'address_model', 
+                    'neighborhood_model', 'citys_model', 'states_model', 'attachment_model'));
         }
         
         public function index()
@@ -37,6 +39,7 @@ class Usuarios extends MY_Controller
         
         public function listar()
         {
+                $this->_is_autorized('admin/painel/');
                 $data['data_table'] = $this->_init_data_table();
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
@@ -71,7 +74,7 @@ class Usuarios extends MY_Controller
                                 $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash('123') ;
                                 $data['date_create'] = date('Y-m-d');
                                 $id = $this->users_model->insert($data);
-                                $this->logs->save('Usuarios inserido ID : '.$id);
+                                $this->save_log('Usuarios inserido ID : '.$id);
                                 redirect('admin/usuarios/editar/'.$id.'/1');
                         }
                         else
@@ -114,6 +117,14 @@ class Usuarios extends MY_Controller
         
         public function editar($codigo = '', $ok = FALSE)
         {
+                if($this->session->userdata['admin'])
+                {
+                        $codigo = (isset($codigo) && !empty($codigo)) ? $codigo : $this->session->userdata['id'] ;
+                }
+                else
+                {
+                        $codigo = $this->session->userdata['id'];
+                }
                 if(isset($codigo) && $codigo)
                 {
                         $dados = $this->users_model->get_item('ctp_users.id = '.$codigo);
@@ -138,14 +149,22 @@ class Usuarios extends MY_Controller
                                 {
                                         $session['neighborhood'] = $this->_get_neighborhood_by_address($data['id_address']);
                                 }
+                                if(isset($data['birthday']) && !empty($data['birthday']))
+                                {
+                                        $birthday = explode('/', $data['birthday']);
+                                        $data['birthday'] = $birthday[2].'-'.$birthday[1].'-'.$birthday[0];
+                                }
                                 $id = $this->users_model->update($data, 'ctp_users.id = '.$codigo);
                                 if($this->session->userdata['id'] == $codigo)
                                 {
                                         $session['nome'] = $data['name'];
-                                        $session['type'] = $data['id_type_user'];
                                 }
                                 $this->session->set_userdata($session);
-                                $this->logs->save('Usuarios editado ID : '.$codigo);
+                                if(!empty($_FILES['files']['name']))
+                                {
+                                        $this->do_upload($codigo, '/uploads/users/', 'jpg|jpeg|png', 'Foto');
+                                }
+                                $this->save_log('Usuarios editado ID : '.$codigo);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');
                         }
                         else
@@ -163,20 +182,23 @@ class Usuarios extends MY_Controller
                                         $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
                                         $data['types_user'] = $this->get_type_user();
                                         $data['item'] = $dados;
+                                        $data['user_photo'] = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
                                         $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
+                                        $is_admin = $this->session->userdata['admin'] ? 0 : 1;
                                         $this->layout
                                                 ->set_title('Admin - Usuários - Editar')
                                                 ->set_js('admin/js/address.js')
+                                                ->set_js('admin/js/cpf.js')
                                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                                ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
-                                                ->set_breadcrumbs('Editar', 'admin/usuarios/editar', 1)
+                                                ->set_breadcrumbs('Usuarios', 'admin/usuarios/', $is_admin)
+                                                ->set_breadcrumbs('Editar', 'admin/usuarios/', 1)
                                                 ->set_view('pages/admin/forms/users',$data , 'template/admin/');
                                 }
                         }
                 }
                 else
                 {
-                        redirect('painel');
+                        redirect('admin/painel');
                 }
         }
         
@@ -192,7 +214,7 @@ class Usuarios extends MY_Controller
                         {
                                 $deleted = $this->users_model->update(array('active' => 0),'ctp_users.id = '.$item);
                                 if($deleted) $qtde++;
-                                $this->logs->save('Usuarios excluido ID : '.$item);
+                                $this->save_log('Usuarios excluido ID : '.$item);
                         }
                 }
                 echo json_encode($qtde);

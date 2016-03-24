@@ -11,6 +11,15 @@
                 </div>
             </div>
             <?php endif; ?>
+            <?php if(isset($error)): ?>
+            <div class="col-md-12 col-sm-12">
+                <div class="padding-20">
+                    <div class="alert alert-danger">
+                        <?php echo $error; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="col-md-4 col-sm-5">
                 <div class="toggle toggle-transparent toggle-accordion  toggle-noicon">
                     <div class="toggle active">
