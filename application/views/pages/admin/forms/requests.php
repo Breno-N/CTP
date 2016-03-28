@@ -106,7 +106,7 @@
                                 <div class="row form-input">
                                     <div class="uploadfiles">
                                         <div class="col-md-12 col-sm-12">
-                                            <input class="custom-file-upload" type="file" id="file" name="files" id="" data-btn-text="Selecionar Arquivo" />
+                                            <input class="custom-file-upload" type="file" id="file" name="files" data-btn-text="Selecionar Arquivo" />
                                             <small class="text-muted block">Tamanho máximo de: 2Mb (Word, PDF com Nome, E-mail, CPF e E-mail)</small>
                                         </div>
                                     </div>

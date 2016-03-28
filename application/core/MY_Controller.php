@@ -68,7 +68,7 @@ class MY_Controller extends CI_Controller
     * @params string $dir
     * @return array $data 
     */
-    public function do_upload($id = '', $path = '', $ext = 'pdf|doc|docx', $type = '', $max_size = 2048)
+    public function do_upload($id = '', $path = '', $ext = 'pdf|doc|docx', $type = '')
     {
             $data = array();
             //$dir = str_replace('\\', '/', getcwd()).'/uploads/files/'.date('Y/m/d').'/'.$id;
@@ -77,19 +77,21 @@ class MY_Controller extends CI_Controller
 
             $config['upload_path'] = $dir;
             $config['allowed_types'] = $ext;
-            $config['max_size'] = $max_size;
-           
+            $config['max_size'] = 10240; // 10 mega
+            $config['file_name'] = $id;
+            var_Dump($this->upload->data);
+            die();
             $this->load->library('upload', $config);
 
             if(!$this->upload->do_upload('files')) 
             {
-                $data['upload'] = array('error' => $this->upload->display_errors());
+                    $data['upload'] = array('error' => $this->upload->display_errors());
             }
             else
             {
-                $this->load->model('attachment_model');
-                $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $this->upload->data('full_path'), 'type' => $type));
-                $data['upload'] = array('success' => $this->upload->data());
+                    $this->load->model('attachment_model');
+                    $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $this->upload->data('full_path'), 'type' => $type));
+                    $data['upload'] = array('success' => $this->upload->data());
             }
             return $data;
     }

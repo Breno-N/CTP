@@ -14,29 +14,15 @@ loadScript(plugin_path + 'bootstrap.typeahead/bootstrap3-typeahead.min.js', func
         
         business.on('blur', function(){
             var name = $(this).val();
-            get_business_by_name(name);
             if($('.form-link-warning')[0]){
                 have_business_neighborhood_request(name);
             }
         });
         
+       
         function get_all_bussines(place){
             $.getJSON('/ctp/util/get_business').then(function(result){
                 place.typeahead({ source : result });
-            });
-        }
-        
-        function get_business_by_name(business){
-            $.getJSON('/ctp/util/get_business_by_name', {business : business}).then(function(result){
-                if(result != '' && result != '0' && result != null && result != undefined){
-                    $('#pedir').attr('disabled', false);
-                    $('#business').removeClass('error');
-                    $('.form-notfind-business').hide();
-                }else{
-                    $('#pedir').attr('disabled', true);
-                    $('#business').addClass('error');
-                    $('.form-notfind-business').show();
-                }
             });
         }
         

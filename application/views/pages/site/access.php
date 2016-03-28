@@ -63,7 +63,6 @@
                             </div>
                         </div>
                     </div>
-                    
                 </div>
             </div>
             <div class="col-md-8 col-sm-7">
@@ -106,9 +105,6 @@
                                         <div id="test-cpf" class="alert alert-warning softhide">CPF Inválido</div>
                                     </div>
                                     <?php endif; ?>
-                                    <!--<div class="margin-top-30">
-                                        <label class="checkbox nomargin"><input class="checked-agree" type="checkbox" name="checkbox"><i></i>Concordo com os <a href="#" data-toggle="modal" data-target="#termsModal"> Termos de Serviço</a></label>
-                                    </div>-->
                                 </fieldset>
                                 <div class="row margin-bottom-20">
                                     <div class="col-md-12">

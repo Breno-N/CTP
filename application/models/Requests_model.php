@@ -174,7 +174,7 @@ class Requests_model extends MY_Model
                                     ';
                 $data['tables'] =  array(
                                         array($this->table),
-                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business', 'join' => 'INNER'),
+                                        array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business AND ctp_business.active = 1', 'join' => 'INNER'),
                                         array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),                    
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
                                         array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),

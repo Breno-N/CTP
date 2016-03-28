@@ -1,12 +1,12 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Erro extends MY_Controller
+class Negocios_abertos extends MY_Controller
 {
         private $validate = array(
                                     array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|trim'),
                                     array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
                                 );
-     
+    
         public function __construct() 
         {
                 parent::__construct(FALSE);
@@ -39,14 +39,19 @@ class Erro extends MY_Controller
                 }
                 else
                 {
-                        $data['action'] = base_url().'erro';
+                        $data['action'] = base_url().'negocios_abertos';
                         $this->layout
-                                ->set_title('Faz, Que Falta - Erro')
-                                ->set_keywords('Faz, Que Falta - Erro')
+                                ->set_title('Faz, Que Falta - Negócios Abertos')
+                                ->set_keywords('Faz, Que Falta - Negócios Abertos')
                                 ->set_description('')
                                 ->set_js('site/js/business_autocomplete.js')
                                 ->set_js('site/js/requests.js')
-                                ->set_view('pages/site/error', $data);
+                                ->set_view('pages/site/open_business', $data);
                 }
+        }
+        
+        private function _post()
+        {
+                return sanitize($this->input->post(NULL, TRUE));
         }
 }

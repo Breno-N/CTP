@@ -5,7 +5,7 @@
     </header>
     <div id="content" class="padding-20">
         <div class="page-profile">
-            <?php if(!isset($item->id_address) || !$item->id_address): ?>
+            <?php if(!isset($item->id_address, $item->cpf) || !$item->id_address || empty($item->cpf)): ?>
             <div class="alert alert-info margin-bottom-30">
                 <h4>Importante!</h4>
                 <p>* Para realizar pedidos é necessário informar CPF e CEP.</p>
@@ -116,11 +116,6 @@
                                                 <input type="text" name="cpf" id="cpf" class="form-control masked" data-format="999.999.999-99" data-placeholder="X"  required="required" />
                                             </div>
                                         </div>
-                                        <div class="form-group form-cpf softhide">
-                                            <div class="col-md-offset-3 col-md-8 col-xs-12">
-                                                <div class="alert">CPF Inválido</div>
-                                            </div>
-                                        </div>
                                         <?php endif;?>
                                         
                                         <?php if(!isset($item->id_address) || empty($item->id_address)):?>
@@ -162,7 +157,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="birthday">Data de Nascimento</label>
                                             <div class="col-md-8">
-                                                <input type="text" name="birthday" id="birthday" class="form-control masked" data-format="99/99/9999" data-placeholder="_" placeholder="DD/MM/YYYY" />
+                                                <input type="text" name="birthday" id="birthday" class="form-control masked" data-format="99/99/9999" data-placeholder="_" placeholder="DD/MM/YYYY" value="<?php echo set_value('birthday', (isset($item->birthday) && $item->birthday) ? $item->birthday : '' )?>" />
                                             </div>
                                         </div>
                                         <?php endif;?>
@@ -185,13 +180,13 @@
                                         </div>
                                         <?php endif;?>
                                         
-                                        <div class="form-group">
+                                        <!--<div class="form-group">
                                             <label class="col-md-3 control-label" for="files">Foto</label>
                                             <div class="col-md-8">
                                                 <input class="custom-file-upload" name="files" type="file" id="files" data-btn-text="Arquivo" />
                                                 <small class="text-muted block">2Mb (jpg/png)</small>
                                             </div>
-                                        </div>
+                                        </div>-->
                                         
                                     </fieldset>
                                     
@@ -200,7 +195,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="password">Senha</label>
                                             <div class="col-md-8">
-                                                <input type="text" name="password" id="password" class="form-control" >
+                                                <input type="password" name="password" id="password" class="form-control" >
                                             </div>
                                         </div>
                                     </fieldset>

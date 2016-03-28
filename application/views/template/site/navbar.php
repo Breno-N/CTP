@@ -14,7 +14,7 @@
                             <a href="<?php echo base_url(); ?>">Home</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url(); ?>">Negócios Já Abertos</a>
+                            <a href="<?php echo base_url().'negocios_abertos'; ?>">Negócios Já Abertos</a>
                         </li>
                         <li>
                             <a href="<?php echo base_url().'sobre'; ?>">Quem Somos</a>

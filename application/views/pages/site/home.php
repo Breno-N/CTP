@@ -11,13 +11,9 @@
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12">
                 <h2 class="size-25">Bem Vindo ao FAZ, QUE FALTA!</h2>
-                <p>O Faz Falta é um sistema que aproxima empreendedores as necessidades da população!</p>
+                <p>O Faz, que Falta é um sistema que aproxima empreendedores as necessidades da população!</p>
                 <p>Para o cidadão é possível fazer pedido de coisas que faltam na sua comunidade como por exemplo uma fármacia.</p>
                 <p>Já para o empreendor que tem o capital necessário e a idéia, ele tem acesso as esses pedidos, e sabe exatamente onde pode construir o seu negocio de sucesso!</p>
-                <blockquote>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas metus nulla, commodo a sodales sed, dignissim pretium nunc.</p>
-                        <cite>Albert Einstein</cite>
-                </blockquote>
             </div>
         </div>
     </div>
@@ -28,8 +24,7 @@
 <section class="callout-dark heading-title heading-arrow-bottom">
     <div class="container">
         <div class="text-center">
-            <h3 class="size-30">Smarty Multipurpose Responsive Template</h3>
-            <p>We can't solve problems by using the same kind of thinking we used when we created them.</p>
+            <h3 class="size-30">Comece agora, faça seu pedido</h3>
         </div>
     </div>
 </section>
@@ -39,12 +34,12 @@
 <section>
     <div class="container">
         <div class="row">
-        <?php if(validation_errors()): ?>
-        <div class="alert alert-danger margin-bottom-30">
-            <?php echo validation_errors(); ?>
-        </div>
-        <?php endif; ?>
-            <form action="<?php echo $action; ?>" method="post">
+            <?php if(validation_errors()): ?>
+            <div class="alert alert-danger margin-bottom-30">
+                <?php echo validation_errors(); ?>
+            </div>
+            <?php endif; ?>
+            <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">
                 <fieldset>
                     <div class="row">
                         <div class="form-group">
@@ -77,33 +72,46 @@
                                 <textarea name="description" id="description" rows="4" class="form-control" required="required"></textarea>
                             </div>
                         </div>
+                        <div class="col-md-12 col-sm-12 margin-top-20">
+                            <div class="alert alert-info">
+                                * Descreva com o maximo de detalhes possivel a necessidade desse estabelecimento no seu bairro.
+                            </div>
+                        </div>
                     </div>
                     <div class="row">
                         <div class="form-group">
                             <div class="col-md-6 col-sm-6">
-                                <label class="switch switch-success switch">
-                                    <input type="checkbox" name="have_business_neighborhood">
-                                    <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
-                                    <span>Existe esse negócio no bairro ?</span>
+                                <span>Existe esse negócio no bairro ?</span><br>
+                                <label class="radio">
+                                    <input type="radio" name="have_business_neighborhood" value="1" >
+                                    <i></i> Sim
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="have_business_neighborhood" value="0" >
+                                    <i></i> Não
                                 </label>
                             </div>
                             <div class="col-md-6 col-sm-6">
-                                <label class="switch switch-success switch">
-                                    <input type="checkbox" name="request_public_agency">
-                                    <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
-                                    <span>Solicitação feita a algum orgão público ?</span>
+                                <span>Solicitação feita a algum orgão público ?</span><br>
+                                <label class="radio">
+                                    <input type="radio" name="request_public_agency" value="1" >
+                                    <i></i> Sim
+                                </label>
+                                <label class="radio">
+                                    <input type="radio" name="request_public_agency" value="0" >
+                                    <i></i> Não
                                 </label>
                             </div>
                         </div>
                     </div>
-                </fieldset>
-                <div class="row">
-                    <div class="col-md-12">
-                        <button type="submit" id="pedir" class="btn btn-3d btn-teal margin-top-30">
-                            REALIZAR PEDIDO
-                        </button>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button type="submit" id="pedir" class="btn btn-3d btn-teal margin-top-10">
+                                REALIZAR PEDIDO
+                            </button>
+                        </div>
                     </div>
-                </div>
+                </fieldset>
             </form>
         </div>
     </div>

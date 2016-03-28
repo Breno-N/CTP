@@ -10,18 +10,16 @@ class Usuarios extends MY_Controller
                                     array('field'=> 'birthday', 'label' => 'Idade', 'rules' => 'trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'max_length[1]|trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
-                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|is_unique[ctp_users.cpf]|trim'),
-                                    array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'required|max_length[9]|trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'required|callback_is_valid_cpf|is_unique[ctp_users.cpf]|trim'),
+                                    array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'required|callback_is_valid_address|trim'),
                                 ); 
         
         private $validate_edit = array(
-                                    //array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|max_length[255]|trim'),
-                                    //array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|max_length[255]|is_unique[ctp_users.email]|trim'),
                                     array('field'=> 'birthday', 'label' => 'Data de Nascimento', 'rules' => 'trim'),
                                     array('field'=> 'genre', 'label' => 'Sexo', 'rules' => 'trim'),
                                     array('field'=> 'phone', 'label' => 'Telefone', 'rules' => 'trim'),
-                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'trim'),
-                                    array('field'=> 'cep', 'label' => 'CPF', 'rules' => 'trim'),
+                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'trim|callback_is_valid_cpf|is_unique[ctp_users.cpf]'),
+                                    array('field'=> 'cep', 'label' => 'CEP', 'rules' => 'trim|callback_is_valid_address'),
                                 ); 
 
         public function __construct() 
@@ -89,7 +87,6 @@ class Usuarios extends MY_Controller
                                 $this->layout
                                             ->set_title('CTP - Admin - Usuários - Adicionar')
                                             ->set_js('admin/js/address.js')
-                                            ->set_js('admin/js/cpf.js')
                                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                             ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                                             ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
@@ -107,7 +104,6 @@ class Usuarios extends MY_Controller
                         $this->layout
                                     ->set_title('CTP - Admin - Usuários - Adicionar')
                                     ->set_js('admin/js/address.js')
-                                    ->set_js('admin/js/cpf.js')
                                     ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                     ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                                     ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
@@ -117,7 +113,7 @@ class Usuarios extends MY_Controller
         
         public function editar($codigo = '', $ok = FALSE)
         {
-                if($this->session->userdata['admin'])
+                if(isset($this->session->userdata['admin']) && $this->session->userdata['admin'])
                 {
                         $codigo = (isset($codigo) && !empty($codigo)) ? $codigo : $this->session->userdata['id'] ;
                 }
@@ -184,11 +180,10 @@ class Usuarios extends MY_Controller
                                         $data['item'] = $dados;
                                         $data['user_photo'] = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
                                         $data['ok'] = (isset($ok) && $ok) ? TRUE : FALSE;
-                                        $is_admin = $this->session->userdata['admin'] ? 0 : 1;
+                                        $is_admin = (isset($this->session->userdata['admin']) && $this->session->userdata['admin']) ? 0 : 1;
                                         $this->layout
                                                 ->set_title('Admin - Usuários - Editar')
                                                 ->set_js('admin/js/address.js')
-                                                ->set_js('admin/js/cpf.js')
                                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                                 ->set_breadcrumbs('Usuarios', 'admin/usuarios/', $is_admin)
                                                 ->set_breadcrumbs('Editar', 'admin/usuarios/', 1)
@@ -218,6 +213,55 @@ class Usuarios extends MY_Controller
                         }
                 }
                 echo json_encode($qtde);
+        }
+        
+        public function is_valid_address($cep = '')
+        {
+                if(isset($cep) && !empty($cep))
+                {
+                        $address = $this->address_model->get_item('ctp_address.zip_code = '.$cep);
+                        
+                        if(!$address) return FALSE;
+                        
+                        return TRUE;
+                }
+                else
+                {
+                        return TRUE;
+                }
+        }
+        
+        public function is_valid_cpf($cpf = '')
+        {
+                if(isset($cpf) && !empty($cpf))
+                {
+                        $cpf = preg_replace('/[^0-9]/', '', $cpf);
+                        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+                        if (strlen($cpf) != 11)
+                        {
+                                return FALSE;
+                        }
+                        else if ($cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') 
+                        {
+                                return FALSE;
+                        }
+                        else
+                        {   
+                                for ($t = 9; $t < 11; $t++)
+                                {
+                                        for ($d = 0, $c = 0; $c < $t; $c++) { $d += $cpf{$c} * (($t + 1) - $c); }
+
+                                        $d = ((10 * $d) % 11) % 10;
+
+                                        if ($cpf{$c} != $d) return FALSE;
+                                }
+                                return TRUE;
+                        }
+                }
+                else
+                {
+                        return TRUE;
+                }
         }
         
         public function get_type_user()

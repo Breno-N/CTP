@@ -1,13 +1,7 @@
-<section class="page-header">
-    <div class="container">
-        <h1>PÁGINA NÃO ENCONTRADA</h1>
-    </div>
-</section>
 <section>
     <div class="container">
         <div class="row">
-            <h2>OPS, <strong>Página não encontrada, assim como o serviço que você precisa!</strong></h2>
-            <h3>Faça seu pedido agora</h3>
+            <h2>Ainda não temos nehum negócio aberto, apoie essa idéia, faça seu pedido</h2>
         </div>
         <div class="row">
             <?php if(validation_errors()): ?>

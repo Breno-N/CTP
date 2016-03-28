@@ -3,8 +3,7 @@
 class Pedidos extends MY_Controller
 {
         private $validate = array(
-                                    //array('field'=> 'id_business', 'label' => 'Categoria', 'rules' => 'required|trim'),
-                                    array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|trim'),
+                                    array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|callback_in_list_business|trim'),
                                     array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
                                     array('field'=> 'quantity', 'label' => 'Reforçar Pedidos', 'rules' => 'integer|trim'),
                                 ); 
@@ -79,7 +78,10 @@ class Pedidos extends MY_Controller
                                         $data_user_request['id_user'] = $this->session->userdata['id'];
                                         $id_user_request = $this->user_request_model->insert($data_user_request);
                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
-                                        if(!empty($_FILES['files']['name'])) $this->do_upload($id, '/uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx', 'Arquivo');
+                                        if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
+                                        {
+                                                $this->do_upload($_FILES, $id, '/uploads/files/'.date('Y/m/d').'/', array('pdf','doc','docx','txt'), 'Arquivo');
+                                        }
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');
                         }
@@ -139,8 +141,8 @@ class Pedidos extends MY_Controller
                                         }
                                         else
                                         {
-                                            $this->session->unset_userdata('pedido_session');
-                                            redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/2');
+                                                $this->session->unset_userdata('pedido_session');
+                                                redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/2');
                                         }
                                 }
                                 else
@@ -170,39 +172,31 @@ class Pedidos extends MY_Controller
                 if(isset($codigo) && $codigo)
                 {
                         $dados = $this->requests_model->get_item('ctp_requests.id = '.$codigo);
-                        if($codigo && !empty($_FILES['files']['name']))
+                        if(!isset($dados) || empty($dados))
                         {
-                                $this->do_upload($codigo, '/uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx', 'Arquivo');
-                                redirect('admin/requisicoes/detalhes/'.$codigo.'/1');
+                                $this->error();
                         }
                         else
                         {
-                                if(!isset($dados) || empty($dados))
-                                {
-                                        $this->error();
-                                }
-                                else
-                                {
-                                        $classe = strtolower(__CLASS__);
-                                        $function = strtolower(__FUNCTION__);
-                                        $data['classe'] = $classe;
-                                        $data['function'] = $function;
-                                        $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
-                                        $data['item'] = $dados;
-                                        $data['ok'] = (isset($ok) && $ok) ? $ok : FALSE;
-                                        $data['status'] = $this->get_status();
-                                        $data['type_business'] = $this->get_type_business();
-                                        $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" ');
-                                        $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
-                                        $this->layout
-                                                ->set_title('Admin - Pedidos - Detalhes')
-                                                ->set_js('admin/js/business_autocomplete.js')
-                                                ->set_js('admin/js/requests.js')
-                                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                                ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
-                                                ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
-                                                ->set_view('pages/admin/forms/requests', $data, 'template/admin/');
-                                }
+                                $classe = strtolower(__CLASS__);
+                                $function = strtolower(__FUNCTION__);
+                                $data['classe'] = $classe;
+                                $data['function'] = $function;
+                                $data['action'] = base_url().'admin/'.$classe.'/'.$function.'/'.$codigo;
+                                $data['item'] = $dados;
+                                $data['ok'] = (isset($ok) && $ok) ? $ok : FALSE;
+                                $data['status'] = $this->get_status();
+                                $data['type_business'] = $this->get_type_business();
+                                $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" ');
+                                $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                                $this->layout
+                                        ->set_title('Admin - Pedidos - Detalhes')
+                                        ->set_js('admin/js/business_autocomplete.js')
+                                        ->set_js('admin/js/requests.js')
+                                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                                        ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
+                                        ->set_breadcrumbs('Detalhes', 'admin/requisicoes/detalhes', 1)
+                                        ->set_view('pages/admin/forms/requests', $data, 'template/admin/');
                         }
                 }
                 else
@@ -233,6 +227,13 @@ class Pedidos extends MY_Controller
                         }
                 }
                 echo json_encode($update);
+        }
+        
+        public function in_list_business($value)
+        {
+                $bussines = $this->business_model->get_business_by_name($value);
+                if(!$bussines) return FALSE;
+                return TRUE;
         }
         
         public function download($id = '', $description = '')
