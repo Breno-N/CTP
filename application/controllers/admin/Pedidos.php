@@ -76,7 +76,7 @@ class Pedidos extends MY_Controller
                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                         if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
                                         {
-                                                $this->do_upload($_FILES, $id, '/uploads/files/'.date('Y/m/d').'/', array('pdf','doc','docx','txt'), 'Arquivo');
+                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx|txt', 'Arquivo');
                                         }
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');

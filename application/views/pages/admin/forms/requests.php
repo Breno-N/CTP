@@ -120,7 +120,7 @@
                                         </div>
                                         <?php foreach($attachments['itens'] as $attachment): ?>
                                             <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                                <a href="<?php echo base_url().'admin/pedidos/download/'.$item->id; ?>"><?php echo $attachment->description; ?></a>
+                                                <a href="<?php echo base_url().'admin/pedidos/download/'.$item->id; ?>">Apoiadores do Pedido</a>
                                             </div>
                                         <?php endforeach; ?>
                                     </div>
