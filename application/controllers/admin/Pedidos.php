@@ -51,7 +51,7 @@ class Pedidos extends MY_Controller
                 if($this->get_neighborhood())
                 {
                         $this->_adicionar_pedido_session();
-                        $this->form_validation->set_rules('business', 'Negócio', array('required', array('in_list_business', array($this->business_model, 'get_business_by_name')), 'trim'));
+                        $this->form_validation->set_rules('business', 'Negócio', array('required', array('is_valid_business', array($this->business_model, 'is_valid_business')), 'trim'));
                         $this->form_validation->set_rules('description', 'Descrição', array('required', 'trim'));
                         $this->form_validation->set_rules('quantity', 'Reforçar Pedidos', array('integer', 'trim'));
                         if($this->form_validation->run())

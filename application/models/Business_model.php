@@ -46,7 +46,7 @@ class Business_model extends MY_Model
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
-                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? TRUE : FALSE);
+                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? $return['itens'][0]->id : 0);
         }
         
         public function get_select($where = array(), $column = 'id', $order = 'DESC')
@@ -107,5 +107,16 @@ class Business_model extends MY_Model
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
                 return $return['qtde'][0];
+        }
+        
+        public function is_valid_business($business = '')
+        {
+                $data['fields']  = $this->table.'.id as id';
+                $data['tables'] =  array(
+                                        array($this->table)
+                                    );
+                $data['where'] = 'ctp_business.description = "'.$business.'" AND ctp_business.active = 1';
+                $return = $this->get_itens_($data);
+                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? TRUE : FALSE);
         }
 }

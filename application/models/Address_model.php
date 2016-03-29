@@ -118,18 +118,25 @@ class Address_model extends MY_Model
                 return (isset($retorno['qtde'][0]) ? $retorno['qtde'][0] : 0 );
         }
         
-        public function is_valid_address($where = array(), $column = 'ctp_address.zip_code', $order = 'DESC')
+        public function is_valid_address($zip_code = '')
         {
-                $data['fields']  = $this->table.'.zip_code as zip_code '; 
-                $data['tables'] =   array(
-                                        array($this->table),
-                                        array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER')
-                                    );
-                if(isset($where) && $where) $data['where'] = $where;
-                $data['column'] = $column;
-                $data['order'] = $order;
-                $retorno = $this->get_itens_($data);
-                return (isset($retorno['itens'][0]->zip_code) ? TRUE : FALSE) ;
+                if(isset($zip_code) && !empty($zip_code))
+                {
+                        $data['fields']  = $this->table.'.zip_code as zip_code '; 
+                        $data['tables'] =   array(
+                                                array($this->table),
+                                                array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
+                                                array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = '.$this->table.'.id_city', 'join' => 'INNER')
+                                            );
+                        $data['where'] = 'ctp_address.zip_code = '.$zip_code;
+                        $data['column'] = 'ctp_address.zip_code';
+                        $data['order'] = 'DESC';
+                        $retorno = $this->get_itens_($data);
+                        return (isset($retorno['itens'][0]->zip_code) ? TRUE : FALSE) ;
+                }
+                else
+                {
+                        return TRUE;
+                }
         }
 }
