@@ -6,7 +6,7 @@
             <div class="col-md-12 col-sm-12">
                 <div class="padding-20">
                     <div class="alert alert-danger">
-                        <?php echo validation_errors('<h4 class="text-center">', '</h4>'); ?>
+                        <?php echo validation_errors(); ?>
                     </div>
                 </div>
             </div>

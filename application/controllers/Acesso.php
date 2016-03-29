@@ -2,23 +2,6 @@
 
 class Acesso extends MY_Controller
 {
-        private $validate_login = array(
-                                    array('field'=> 'email', 'label' => 'Login', 'rules' => 'required|trim|valid_email'),
-                                    array('field'=> 'password', 'label' => 'Senha', 'rules' => 'required|trim'),
-                                ); 
-        
-        private $validate_register = array(
-                                    array('field'=> 'name', 'label' => 'Nome', 'rules' => 'trim'),
-                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'required|trim|valid_email|is_unique[ctp_users.email]'),
-                                    array('field'=> 'password', 'label' => 'Senha', 'rules' => 'required|trim'),
-                                    array('field'=> 'cpf', 'label' => 'CPF', 'rules' => 'trim|callback_is_valid_cpf|is_unique[ctp_users.cpf]'),
-                                    array('field'=> 'id_address', 'label' => 'CEP', 'rules' => 'trim|callback_is_valid_address'),
-                                ); 
-        
-        private $validate_recover_pass = array(
-                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'required|trim|valid_email'),
-                                ); 
-
         public function __construct() 
         {
                 parent::__construct(FALSE);
@@ -40,7 +23,8 @@ class Acesso extends MY_Controller
         
         public function do_login()
         {
-                $this->form_validation->set_rules($this->validate_login); 
+                $this->form_validation->set_rules('email', 'Login', array('required', 'valid_email', 'trim'));
+                $this->form_validation->set_rules('password', 'Senha', array('required', 'trim'));
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
@@ -98,7 +82,11 @@ class Acesso extends MY_Controller
         
         public function do_register()
         {
-                $this->form_validation->set_rules($this->validate_register); 
+                $this->form_validation->set_rules('name', 'Nome', array('trim'));
+                $this->form_validation->set_rules('email', 'Login', array('required', 'trim', 'valid_email', 'is_unique[ctp_users.email]'));
+                $this->form_validation->set_rules('password', 'Senha', array('required', 'trim'));
+                $this->form_validation->set_rules('cpf', 'CPF', array('trim', array('is_valid_cpf', array($this->users_model, 'is_valid_cpf')), 'is_unique[ctp_users.cpf]'));
+                $this->form_validation->set_rules('id_address', 'CEP', array('trim', array('is_valid_address', array($this->address_model, 'is_valid_address'))));
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
@@ -150,7 +138,7 @@ class Acesso extends MY_Controller
         
         public function recover_pass()
         {
-                $this->form_validation->set_rules($this->validate_recover_pass); 
+                $this->form_validation->set_rules('email', 'E-mail', array('required', 'valid_email', 'trim'));
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
@@ -183,62 +171,13 @@ class Acesso extends MY_Controller
                         ->set_view('pages/site/access', $data);
         }
         
-        public function is_valid_address($cep = '')
-        {
-                if(isset($cep) && !empty($cep))
-                {
-                        $address = $this->address_model->get_item('ctp_address.zip_code = '.$cep);
-                        
-                        if(!$address) return FALSE;
-                        
-                        return TRUE;
-                }
-                else
-                {
-                        return TRUE;
-                }
-        }
-        
-        public function is_valid_cpf($cpf = '')
-        {
-                if(isset($cpf) && !empty($cpf))
-                {
-                        $cpf = preg_replace('/[^0-9]/', '', $cpf);
-                        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
-                        if (strlen($cpf) != 11)
-                        {
-                                return FALSE;
-                        }
-                        else if ($cpf == '00000000000' || $cpf == '11111111111' || $cpf == '22222222222' || $cpf == '33333333333' || $cpf == '44444444444' || $cpf == '55555555555' || $cpf == '66666666666' || $cpf == '77777777777' || $cpf == '88888888888' || $cpf == '99999999999') 
-                        {
-                                return FALSE;
-                        }
-                        else
-                        {   
-                                for ($t = 9; $t < 11; $t++)
-                                {
-                                        for ($d = 0, $c = 0; $c < $t; $c++) { $d += $cpf{$c} * (($t + 1) - $c); }
-
-                                        $d = ((10 * $d) % 11) % 10;
-
-                                        if ($cpf{$c} != $d) return FALSE;
-                                }
-                                return TRUE;
-                        }
-                }
-                else
-                {
-                        return TRUE;
-                }
-        }
-        
         public function logoff()
         {
                 $this->save_log('Usuário deslogou do sistema');
                 $this->session->sess_destroy();
                 redirect('home');
         }
-
+        
         private function _post()
         {
                 return sanitize($this->input->post(NULL, TRUE));

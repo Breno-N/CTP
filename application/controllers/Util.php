@@ -27,17 +27,7 @@ class Util extends MY_Controller
                 $return = $this->business_model->get_select('ctp_business.active = 1', 'description', 'ASC');
                 echo json_encode($return);
         }
-        /*
-        public function get_business_by_name()
-        {
-                $data = $this->_get();
-                if(isset($data['business']) && !empty($data['business']))
-                {
-                        $return = $this->business_model->get_business_by_name($data['business']);
-                        echo json_encode($return);
-                }
-        }
-        */
+       
         public function get_charts()
         {
                 $charts['type_business'] = $this->requests_model->get_itens_by_type_business();

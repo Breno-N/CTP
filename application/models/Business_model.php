@@ -46,7 +46,7 @@ class Business_model extends MY_Model
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
-                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? $return['itens'][0]->id : 0);
+                return (isset($return['itens'][0]->id) && ($return['itens'][0]->id) ? TRUE : FALSE);
         }
         
         public function get_select($where = array(), $column = 'id', $order = 'DESC')

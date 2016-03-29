@@ -2,12 +2,6 @@
 
 class Pedidos extends MY_Controller
 {
-        private $validate = array(
-                                    array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|callback_in_list_business|trim'),
-                                    array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
-                                    array('field'=> 'quantity', 'label' => 'Reforçar Pedidos', 'rules' => 'integer|trim'),
-                                ); 
-
         public function __construct() 
         {
             parent::__construct(FALSE);
@@ -57,7 +51,9 @@ class Pedidos extends MY_Controller
                 if($this->get_neighborhood())
                 {
                         $this->_adicionar_pedido_session();
-                        $this->form_validation->set_rules($this->validate); 
+                        $this->form_validation->set_rules('business', 'Negócio', array('required', array('in_list_business', array($this->business_model, 'get_business_by_name')), 'trim'));
+                        $this->form_validation->set_rules('description', 'Descrição', array('required', 'trim'));
+                        $this->form_validation->set_rules('quantity', 'Reforçar Pedidos', array('integer', 'trim'));
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
@@ -227,13 +223,6 @@ class Pedidos extends MY_Controller
                         }
                 }
                 echo json_encode($update);
-        }
-        
-        public function in_list_business($value)
-        {
-                $bussines = $this->business_model->get_business_by_name($value);
-                if(!$bussines) return FALSE;
-                return TRUE;
         }
         
         public function download($id = '', $description = '')

@@ -2,19 +2,16 @@
 
 class Erro extends MY_Controller
 {
-        private $validate = array(
-                                    array('field'=> 'business', 'label' => 'Negócio', 'rules' => 'required|trim'),
-                                    array('field'=> 'description', 'label' => 'Descrição', 'rules' => 'required|trim'),
-                                );
-     
         public function __construct() 
         {
                 parent::__construct(FALSE);
+                $this->load->model(array('business_model'));
         }
 
         public function index()
         {
-                $this->form_validation->set_rules($this->validate); 
+                $this->form_validation->set_rules('business', 'Negócio', array('required', array('in_list_business', array($this->business_model, 'get_business_by_name')), 'trim'));
+                $this->form_validation->set_rules('description', 'Descrição', array('required', 'trim'));
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
