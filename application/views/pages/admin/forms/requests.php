@@ -75,17 +75,25 @@
                                 <div class="row form-input">
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
-                                            <label class="switch switch-success switch">
-                                                <input type="checkbox" name="have_business_neighborhood" <?php echo (isset($item->have_business_neighborhood) && $item->have_business_neighborhood ? 'checked="checked"' : ''); ?> <?php echo ((!isset($item)) ? '' : 'disabled="disabled"'); ?>>
-                                                <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
-                                                <span>Existe esse negócio no bairro ?</span>
+                                            <span>Existe esse negócio no bairro ?</span><br>
+                                            <label class="radio">
+                                                <input type="radio" name="have_business_neighborhood" value="1" <?php echo (isset($item->have_business_neighborhood) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->have_business_neighborhood) && $item->have_business_neighborhood) ? 'checked="checked"' : ''; ?>>
+                                                <i></i> Sim
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="have_business_neighborhood" value="0" <?php echo (isset($item->have_business_neighborhood) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->have_business_neighborhood) && !$item->have_business_neighborhood) ? 'checked="checked"' : ''; ?>>
+                                                <i></i> Não
                                             </label>
                                         </div>
                                         <div class="col-md-6 col-sm-6">
-                                            <label class="switch switch-success switch">
-                                                <input type="checkbox" name="request_public_agency" <?php echo (isset($item->request_public_agency) && $item->request_public_agency ? 'checked="checked"' : ''); ?> <?php echo ((!isset($item)) ? '' : 'disabled="disabled"'); ?>>
-                                                <span class="switch-label" data-on="SIM" data-off="NÃO"></span>
-                                                <span>Solicitação feita a algum orgão público ?</span>
+                                            <span>Solicitação feita a algum orgão público ?</span><br>
+                                            <label class="radio">
+                                                <input type="radio" name="request_public_agency" value="1" <?php echo (isset($item->request_public_agency) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->request_public_agency) && $item->request_public_agency) ? 'checked="checked"' : ''; ?>>
+                                                <i></i> Sim
+                                            </label>
+                                            <label class="radio">
+                                                <input type="radio" name="request_public_agency" value="0" <?php echo (isset($item->request_public_agency) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->request_public_agency) && !$item->request_public_agency) ? 'checked="checked"' : ''; ?>>
+                                                <i></i> Não
                                             </label>
                                         </div>
                                     </div>
@@ -107,7 +115,7 @@
                                     <div class="uploadfiles">
                                         <div class="col-md-12 col-sm-12">
                                             <input class="custom-file-upload" type="file" id="file" name="files" data-btn-text="Selecionar Arquivo" />
-                                            <small class="text-muted block">Tamanho máximo de: 2Mb (Word, PDF com Nome, E-mail, CPF e E-mail)</small>
+                                            <small class="text-muted block">Tamanho máximo de: 2Mb (Word, PDF com Nome, E-mail, CPF e CEP)</small>
                                         </div>
                                     </div>
                                 </div>
@@ -118,11 +126,11 @@
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <h4>Arquivos Anexados</h4>
                                         </div>
-                                        <?php foreach($attachments['itens'] as $attachment): ?>
-                                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
-                                                <a href="<?php echo base_url().'admin/pedidos/download/'.$item->id; ?>">Apoiadores do Pedido</a>
-                                            </div>
-                                        <?php endforeach; ?>
+                                        <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                            <?php foreach($attachments['itens'] as $attachment): ?>
+                                                <a href="<?php echo base_url().'admin/pedidos/download/'.$attachment->id; ?>">Apoiadores do Pedido (Arquivo <?php echo $attachment->id;?>)</a><br>
+                                            <?php endforeach; ?>
+                                        </div>
                                     </div>
                                 </div>
                                 <?php endif; ?>

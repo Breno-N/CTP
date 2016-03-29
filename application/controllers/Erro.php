@@ -24,6 +24,13 @@ class Erro extends MY_Controller
                                 'quantity' => 1,
                             )
                         );
+                        if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
+                        {
+                                $pedido_session['pedido_upload']['tmp_id'] = mt_rand();
+                                $pedido_session['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
+                                $pedido_session['pedido_upload']['tmp_ext'] = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
+                                $this->do_upload($pedido_session['pedido_upload']['tmp_id'], $pedido_session['pedido_upload']['tmp_path'], 'pdf|doc|docx', 'Arquivo');
+                        }
                         $this->session->set_tempdata($pedido_session, NULL, 600);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {

@@ -76,7 +76,7 @@ class Pedidos extends MY_Controller
                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                         if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
                                         {
-                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/d').'/', 'pdf|doc|docx|txt', 'Arquivo');
+                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/'), 'pdf|doc|docx', 'Arquivo');
                                         }
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');
@@ -131,13 +131,44 @@ class Pedidos extends MY_Controller
                                                         $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$business_exists_neighborhood);
                                                         $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$business_exists_neighborhood);
                                                         $this->save_log('Pedidos apoiado ID : '.$business_exists_neighborhood);
-                                                        $this->session->unset_userdata('pedido_session');
+                                                        
+                                                        if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))
+                                                        {
+                                                                $old_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                                                                $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
+                                                                $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+
+                                                                $this->build_dir($new_dir);
+                                                                $new_file = $new_dir.$new_name;
+
+                                                                rename($old_file, $new_file);
+
+                                                                $this->attachment_model->remove('ctp_attachment.id_user_request = "'.$this->session->userdata['pedido_upload']['tmp_id'].'" ');
+                                                                $this->attachment_model->insert(array('id_user_request' => $business_exists_neighborhood, 'description' =>  $new_name, 'path' => $new_file, 'type' => 'Arquivo'));
+                                                        }
+                                                        
+                                                        $this->session->unset_userdata(array('pedido_session', 'pedido_upload'));
                                                         redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/3');
                                                 }
                                         }
                                         else
                                         {
-                                                $this->session->unset_userdata('pedido_session');
+                                                if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))
+                                                {
+                                                        $old_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                                                        $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
+                                                        $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                                                        
+                                                        $this->build_dir($new_dir);
+                                                        $new_file = $new_dir.$new_name;
+                                                       
+                                                        rename($old_file, $new_file);
+                                                        
+                                                        $this->attachment_model->remove('ctp_attachment.id_user_request = "'.$this->session->userdata['pedido_upload']['tmp_id'].'" ');
+                                                        $this->attachment_model->insert(array('id_user_request' => $business_exists_neighborhood, 'description' =>  $new_name, 'path' => $new_file, 'type' => 'Arquivo'));
+                                                }
+                                            
+                                                $this->session->unset_userdata(array('pedido_session', 'pedido_upload'));
                                                 redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/2');
                                         }
                                 }
@@ -155,8 +186,23 @@ class Pedidos extends MY_Controller
                                                 $data_user_request['id_user'] = $this->session->userdata['id'];
                                                 $id_user_request = $this->user_request_model->insert($data_user_request);
                                                 $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                                
+                                                if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))
+                                                {
+                                                        $old_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                                                        $new_dir = 'uploads/files/'.date('Y/m/').$id.'/';
+                                                        $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                                                        
+                                                        $this->build_dir($new_dir);
+                                                        $new_file = $new_dir.$new_name;
+                                                       
+                                                        rename($old_file, $new_file);
+                                                        
+                                                        $this->attachment_model->remove('ctp_attachment.id_user_request = "'.$this->session->userdata['pedido_upload']['tmp_id'].'" ');
+                                                        $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $new_name, 'path' => $new_file, 'type' => 'Arquivo'));
+                                                }
                                         }
-                                        $this->session->unset_userdata('pedido_session');
+                                        $this->session->unset_userdata(array('pedido_session', 'pedido_upload'));
                                         redirect('admin/pedidos/detalhes/'.$id.'/1');
                                 }
                         }
@@ -225,11 +271,12 @@ class Pedidos extends MY_Controller
                 echo json_encode($update);
         }
         
-        public function download($id = '', $description = '')
+        public function download($id = '')
         {
                 $this->_is_autorized('admin/painel/');
                 if(empty($id)) exit();
-                $file = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$id.' AND ctp_attachment.type = "Arquivo" ');
+                //$file = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$id.' AND ctp_attachment.type = "Arquivo" ');
+                $file = $this->attachment_model->get_item('ctp_attachment.id = '.$id.' AND ctp_attachment.type = "Arquivo" ');
                 header('Content-Type: application/octet-stream');
                 header("Content-Transfer-Encoding: Binary"); 
                 header('Content-Disposition: attachment; filename="'.$file->description.'"');

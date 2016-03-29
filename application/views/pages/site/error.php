@@ -81,6 +81,22 @@
                         </div>
                     </div>
                     <div class="row">
+                        <div class="form-group">
+                            <div class="col-md-3 col-sm-12">
+                                <label for="quantity">Quantidade de Pedidos</label>
+                                <input type="number" name="quantity" id="quantity" min="0" value="" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="uploadfiles">
+                            <div class="col-md-12 col-sm-12">
+                                <input class="custom-file-upload" type="file" id="file" name="files" data-btn-text="Selecionar Arquivo" />
+                                <small class="text-muted block">Tamanho máximo de: 2Mb (Word, PDF com Nome, E-mail, CPF e CEP)</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col-md-12">
                             <button type="submit" id="pedir" class="btn btn-3d btn-teal margin-top-10">
                                 REALIZAR PEDIDO

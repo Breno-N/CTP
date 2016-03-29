@@ -94,7 +94,7 @@ class MY_Controller extends CI_Controller
                 else
                 {
                         $this->load->model('attachment_model');
-                        $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $path.'/'.$this->upload->data('file_name'), 'type' => $type));
+                        $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $path.$this->upload->data('file_name'), 'type' => $type));
                         $data['upload'] = array('success' => $this->upload->data());
                 }
                 return $data;

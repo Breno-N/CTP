@@ -30,9 +30,16 @@ class Home extends MY_Controller
                                 'description' => $post['description'],
                                 'have_business_neighborhood' => (isset($post['have_business_neighborhood']) ? 1 : 0),
                                 'request_public_agency' => (isset($post['request_public_agency']) ? 1 : 0),
-                                'quantity' => 1,
+                                'quantity' => (isset($post['quantity']) ? $post['quantity'] : 1),
                             )
                         );
+                        if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
+                        {
+                                $pedido_session['pedido_upload']['tmp_id'] = mt_rand();
+                                $pedido_session['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
+                                $pedido_session['pedido_upload']['tmp_ext'] = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
+                                $this->do_upload($pedido_session['pedido_upload']['tmp_id'], $pedido_session['pedido_upload']['tmp_path'], 'pdf|doc|docx', 'Arquivo');
+                        }
                         $this->session->set_tempdata($pedido_session, NULL, 600);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
@@ -52,6 +59,7 @@ class Home extends MY_Controller
                                 ->set_keywords('Faz, Que Falta')
                                 ->set_description('')
                                 ->set_js('site/js/business_autocomplete.js')
+                                ->set_js('site/js/requests.js')
                                 ->set_view('pages/site/home', $data);
                 }
         }

@@ -115,8 +115,8 @@ class Usuarios extends MY_Controller
                         $this->form_validation->set_rules('birthday', 'Data de Nascimento', array('trim'));
                         $this->form_validation->set_rules('genre', 'Sexo', array('trim', 'max_length[1]'));
                         $this->form_validation->set_rules('phone', 'Telefone', array('trim'));
-                        $this->form_validation->set_rules('cpf', 'CPF', array('required', 'trim', array('is_valid_cpf', array($this->users_model, 'is_valid_cpf')), 'is_unique[ctp_users.cpf]'));
-                        $this->form_validation->set_rules('id_address', 'CEP', array('required', 'trim', array('is_valid_address', array($this->address_model, 'is_valid_address'))));
+                        $this->form_validation->set_rules('cpf', 'CPF', array('trim', array('is_valid_cpf', array($this->users_model, 'is_valid_cpf')), 'is_unique[ctp_users.cpf]'));
+                        $this->form_validation->set_rules('id_address', 'CEP', array('trim', array('is_valid_address', array($this->address_model, 'is_valid_address'))));
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
@@ -150,7 +150,10 @@ class Usuarios extends MY_Controller
                                 $this->session->set_userdata($session);
                                 if(!empty($_FILES['files']['name']))
                                 {
-                                        $this->do_upload($codigo, '/uploads/users/', 'jpg|jpeg|png', 'Foto');
+                                        $old_photo = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
+                                        unlink($old_photo->path);
+                                        $this->attachment_model->remove('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
+                                        $this->do_upload($codigo, 'uploads/users/', 'jpg|jpeg|png', 'Foto');
                                 }
                                 $this->save_log('Usuarios editado ID : '.$codigo);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');

@@ -29,9 +29,7 @@
                             <figure class="margin-bottom-10">
                                 <?php 
                                 if(isset($user_photo->path) && !empty($user_photo->path)):
-                                    $img = $user_photo->path; 
-                                    $img = explode('ctp/', $img);
-                                    $photo = base_url().$img[1];
+                                    $photo = base_url().$user_photo->path;
                                 else:
                                     $photo = base_url().'assets/admin/images/demo/9_full.jpg';
                                 endif;
@@ -180,13 +178,13 @@
                                         </div>
                                         <?php endif;?>
                                         
-                                        <!--<div class="form-group">
+                                        <div class="form-group">
                                             <label class="col-md-3 control-label" for="files">Foto</label>
                                             <div class="col-md-8">
                                                 <input class="custom-file-upload" name="files" type="file" id="files" data-btn-text="Arquivo" />
                                                 <small class="text-muted block">2Mb (jpg/png)</small>
                                             </div>
-                                        </div>-->
+                                        </div>
                                         
                                     </fieldset>
                                     
