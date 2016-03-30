@@ -12,7 +12,7 @@ class Home extends MY_Controller
         {
                 $table['all_requests'] = $this->requests_model->get_total_itens();
                 $table['businessman'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 2');
-                $table['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user <> 3 AND ctp_users.id_type_user <> 2');
+                $table['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 1');
                 $table['open_requests'] = $this->requests_model->get_total_itens('ctp_requests.id_type_request_status = 1');
                 return $table;
         }
