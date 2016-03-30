@@ -117,9 +117,19 @@ class MY_Controller extends CI_Controller
                         $this->load->library('email');
                         $config['mailtype'] = 'html';
                         $this->email->initialize($config);
-                        $this->email->from($email['from'], $email['name']);
                         $this->email->to($email['to']);
-                        $this->email->cc($email['cc']);
+                        if(isset($email['name']) && !empty($email['name']))
+                        {
+                                $this->email->from($email['from'], $email['name']);
+                        }
+                        else
+                        {
+                                $this->email->from($email['from']);
+                        }
+                        if(isset($email['cc']) && !empty($email['cc']))
+                        {
+                                $this->email->cc($email['cc']);
+                        }
                         $this->email->subject($email['subject']);
                         $this->email->message($email['message']);
                         $retorno = $this->email->send();

@@ -76,8 +76,25 @@ class Acesso extends MY_Controller
         private function validate_login($data = array())
         {
                 $user = $this->users_model->get_item('ctp_users.email = "'.$data['email'].'"');
-                $return = (isset($user) && Bcrypt::check($data['password'], $user->password)) ? $user : FALSE;
-                return $return;
+                if(isset($user))
+                {
+                        if(Bcrypt::check($data['password'], $user->password)) 
+                        {
+                                return $user;
+                        }
+                        else if(Bcrypt::check($data['password'], $user->temp_password))
+                        {
+                                return ($user->temp_password_date == date('Y-m-d') ? $user : FALSE);
+                        }
+                        else
+                        {
+                                return FALSE;
+                        }
+                }
+                else
+                {
+                        return FALSE;
+                }
         }
         
         public function do_register()
@@ -145,18 +162,34 @@ class Acesso extends MY_Controller
                         $qtde = $this->users_model->get_password_by_email('ctp_users.email = "'.$data['email'].'"');
                         if($qtde > 0)
                         {
-                                $password['password'] = Bcrypt::hash($data['email']);
-                                $update = $this->users_model->update('ctp_users.email = "'.$data['email'].'"', $password);
+                                $temp_password = uniqid(mt_rand(), TRUE);
+                                
+                                $temp['temp_password'] = Bcrypt::hash($temp_password);
+                                $temp['temp_password_date'] = date('Y-m-d');
+                                
+                                $update = $this->users_model->update($temp, 'ctp_users.email = "'.$data['email'].'"');
                                 if($update)
                                 {
                                         $this->save_log('Usuário solicitou nova senha', $data['email']);
-                                        $email['from']   = 'email@sistema.com.br';
+                                        $email['from'] = 'suporte@fazquefalta.com.br';
                                         $email['to'] = $data['email'];
                                         $email['subject'] = 'Recuperação de senha';
-                                        $email['message']  = 'Você solicitou a recuperação de senha.<br>';
-                                        $email['message'] .= 'Segue a nova senha de acesso ao Painel de Controle:<br>';
-                                        $email['message'] .= $password;
-                                        $data['info'] = ($this->send_email($email) ? 'Nova senha encaminhada ao e-mail informado.' : 'Erro ao tentar recuperar senha. Tente novamente mais tarde.');
+                                        $email['message']  = 'Recebemos a solicitação de recuperação de senha.<br>';
+                                        $email['message'] .= 'Abaixo segue senha temporaria que é valida para a data da solicitação.<br>';
+                                        $email['message'] .= 'Utilize-a para acessar o Painel de controle e depois realizae a troca de sua senha<br><br>';
+                                        $email['message'] .= $temp_password.'  <br><br><br>';
+                                        $email['message'] .= 'Se você não solicitou a recuperação de senha por favor desconsidere este e-mail.<br><br>';
+                                        $email['message'] .= 'Equipe de Suporte | Faz que Falta.<br><br>';
+                                        if($this->send_email($email))
+                                        {
+                                                $data['info']['error'] = 0;
+                                                $data['info']['message'] = 'Nova senha encaminhada ao e-mail informado.';
+                                        }
+                                        else
+                                        {
+                                                $data['info']['error'] = 1;
+                                                $data['info']['message'] = 'Erro ao tentar recuperar senha. Tente novamente mais tarde.';
+                                        }
                                 }
                         }
                 }
@@ -173,6 +206,8 @@ class Acesso extends MY_Controller
         
         public function logoff()
         {
+                $tmp_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                unlink($tmp_file);
                 $this->save_log('Usuário deslogou do sistema');
                 $this->session->sess_destroy();
                 redirect('home');

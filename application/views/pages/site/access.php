@@ -11,11 +11,11 @@
                 </div>
             </div>
             <?php endif; ?>
-            <?php if(isset($error)): ?>
+            <?php if(isset($info['message']) && !empty($info['message'])): ?>
             <div class="col-md-12 col-sm-12">
                 <div class="padding-20">
-                    <div class="alert alert-danger">
-                        <?php echo $error; ?>
+                    <div class="alert alert-<?php echo ($info['error'] ? 'danger' : 'info'); ?>">
+                        <?php echo $info['message']; ?>
                     </div>
                 </div>
             </div>
