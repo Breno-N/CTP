@@ -82,9 +82,16 @@ class Acesso extends MY_Controller
                         {
                                 return $user;
                         }
-                        else if(Bcrypt::check($data['password'], $user->temp_password))
+                        else if(isset($user->temp_password) && !empty($user->temp_password))
                         {
-                                return ($user->temp_password_date == date('Y-m-d') ? $user : FALSE);
+                                if(Bcrypt::check($data['password'], $user->temp_password))
+                                {
+                                        return ($user->temp_password_date == date('Y-m-d') ? $user : FALSE);
+                                }
+                                else
+                                {
+                                        return FALSE;
+                                }
                         }
                         else
                         {
