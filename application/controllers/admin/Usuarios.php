@@ -44,7 +44,7 @@ class Usuarios extends MY_Controller
                 $this->_is_autorized('admin/painel/');
                 $this->form_validation->set_rules('name', 'Nome', array('required', 'trim', 'max_length[255]'));
                 $this->form_validation->set_rules('email', 'E-mail', array('required', 'trim', 'valid_email', 'max_length[255]', 'is_unique[ctp_users.email]'));
-                $this->form_validation->set_rules('password', 'Senha', array('required', 'trim'));
+                $this->form_validation->set_rules('password', 'Senha', array('trim'));
                 $this->form_validation->set_rules('id_type_user', 'Tipo', array('required', 'trim'));
                 $this->form_validation->set_rules('birthday', 'Data de Nascimento', array('trim'));
                 $this->form_validation->set_rules('genre', 'Sexo', array('trim', 'max_length[1]'));
@@ -65,38 +65,23 @@ class Usuarios extends MY_Controller
                         }
                         else
                         {
-                                $classe = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['classe'] = $classe;
-                                $data['function'] = $function;
-                                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                                $data['types_user'] = $this->get_type_user();
-                                $data['error'] = 'Endereço Inexistente';
-                                $this->layout
-                                            ->set_title('CTP - Admin - Usuários - Adicionar')
-                                            ->set_js('admin/js/address.js')
-                                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                            ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
-                                            ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
-                                            ->set_view('pages/admin/forms/users', $data, 'template/admin/');
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Endereço Inexistente';
                         }
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $data['types_user'] = $this->get_type_user();
-                        $this->layout
-                                    ->set_title('CTP - Admin - Usuários - Adicionar')
-                                    ->set_js('admin/js/address.js')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
-                                    ->set_view('pages/admin/forms/users', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $data['types_user'] = $this->get_type_user();
+                $this->layout
+                            ->set_title('CTP - Admin - Usuários - Adicionar')
+                            ->set_js('admin/js/address.js')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
+                            ->set_view('pages/admin/forms/users', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)

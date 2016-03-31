@@ -53,20 +53,17 @@ class Tipos_usuarios extends MY_Controller
                         $this->save_log('Tipos de usuarios inserido ID : '.$id);
                         redirect('admin/tipos_usuarios/editar/'.$id.'/1');
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $this->layout
-                                    ->set_title('Admin - Tipos de Usuários - Adicionar')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Tipos de Usuários', 'admin/tipos_usuarios/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/tipos_usuarios/', 1)
-                                    ->set_view('pages/admin/forms/type_users', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $this->layout
+                            ->set_title('Admin - Tipos de Usuários - Adicionar')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Tipos de Usuários', 'admin/tipos_usuarios/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/tipos_usuarios/', 1)
+                            ->set_view('pages/admin/forms/type_users', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)

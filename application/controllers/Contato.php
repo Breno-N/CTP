@@ -30,24 +30,14 @@ class Contato extends MY_Controller
                         $send = $this->send_email($post);
                         $data['info']['error'] = ($send) ? 0 : 1;
                         $data['info']['message'] = ($send) ? 'E-mail enviado com sucesso.' : 'Ocorreu um erro ao enviar e-mail. Por favor tente novamente mais tarde.';
-                        $this->layout
-                                    ->set_title('Faz, Que Falta - Contato')
-                                    ->set_keywords('Faz, Que Falta - Contato')
-                                    ->set_description('')
-                                    ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
-                                    ->set_js('site/js/contact.js')
-                                    ->set_view('pages/site/contact', $data);
                 }
-                else
-                {
-                        $this->layout
-                            ->set_title('Faz, Que Falta - Contato')
-                            ->set_keywords('Faz, Que Falta - Contato')
-                            ->set_description('')
-                            ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
-                            ->set_js('site/js/contact.js')
-                            ->set_view('pages/site/contact', $data);
-                }
+                $this->layout
+                    ->set_title('Faz, Que Falta - Contato')
+                    ->set_keywords('Faz, Que Falta - Contato')
+                    ->set_description('')
+                    ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
+                    ->set_js('site/js/contact.js')
+                    ->set_view('pages/site/contact', $data);
         }
         
         private function _post()

@@ -14,15 +14,12 @@ class Painel extends MY_Controller
                 {
                         redirect('admin/pedidos/adicionar');
                 }
-                else
-                {
-                        $data = array();
-                        $this->layout
-                                ->set_title('Admin - Painel')
-                                ->set_js('admin/js/panel.js')
-                                ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                ->set_view('pages/admin/contents/panel', $data, 'template/admin/');
-                }
+                $data = array();
+                $this->layout
+                        ->set_title('Admin - Painel')
+                        ->set_js('admin/js/panel.js')
+                        ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                        ->set_view('pages/admin/contents/panel', $data, 'template/admin/');
         }
         
         public function get_charts()

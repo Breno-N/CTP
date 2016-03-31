@@ -53,21 +53,18 @@ class Tipos_noticias extends MY_Controller
                         $this->save_log('Tipos de noticias inserido ID : '.$item);
                         redirect('admin/tipos_noticias/editar/'.$id.'/1');
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $data['categorys_master'] = $this->_get_categorys_master();
-                        $this->layout
-                                    ->set_title('Admin - Tipos de Notícias - Adicionar')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Tipos de Notícias', 'admin/tipos_noticias/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/tipos_noticias/', 1)
-                                    ->set_view('pages/admin/forms/type_news', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $data['categorys_master'] = $this->_get_categorys_master();
+                $this->layout
+                            ->set_title('Admin - Tipos de Notícias - Adicionar')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Tipos de Notícias', 'admin/tipos_noticias/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/tipos_noticias/', 1)
+                            ->set_view('pages/admin/forms/type_news', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)

@@ -54,21 +54,18 @@ class Negocios extends MY_Controller
                         $this->save_log('Negócios inserido ID : '.$id);
                         redirect('admin/negocios/editar/'.$id.'/1');
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $data['type_business'] = $this->get_type_business();
-                        $this->layout
-                                    ->set_title('Admin - Negócios - Adicionar')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Negócios', 'admin/negocios/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/negocios/', 1)
-                                    ->set_view('pages/admin/forms/business', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $data['type_business'] = $this->get_type_business();
+                $this->layout
+                            ->set_title('Admin - Negócios - Adicionar')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Negócios', 'admin/negocios/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/negocios/', 1)
+                            ->set_view('pages/admin/forms/business', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)

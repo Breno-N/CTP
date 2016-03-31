@@ -21,6 +21,11 @@
                 <?php echo validation_errors(); ?>
             </div>
             <?php endif; ?>
+            <?php if(isset($info['message']) && !empty($info['message'])): ?>
+            <div class="alert alert-<?php echo ($info['error'] ? 'danger' : 'info'); ?>">
+                <?php echo $info['message']; ?>
+            </div>
+            <?php endif; ?>
             <div class="row">
                 <div class="col-md-4 col-lg-3">
                     <section class="panel">

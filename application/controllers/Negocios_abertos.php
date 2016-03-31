@@ -24,14 +24,15 @@ class Negocios_abertos extends MY_Controller
                                 'quantity' => 1,
                             )
                         );
+                        $this->session->set_tempdata($pedido_session, NULL, 600);
                         if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
                         {
-                                $pedido_session['pedido_upload']['tmp_id'] = mt_rand();
-                                $pedido_session['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
-                                $pedido_session['pedido_upload']['tmp_ext'] = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
-                                $this->do_upload($pedido_session['pedido_upload']['tmp_id'], $pedido_session['pedido_upload']['tmp_path'], 'pdf|doc|docx', 'Arquivo');
+                                $pedido_upload['pedido_upload']['tmp_id'] = mt_rand();
+                                $pedido_upload['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
+                                $pedido_upload['pedido_upload']['tmp_ext'] = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
+                                $this->do_upload($pedido_upload['pedido_upload']['tmp_id'], $pedido_upload['pedido_upload']['tmp_path'], 'pdf|doc|docx', 'Arquivo');
+                                $this->session->set_userdata($pedido_upload);
                         }
-                        $this->session->set_tempdata($pedido_session, NULL, 600);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
                                 redirect('acesso');
@@ -41,17 +42,14 @@ class Negocios_abertos extends MY_Controller
                                 redirect('admin/pedidos/adicionar');
                         }
                 }
-                else
-                {
-                        $data['action'] = base_url().'negocios_abertos';
-                        $this->layout
-                                ->set_title('Faz, Que Falta - Negócios Abertos')
-                                ->set_keywords('Faz, Que Falta - Negócios Abertos')
-                                ->set_description('')
-                                ->set_js('site/js/business_autocomplete.js')
-                                ->set_js('site/js/requests.js')
-                                ->set_view('pages/site/open_business', $data);
-                }
+                $data['action'] = base_url().'negocios_abertos';
+                $this->layout
+                        ->set_title('Faz, Que Falta - Negócios Abertos')
+                        ->set_keywords('Faz, Que Falta - Negócios Abertos')
+                        ->set_description('')
+                        ->set_js('site/js/business_autocomplete.js')
+                        ->set_js('site/js/requests.js')
+                        ->set_view('pages/site/open_business', $data);
         }
         
         private function _post()

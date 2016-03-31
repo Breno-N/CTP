@@ -35,7 +35,7 @@ class Tipos_negocios extends MY_Controller
         
         private function _init_data_table()
         {
-                $data['itens'] = $this->type_business_model->get_itens();
+                $data['itens'] = $this->type_business_model->get_itens('ctp_type_business.active = 1');
                 $data['action_editar'] = base_url().'admin/'.strtolower(__CLASS__).'/editar/';
                 $this->layout->set_html('pages/admin/tables/type_business', $data);
                 return $this->layout->get_html();
@@ -53,20 +53,17 @@ class Tipos_negocios extends MY_Controller
                         $this->save_log('Tipos de negócios inserido ID : '.$id);
                         redirect('admin/tipos_negocios/editar/'.$id.'/1');
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $this->layout
-                                    ->set_title('Admin - Negócios - Adicionar')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Tipos de Negócios', 'admin/tipos_negocios/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/tipos_negocios/', 1)
-                                    ->set_view('pages/admin/forms/type_business', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $this->layout
+                            ->set_title('Admin - Negócios - Adicionar')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Tipos de Negócios', 'admin/tipos_negocios/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/tipos_negocios/', 1)
+                            ->set_view('pages/admin/forms/type_business', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)

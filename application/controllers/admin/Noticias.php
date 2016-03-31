@@ -57,21 +57,18 @@ class Noticias extends MY_Controller
                         $this->save_log('Noticias inserido ID : '.$id);
                         redirect('admin/noticias/editar/'.$id.'/1');
                 }
-                else
-                {
-                        $classe = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['classe'] = $classe;
-                        $data['function'] = $function;
-                        $data['action'] = base_url().'admin/'.$classe.'/'.$function;
-                        $data['news_categories'] = $this->_get_news_categories();
-                        $this->layout
-                                    ->set_title('Admin - Notícias - Adicionar')
-                                    ->set_breadcrumbs('Painel', 'admin/painel/', 0)
-                                    ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
-                                    ->set_breadcrumbs('Adicionar', 'admin/noticias/', 1)
-                                    ->set_view('pages/admin/forms/news', $data, 'template/admin/');
-                }
+                $classe = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['classe'] = $classe;
+                $data['function'] = $function;
+                $data['action'] = base_url().'admin/'.$classe.'/'.$function;
+                $data['news_categories'] = $this->_get_news_categories();
+                $this->layout
+                            ->set_title('Admin - Notícias - Adicionar')
+                            ->set_breadcrumbs('Painel', 'admin/painel/', 0)
+                            ->set_breadcrumbs('Notícias', 'admin/noticias/', 0)
+                            ->set_breadcrumbs('Adicionar', 'admin/noticias/', 1)
+                            ->set_view('pages/admin/forms/news', $data, 'template/admin/');
         }
         
         public function editar($codigo = '', $ok = FALSE)
@@ -140,7 +137,7 @@ class Noticias extends MY_Controller
         
         private function _get_news_categories()
         {
-                return $this->type_news_model->get_select();
+                return $this->type_news_model->get_select('ctp_type_news.active = 1');
         }
         
         private function _get()

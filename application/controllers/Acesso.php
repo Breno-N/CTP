@@ -28,7 +28,7 @@ class Acesso extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
-                        $user = $this->validate_login($data);
+                        $user = $this->_validate_login($data);
                         if($user && $user->active)
                         {
                                 $session = array(
@@ -47,33 +47,22 @@ class Acesso extends MY_Controller
                         }
                         else
                         {
-                                $class = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['action_login'] = base_url().$class.'/'.$function;
-                                $data['action_register'] = base_url().$class.'/do_register';
-                                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
-                                $data['error'] = 'Usuário ou Senha Incorretos';
-                                $this->layout
-                                        ->set_title('Faz, Que Falta - Login')
-                                        ->set_js('site/js/address.js')
-                                        ->set_view('pages/site/access', $data);
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Usuário ou Senha Incorretos';
                         }
                 }
-                else
-                {
-                        $class = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['action_login'] = base_url().$class.'/'.$function;
-                        $data['action_register'] = base_url().$class.'/do_register';
-                        $data['action_recover_pass'] = base_url().$class.'/recover_pass';
-                        $this->layout
-                                ->set_title('Faz, Que Falta - Acesso')
-                                ->set_js('site/js/address.js')
-                                ->set_view('pages/site/access', $data);
-                }
+                $class = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['action_login'] = base_url().$class.'/'.$function;
+                $data['action_register'] = base_url().$class.'/do_register';
+                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $this->layout
+                        ->set_title('Faz, Que Falta - Acesso')
+                        ->set_js('site/js/address.js')
+                        ->set_view('pages/site/access', $data);
         }
         
-        private function validate_login($data = array())
+        private function _validate_login($data = array())
         {
                 $user = $this->users_model->get_item('ctp_users.email = "'.$data['email'].'"');
                 if(isset($user))
@@ -107,7 +96,7 @@ class Acesso extends MY_Controller
         public function do_register()
         {
                 $this->form_validation->set_rules('name', 'Nome', array('trim'));
-                $this->form_validation->set_rules('email', 'Login', array('required', 'trim', 'valid_email', 'is_unique[ctp_users.email]'));
+                $this->form_validation->set_rules('email', 'E-mail', array('required', 'trim', 'valid_email', 'is_unique[ctp_users.email]'));
                 $this->form_validation->set_rules('password', 'Senha', array('required', 'trim'));
                 $this->form_validation->set_rules('cpf', 'CPF', array('trim', array('is_valid_cpf', array($this->users_model, 'is_valid_cpf')), 'is_unique[ctp_users.cpf]'));
                 $this->form_validation->set_rules('id_address', 'CEP', array('trim', array('is_valid_address', array($this->address_model, 'is_valid_address'))));
@@ -116,9 +105,27 @@ class Acesso extends MY_Controller
                         $post = $this->_post();
                         $post['password'] = Bcrypt::hash($post['password']);
                         $post['date_create'] = date('Y-m-d');
+                        $post['active'] = 0;
+                        $post['active_token'] = uniqid();
                         $id = $this->users_model->insert($post);
                         if($id)
                         {
+                                $email['from'] = 'contato@fazquefalta.com.br';
+                                $email['to'] = $post['email'];
+                                $email['subject'] = 'Confirmação de cadastro';
+                                $email['message']  = 'Para realizar a ativação de cadastro clique no link abaixo<br><br>';
+                                $email['message'] .= base_url().'acesso/validate_register/'.$post['active_token'].'  <br><br><br>';
+                                if($this->send_email($email))
+                                {
+                                        $data['info']['error'] = 0;
+                                        $data['info']['message'] = 'Encaminhado e-mail para confirmação de cadastro.';
+                                }
+                                else
+                                {
+                                        $data['info']['error'] = 1;
+                                        $data['info']['message'] = 'Erro ao se cadastrar. Tente novamente mais tarde.';
+                                }
+                                /*
                                 $session = array(
                                     'id' => $id,
                                     'name' => $post['name'],
@@ -130,34 +137,59 @@ class Acesso extends MY_Controller
                                 $this->session->set_userdata($session);
                                 $this->save_log('Usuário se registrou e logou no sistema');
                                 redirect('admin/painel/');
+                                 */
                         }
                         else
                         {
-                                $class = strtolower(__CLASS__);
-                                $function = strtolower(__FUNCTION__);
-                                $data['action_login'] = base_url().$class.'/do_login';
-                                $data['action_register'] = base_url().$class.'/'.$function;
-                                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
                                 $data['info']['error'] = 1;
                                 $data['info']['message'] = 'Ocorreu um erro ao salvar os dados. Por favor tente novamente mais tarde.';
-                                $this->layout
-                                        ->set_title('Faz, Que Falta - Acesso')
-                                        ->set_js('site/js/address.js')
-                                        ->set_view('pages/site/access', $data);
+                        }
+                }
+                $class = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['action_login'] = base_url().$class.'/do_login';
+                $data['action_register'] = base_url().$class.'/'.$function;
+                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $this->layout
+                            ->set_title('Faz, Que Falta - Acesso')
+                            ->set_js('site/js/address.js')
+                            ->set_view('pages/site/access', $data);
+        }
+        
+        public function validate_register($token = '')
+        {
+                if(isset($token) && !empty($token))
+                {
+                        $token = sanitize($token);
+                        $user = $this->users_model->get_item('ctp_users.active_token = "'.$token.'"');
+                        if(isset($user) && !empty($user))
+                        {
+                                $update = $this->users_model->update(array('active' => '1', 'active_token' => ''), 'ctp_users.active_token = "'.$token.'"');
+                                if($update)
+                                {
+                                        $data['info']['error'] = 0;
+                                        $data['info']['message'] = 'Cadastro ativado com sucesso.';
+                                }
+                                else
+                                {
+                                        $data['info']['error'] = 1;
+                                        $data['info']['message'] = 'Erro ao ativar cadastro de usuário.';
+                                }
+                        }
+                        else
+                        {
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Erro ao ativar cadastro de usuário.';
                         }
                 }
                 else
                 {
-                        $class = strtolower(__CLASS__);
-                        $function = strtolower(__FUNCTION__);
-                        $data['action_login'] = base_url().$class.'/do_login';
-                        $data['action_register'] = base_url().$class.'/'.$function;
-                        $data['action_recover_pass'] = base_url().$class.'/recover_pass';
-                        $this->layout
-                                    ->set_title('Faz, Que Falta - Acesso')
-                                    ->set_js('site/js/address.js')
-                                    ->set_view('pages/site/access', $data);
+                        $data['info']['error'] = 1;
+                        $data['info']['message'] = 'Erro ao ativar cadastro de usuário.';
                 }
+                $this->layout
+                            ->set_title('Faz, Que Falta - Validação de Cadastro')
+                            ->set_view('pages/site/validate_register', $data);
         }
         
         public function recover_pass()
@@ -178,7 +210,7 @@ class Acesso extends MY_Controller
                                 if($update)
                                 {
                                         $this->save_log('Usuário solicitou nova senha', $data['email']);
-                                        $email['from'] = 'suporte@fazquefalta.com.br';
+                                        $email['from'] = 'contato@fazquefalta.com.br';
                                         $email['to'] = $data['email'];
                                         $email['subject'] = 'Recuperação de senha';
                                         $email['message']  = 'Recebemos a solicitação de recuperação de senha.<br>';
@@ -186,7 +218,6 @@ class Acesso extends MY_Controller
                                         $email['message'] .= 'Utilize-a para acessar o Painel de controle e depois realizae a troca de sua senha<br><br>';
                                         $email['message'] .= $temp_password.'  <br><br><br>';
                                         $email['message'] .= 'Se você não solicitou a recuperação de senha por favor desconsidere este e-mail.<br><br>';
-                                        $email['message'] .= 'Equipe de Suporte | Faz que Falta.<br><br>';
                                         if($this->send_email($email))
                                         {
                                                 $data['info']['error'] = 0;
