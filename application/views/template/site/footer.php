@@ -18,7 +18,7 @@
                             Telefone: (41)-3355-6688
                         </li>
                         <li class="footer-sprite email">
-                            <a href="mailto:contatoctpgroup@gmail.com">contatoctpgroup@gmail.com</a>
+                            <a href="mailto:contato@fazquefalta.com">contato@fazquefalta.com</a>
                         </li>
                     </ul>
                 </address>

@@ -855,7 +855,7 @@ section.page-header {
 			left:0; right:0;
 			width:100%; height:60px;
 			bottom:-60px;
-			background-image:url('../images/misc/shadow1.png');
+			background-image:url('../images/_misc/shadow1.png');
 			background-size: 100% 100%;
 	}
 	section.page-header.shadow-after-2:before {
@@ -864,7 +864,7 @@ section.page-header {
 			left:0; right:0;
 			width:100%; height:60px;
 			bottom:-60px;
-			background-image:url('../images/misc/shadow2.png');
+			background-image:url('../images/_misc/shadow2.png');
 			background-size: 100% 100%;
 	}
 	section.page-header.shadow-after-3:before {
@@ -873,7 +873,7 @@ section.page-header {
 			left:0; right:0;
 			width:100%; height:60px;
 			bottom:-60px;
-			background-image:url('../images/misc/shadow3.png');
+			background-image:url('../images/_misc/shadow3.png');
 			background-size: 100% 100%;
 	}
 
@@ -1179,7 +1179,7 @@ section.dark.page-header ul.page-options a {
 		left:0; right:0;
 		width:100%; height:60px;
 		bottom:-60px;
-		background-image:url('../images/misc/shadow1.png');
+		background-image:url('../images/_misc/shadow1.png');
 		background-size: 100% 100%;
 	}
 	#header.shadow-before-1:before {
@@ -1187,7 +1187,7 @@ section.dark.page-header ul.page-options a {
 		position:absolute;
 		left:0; right:0; top:0;
 		width:100%; height:60px;
-		background-image:url('../images/misc/shadow1.png');
+		background-image:url('../images/_misc/shadow1.png');
 		background-size: 100% 100%;
 	}
 
@@ -1197,7 +1197,7 @@ section.dark.page-header ul.page-options a {
 		left:0; right:0;
 		width:100%; height:60px;
 		bottom:-60px;
-		background-image:url('../images/misc/shadow2.png');
+		background-image:url('../images/_misc/shadow2.png');
 		background-size: 100% 100%;
 	}
 	#header.shadow-before-2:before {
@@ -1205,7 +1205,7 @@ section.dark.page-header ul.page-options a {
 		position:absolute;
 		left:0; right:0; top:0;
 		width:100%; height:60px;
-		background-image:url('../images/misc/shadow2.png');
+		background-image:url('../images/_misc/shadow2.png');
 		background-size: 100% 100%;
 	}
 	#header.shadow-after-3:before {
@@ -1214,7 +1214,7 @@ section.dark.page-header ul.page-options a {
 		left:0; right:0;
 		width:100%; height:60px;
 		bottom:-60px;
-		background-image:url('../images/misc/shadow3.png');
+		background-image:url('../images/_misc/shadow3.png');
 		background-size: 100% 100%;
 	}
 	#header.shadow-before-3:before {
@@ -1222,7 +1222,7 @@ section.dark.page-header ul.page-options a {
 		position:absolute;
 		left:0; right:0; top:0;
 		width:100%; height:60px;
-		background-image:url('../images/misc/shadow3.png');
+		background-image:url('../images/_misc/shadow3.png');
 		background-size: 100% 100%;
 	}
 
@@ -5377,7 +5377,7 @@ section#slider .btn-default {
 		display:inline-block;
 		width:22px;
 		height:22px;
-		background:url('../images/plugins/slider.nivo/bullets.png') no-repeat;
+		background:url('../images/_plugins/slider.nivo/bullets.png') no-repeat;
 		text-indent:-9999px;
 		border:0;
 		margin: 0 2px;
@@ -6745,7 +6745,7 @@ section.dark.alternate .timeline .timeline-entry {
 	.timeline_center { 
 		margin: 0; 
 		position: relative;  
-		background: url('../images/timeline/timeline_top.png') no-repeat top center; 
+		background: url('../images/_timeline/timeline_top.png') no-repeat top center; 
 		padding-top: 9px; 
 	}
 	.timeline_center:after { 
@@ -6767,11 +6767,11 @@ section.dark.alternate .timeline .timeline-entry {
 	.timeline_center li { 
 		padding: 0 0 25px 55%; 
 		position: relative; 
-		background: url('../images/timeline/timeline_right.png') no-repeat top center; 
+		background: url('../images/_timeline/timeline_right.png') no-repeat top center; 
 	}
 	.timeline_center li:nth-child(even) { 
 		padding: 0 55% 25px 0; 
-		background: url('../images/timeline/timeline_left.png') no-repeat top center; 
+		background: url('../images/_timeline/timeline_left.png') no-repeat top center; 
 		text-align:right;
 	}
 
@@ -6823,7 +6823,7 @@ section.dark.alternate .timeline .timeline-entry {
 		top: 0; 
 	}
 	.timeline_center li .timeline-desc.timeline-desc-line {
-		background: url('../images/timeline/textline.png') repeat-y; 
+		background: url('../images/_timeline/textline.png') repeat-y; 
 	}
 	.timeline_center li:nth-child(even) .timeline-desc:before { 
 		left: auto; 
@@ -6840,7 +6840,7 @@ section.dark.alternate .timeline .timeline-entry {
 
 	@media only screen and (max-width: 650px) {
 		.timeline_center { background-position: 11px top; }
-		.timeline_center li { padding: 0 0 25px 70px !important; background: url('../images/timeline/timeline_right.png') no-repeat !important; background-position: -30px top !important; width: auto; }
+		.timeline_center li { padding: 0 0 25px 70px !important; background: url('../images/_timeline/timeline_right.png') no-repeat !important; background-position: -30px top !important; width: auto; }
 		.timeline_center li h3 span { position:relative; display:block; right:auto; left:auto; padding:5px 0 !important; margin:0; }
 		.timeline_center li:nth-child(even) h3 span { position:relative; display:block; right:auto; left:auto; padding:0; margin:0; }
 		.timeline_center li h3 { font-size:24px; line-height:24px; }

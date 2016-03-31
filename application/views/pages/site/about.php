@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img class="pull-left" src="assets/site/images/demo/smart-min.png" alt="" />
+                <img class="pull-left" src="assets/site/images/about.png" alt="" />
                 <div class="heading-title">
                     <h2>Quem somos</h2>
                 </div>

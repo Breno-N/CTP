@@ -36,7 +36,7 @@
                                 if(isset($user_photo->path) && !empty($user_photo->path)):
                                     $photo = base_url().$user_photo->path;
                                 else:
-                                    $photo = base_url().'assets/admin/images/demo/9_full.jpg';
+                                    $photo = base_url().'assets/admin/images/user.jpg';
                                 endif;
                                 ?>
                                 <img class="img-responsive" src="<?php echo $photo; ?>" />
@@ -98,7 +98,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="name">Nome *</label>
                                             <div class="col-md-8">
-                                                <input type="text" name="name" id="name" class="form-control" required="required"/>
+                                                <input type="text" name="name" id="name" class="form-control" value="<?php set_value('name', (isset($item->name) && $item->name) ? $item->name : '')?>" required="required"/>
                                             </div>
                                         </div>
                                         <?php endif;?>
@@ -107,7 +107,7 @@
                                         <div class="form-group">
                                             <label class="col-md-3 control-label" for="email">E-mail *</label>
                                             <div class="col-md-8">
-                                                <input type="email" name="email" id="email" class="form-control" required="required"/>
+                                                <input type="email" name="email" id="email" class="form-control" value="<?php set_value('email', (isset($item->email) && $item->email) ? $item->email : '')?>" required="required"/>
                                             </div>
                                         </div>
                                         <?php endif;?>

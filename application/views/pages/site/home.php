@@ -5,9 +5,8 @@
             <div class="col-lg-7 col-md-7 col-sm-12">
                 <!-- VIMEO VIDEO -->
                 <div class="embed-responsive embed-responsive-16by9 block margin-bottom-60">
-                    <iframe class="embed-responsive-item" src="http://player.vimeo.com/video/8408210" width="800" height="450"></iframe>
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xBddbkRDpQs" width="800" height="450"></iframe>
                 </div>
-                <!--<img class="img-responsive" src="assets/images/demo/girl_looking-min.jpg" alt="">-->
             </div>
             <div class="col-lg-5 col-md-5 col-sm-12">
                 <h2 class="size-25">Bem Vindo ao FAZ, QUE FALTA!</h2>
@@ -134,23 +133,8 @@
 </section>
  <!-- /REQUEST -->
  
-<!-- GRAPHS -->
-<!--<section>
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6 col-xs-12">
-                <canvas class="chartjs" id="ctx-bar-type-business" width="547" height="300"></canvas>
-            </div>
-            <div class="col-md-6 col-xs-12">
-                <canvas class="chartjs height-300" id="ctx-pie-neighborhood" width="547" height="300"></canvas>
-            </div>
-        </div>
-    </div>
-</section>-->
-<!-- /GRAPHS -->
-
 <!-- PARALLAX -->
-<section class="parallax parallax-2" style="background-image: url('assets/site/images/demo/1200x800/18-min.jpg');">
+<section class="parallax parallax-2" style="background-image: url('assets/site/images/parallax.jpg');">
     <div class="overlay dark-8"><!-- dark overlay [1 to 9 opacity] --></div>
     <div class="container">
         <div class="row countTo-sm text-center">
