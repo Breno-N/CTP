@@ -3,12 +3,6 @@
 class Layout
 {
         /**
-         * Propriedade privada da classe que representa os inlcudes
-         * @property array 
-         */
-        private $includes = array();
-        
-        /**
          * Propriedade privada da classe que representa os arquivos javascripts
          * @property array 
          */
@@ -65,18 +59,6 @@ class Layout
                 $this->CI =& get_instance();
         }
 
-        /**
-         * Função que recupera o atributo privado que leva o nome da função, ou seja
-         * get_$propriedade, vai retornar a propriedade da classe.
-         * 
-         * @author Breno Henrique Moreno Nunes
-         * @return object
-         */
-        public function get_includes()
-        {
-                return $this->includes;
-        }
-        
         /**
          * Função que recupera o atributo privado que leva o nome da função, ou seja
          * get_$propriedade, vai retornar a propriedade da classe.
@@ -168,31 +150,6 @@ class Layout
                 return $this->html;
         }
 
-        /**
-         * Função que seta o valor do atributo privado que leva o nome da função, ou seja
-         * set_$propriedade, vai setar o valor que receber por parâmetro na propriedade da classe.
-         * 
-         * @author Breno Henrique Moreno Nunes
-         * @param array|NULL|string $includes
-         * @return object $this retorna a instancia do objeto da classe
-         */
-        public function set_includes($includes = NULL)
-        {
-                if(isset($includes) && $includes)
-                {
-                        switch($includes)
-                        {
-                                case strpos($includes, 'js/'):
-                                    $this->includes[] = '<script src="'.base_url().'assets/'.$includes.'"></script>';
-                                    break;
-                                case strpos($includes, 'css/'):
-                                    $this->includes[] = '<link rel="stylesheet" href="'.base_url().'assets/'.$includes.'" />';
-                                    break;
-                        }
-                        return $this;
-                }
-        }
-        
         /**
          * Função que seta o valor do atributo privado que leva o nome da função, ou seja
          * set_$propriedade, vai setar o valor que receber por parâmetro na propriedade da classe.
@@ -325,7 +282,6 @@ class Layout
                 $header['title'] = $this->get_title();
                 $header['description'] = $this->get_description();
                 $header['keywords'] = $this->get_keywords();
-                $header['includes'] = $this->get_includes();
                 $header['css'] = $this->get_css();
                 $navbar['breadcrumbs'] = $this->get_breadcrumbs();
                 $dados['header'] = $this->CI->load->view($template.'header', $header, TRUE);

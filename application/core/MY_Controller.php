@@ -5,9 +5,11 @@ class MY_Controller extends CI_Controller
         /**
          * Função construtora da classe que herda da classe pai.
          */
-        public function __construct($login = TRUE)
+        public function __construct($login = TRUE, $maintenance = FALSE)
         {
                 parent::__construct();
+                
+                if($maintenance) redirect('manutencao');
 
                 $this->load->library(array('layout'));
 
