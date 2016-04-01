@@ -1,0 +1,11 @@
+incluir campos na tabela ctp_users
+ 
+temp_password (TEXT) NOT NULL
+temp_password_date (DATE) NULL
+active_token (TEXT) NOT NULL
+
+
+
+incluir campos na tabela ctp_attachment
+
+done(INT 1) NOT NULL '0'

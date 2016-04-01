@@ -50,7 +50,7 @@ class Tipos_noticias extends MY_Controller
                         $data = $this->_post();
                         $data['active'] = (isset($data['active']) ? 1 : 0 );
                         $id = $this->type_news_model->insert($data);
-                        $this->save_log('Tipos de noticias inserido ID : '.$item);
+                        $this->save_log('Tipos de noticias inserido ID : '.$id);
                         redirect('admin/tipos_noticias/editar/'.$id.'/1');
                 }
                 $classe = strtolower(__CLASS__);

@@ -39,6 +39,28 @@
                 }
             }, 'json');
         }
+        
+        if($('#btn-done')[0]){
+            $('#btn-done').on('click', function(e){
+                e.preventDefault();
+                if(selecteds.length > 0){
+                    if(confirm('Deseja marcar como Feito este(s) registro(s)?')){
+                        done(window.page_action);
+                    }
+                }else{
+                    window.alert('Nenhum registro selecionado.');
+                }
+            });
+        }
+        
+        function done(url){
+            $.post(url + 'feito', {'selecteds' : selecteds}).then(function(result){
+                if(result != '' && result != null && result != undefined){
+                    window.alert(result + ' registro(s) atualizado(s) com sucesso.');
+                    window.location.reload(true); 
+                }
+            }, 'json');
+        }
        
     });
     

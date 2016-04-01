@@ -68,7 +68,9 @@ class Attachment_model extends MY_Model
                 $data['fields']  = $this->table.'.id as id, ';
                 $data['fields'] .= $this->table.'.id_user_request as id_user_request, ';
                 $data['fields'] .= $this->table.'.description as description, ';
-                $data['fields'] .= $this->table.'.path as path ';
+                $data['fields'] .= $this->table.'.path as path, ';
+                $data['fields'] .= $this->table.'.type as type, ';
+                $data['fields'] .= $this->table.'.done as done ';
                 $data['tables'] =  array(
                                         array($this->table)
                                     );

@@ -28,6 +28,11 @@
                 </a>
             </li>
             <li>
+                <a class="dashboard" href="<?php echo base_url().'admin/arquivos/'; ?>">
+                    <i class="main-icon fa fa-files-o"></i> <span>Arquivos</span>
+                </a>
+            </li>
+            <li>
                 <a class="dashboard" href="<?php echo base_url().'admin/noticias/'; ?>">
                     <i class="main-icon fa fa-newspaper-o"></i> <span>Noticias</span>
                 </a>
