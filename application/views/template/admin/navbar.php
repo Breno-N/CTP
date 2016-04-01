@@ -73,7 +73,7 @@
 <header id="header">
     <button id="mobileMenuBtn"></button>
     <span class="logo pull-left">
-        <img src="<?php echo base_url().'/assets/admin/images/logo_light.png'?>" alt="admin panel" height="35" />
+        <img src="<?php echo base_url().'/assets/admin/images/logo.png'?>" alt="admin panel" height="35" />
     </span>
     <nav>
         <ul class="nav pull-right">

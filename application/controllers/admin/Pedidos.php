@@ -229,7 +229,7 @@ class Pedidos extends MY_Controller
                                 $data['ok'] = (isset($ok) && $ok) ? $ok : FALSE;
                                 $data['status'] = $this->get_status();
                                 $data['type_business'] = $this->get_type_business();
-                                $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" ');
+                                $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" AND ctp_attachment.done = 0');
                                 $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
                                 $this->layout
                                         ->set_title('Admin - Pedidos - Detalhes')
