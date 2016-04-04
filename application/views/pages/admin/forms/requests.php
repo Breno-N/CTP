@@ -30,7 +30,7 @@
         </div>
         <?php endif; ?>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-12 col-sm-12">
                 <div class="panel panel-default">
                     <div class="panel-body">
                         <form action="<?php echo $action; ?>" method="post" enctype="multipart/form-data">

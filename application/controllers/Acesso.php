@@ -244,8 +244,11 @@ class Acesso extends MY_Controller
         
         public function logoff()
         {
-                $tmp_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
-                unlink($tmp_file);
+                if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))
+                {
+                        $tmp_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                        unlink($tmp_file);
+                }
                 $this->save_log('Usuário deslogou do sistema');
                 $this->session->sess_destroy();
                 redirect('home');
