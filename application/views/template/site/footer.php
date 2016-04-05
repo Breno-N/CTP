@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-md-3">
                 <!-- Footer Logo -->
-                <img class="footer-logo" src="<?php echo base_url().'assets/site/images/logo-footer.png'?>" alt="" />
+                <img class="footer-logo" src="<?php echo base_url().'assets/site/images/logo-footer.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta" />
                 <!-- Small Description -->
                 <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
                 <!-- Contact Address -->
@@ -18,7 +18,7 @@
                             Telefone: (41)-3355-6688
                         </li>
                         <li class="footer-sprite email">
-                            <a href="mailto:contato@fazquefalta.com">contato@fazquefalta.com</a>
+                            <a href="mailto:contato@fazquefalta.com.br">contato@fazquefalta.com.br</a>
                         </li>
                     </ul>
                 </address>

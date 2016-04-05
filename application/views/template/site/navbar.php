@@ -5,7 +5,7 @@
                 <i class="fa fa-bars"></i>
             </button>
             <a class="logo pull-left" href="<?php echo base_url(); ?>">
-                <img src="<?php echo base_url().'assets/site/images/logo.png'?>" alt="" />
+                <img src="<?php echo base_url().'assets/site/images/logo.png'?>" alt="Logo - Faz que Falta" title="Logo - Faz que Falta" />
             </a>
             <div class="navbar-collapse pull-right nav-main-collapse collapse">
                 <nav class="nav-main">
