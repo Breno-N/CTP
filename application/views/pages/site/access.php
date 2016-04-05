@@ -41,6 +41,19 @@
                                         </div>
                                     </div>
                                 </form>
+                                <hr />
+                                <div class="text-center">
+                                    <div class="margin-bottom-20">&ndash; OU &ndash;</div>
+                                    <a href="<?php echo base_url().'acesso/do_login_social/facebook'; ?>" class="btn btn-block btn-social btn-facebook margin-top-10">
+                                        <i class="fa fa-facebook"></i> Logar com Facebook
+                                    </a>
+                                    <a href="<?php echo base_url().'acesso/do_login_social/google'; ?>" class="btn btn-block btn-social btn-google margin-top-10">
+                                        <i class="fa fa-google"></i> Logar com Google
+                                    </a>
+                                    <a href="<?php echo base_url().'acesso/do_login_social/linkedin'; ?>" class="btn btn-block btn-social btn-linkedin margin-top-10">
+                                        <i class="fa fa-linkedin"></i> Logar com LinkedIn
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>

@@ -16,9 +16,9 @@
     <link href="<?php echo base_url().'assets/admin/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
 
     <!-- THEME CSS -->
-    <link href="<?php echo base_url().'assets/admin/css/essentials.css'?>" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url().'assets/admin/css/layout.css'?>" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url().'assets/admin/css/color_scheme/green.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
+    <link href="<?php echo base_url().'assets/admin/css/essentials.min.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/admin/css/layout.min.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/admin/css/color_scheme/green.min.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
 
     <!-- CUSTOM CSS -->
     <?php foreach ($css as $style) { echo $style; } ?>

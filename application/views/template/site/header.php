@@ -16,10 +16,10 @@
     <link href="<?php echo base_url().'assets/site/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
 
     <!-- THEME CSS -->
-    <link href="<?php echo base_url().'assets/site/css/essentials.css'?>" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url().'assets/site/css/layout.css" rel="stylesheet'?>" type="text/css" />
+    <link href="<?php echo base_url().'assets/site/css/essentials.min.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/site/css/layout.min.css" rel="stylesheet'?>" type="text/css" />
     
     <!-- PAGE LEVEL SCRIPTS -->
-    <link href="<?php echo base_url().'assets/site/css/header-1.css'?>" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url().'assets/site/css/color_scheme/green.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
+    <link href="<?php echo base_url().'assets/site/css/header-1.min.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/site/css/color_scheme/green.min.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
 </head>
