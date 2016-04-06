@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
         {
                 parent::__construct();
                 
-                if($maintenance) redirect('manutencao');
+                if($maintenance || is_ie8()) redirect('manutencao');
 
                 $this->load->library(array('layout'));
 
@@ -76,15 +76,15 @@ class MY_Controller extends CI_Controller
         * @params string $dir
         * @return array $data 
         */
-        public function do_upload($id = '', $path = '', $ext = 'pdf|doc|docx', $type = '')
+        public function do_upload($id = '', $path = '', $type = '')
         {
                 $data = array();
 
                 if(!is_dir($path)) $this->build_dir($path);
 
                 $config['upload_path'] = $path;
-                $config['allowed_types'] = $ext;
-                $config['max_size'] = 10240; // 10 mega
+                $config['allowed_types'] = 'pdf|jpg|jpeg|png|tif';
+                $config['max_size'] = 5120; // 5 mega
                 $config['file_name'] = $id;
 
                 $this->load->library('upload', $config);

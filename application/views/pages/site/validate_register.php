@@ -1,12 +1,16 @@
 <section>
     <div class="container">
         <div class="row">
-            <h2>Ativação de Cadastro</h2>
+            <div class="col-md-12 col-sm-12">
+                <h2>Ativação de Cadastro</h2>
+            </div>
         </div>
         <div class="row">
             <?php if(validation_errors()): ?>
-            <div class="alert alert-danger margin-bottom-30">
-                <?php echo validation_errors(); ?>
+            <div class="col-md-12 col-sm-12">
+                <div class="alert alert-danger margin-bottom-30">
+                    <?php echo validation_errors(); ?>
+                </div>
             </div>
             <?php endif; ?>
             <?php if(isset($info['message']) && !empty($info['message'])): ?>

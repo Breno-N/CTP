@@ -37,6 +37,6 @@ $lang['form_validation_less_than_equal_to'] = 'O campo {field} deve conter um n�
 $lang['form_validation_greater_than'] = 'O campo {field} deve conter um número maior que {param}.';
 $lang['form_validation_greater_than_equal_to'] = 'O campo {field} deve conter um número maior ou igual que {param}.';
 $lang['form_validation_in_list'] = 'O campo {field} deve ser um de: {param}.';
-$lang['form_validation_is_valid_business'] = 'O valor informado no campo {field} não esta cadastrado na lista. Se você não encontrar o negócio que precisa <a href="'.base_url().'contato">INFORME-NOS</a> por gentileza.';
+$lang['form_validation_is_valid_business'] = 'O valor informado no campo {field} não esta cadastrado na lista. Se você não encontrar o negócio que precisa INFORME-NOS por gentileza.';
 $lang['form_validation_is_valid_cpf'] = '{field} inválido.';
 $lang['form_validation_is_valid_address'] = '{field} não econtrado.';

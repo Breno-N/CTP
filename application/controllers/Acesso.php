@@ -58,7 +58,10 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/recover_pass';
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
+                        ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);
         }
         
@@ -125,19 +128,6 @@ class Acesso extends MY_Controller
                                         $data['info']['error'] = 1;
                                         $data['info']['message'] = 'Erro ao se cadastrar. Tente novamente mais tarde.';
                                 }
-                                /*
-                                $session = array(
-                                    'id' => $id,
-                                    'name' => $post['name'],
-                                    'email' => $post['email'],
-                                    'type' => 1,
-                                    'authentication' => TRUE,
-                                );
-                                $session['neighborhood'] = (isset($post['id_address']) ? $this->address_model->get_neighborhood_by_address('ctp_address.zip_code = '.$post['id_address']) : '');
-                                $this->session->set_userdata($session);
-                                $this->save_log('Usuário se registrou e logou no sistema');
-                                redirect('admin/painel/');
-                                 */
                         }
                         else
                         {
@@ -152,7 +142,10 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/recover_pass';
                 $this->layout
                             ->set_title('Faz, Que Falta - Acesso')
+                            ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                            ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                             ->set_js('site/js/address.js')
+                            ->set_js('site/js/footer.js')
                             ->set_view('pages/site/access', $data);
         }
         
@@ -259,7 +252,10 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/'.$function;
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
+                        ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);
         }
         

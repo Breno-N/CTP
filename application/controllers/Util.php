@@ -44,6 +44,16 @@ class Util extends MY_Controller
                 }
         }
         
+        public function download_modelo()
+        {
+                $file = base_url().'modelo/modelo.pdf';
+                header('Content-Type: application/octet-stream');
+                header("Content-Transfer-Encoding: Binary"); 
+                header('Content-Disposition: attachment; filename="'.basename($file).'"');
+                readfile($file);
+                exit();
+        }
+        
         private function _get()
         {
                 return sanitize($this->input->get(NULL, TRUE));

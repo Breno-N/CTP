@@ -138,7 +138,7 @@ class Usuarios extends MY_Controller
                                         $old_photo = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
                                         unlink($old_photo->path);
                                         $this->attachment_model->remove('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
-                                        $this->do_upload($codigo, 'uploads/users/', 'jpg|jpeg|png', 'Foto');
+                                        $this->do_upload($codigo, 'uploads/users/', 'Foto');
                                 }
                                 $this->save_log('Usuarios editado ID : '.$codigo);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');

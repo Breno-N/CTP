@@ -1,0 +1,7 @@
+#footer .copyright{
+    background-color: #F38F20;
+    color:#000000;
+}
+#footer .copyright a, #footer ul.inline-links > li + li::before{
+    color:#000000;
+}

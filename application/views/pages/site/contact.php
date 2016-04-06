@@ -1,25 +1,27 @@
 <!-- CONTENT -->
 <section>
     <div class="container">
-        <div id="map" class="height-300 margin-bottom-60"></div>
         <div class="row">
+            <?php if(validation_errors()): ?>
+            <div class="col-md-12 col-sm-12">
+                <div class="padding-20">
+                    <div class="alert alert-danger">
+                        <?php echo validation_errors(); ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
+            <?php if(isset($info['message']) && !empty($info['message'])): ?>
+            <div class="col-md-12 col-sm-12">
+                <div class="padding-20">
+                    <div class="alert alert-<?php echo ($info['error'] ? 'danger' : 'info'); ?>">
+                        <?php echo $info['message']; ?>
+                    </div>
+                </div>
+            </div>
+            <?php endif; ?>
             <div class="col-md-9 col-sm-9">
                 <h3>Formulário de Contato</h3>
-                <div id="alert_success" class="alert alert-success margin-bottom-30">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Obrigado!</strong> Sua mensagem foi enviada com sucesso!
-                </div>
-
-                <div id="alert_failed" class="alert alert-danger margin-bottom-30">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>[SMTP] Erro!</strong> Erro interno do servidor!
-                </div>
-
-                <div id="alert_mandatory" class="alert alert-danger margin-bottom-30">
-                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-                    <strong>Erro!</strong> Os campos obrigatórios(*) devem ser preenchidos!
-                </div>
-
                 <form action="<?php echo $action; ?>" method="post">
                     <fieldset>
                         <input type="hidden" name="action" value="contact_send" />

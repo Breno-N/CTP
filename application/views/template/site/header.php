@@ -22,4 +22,7 @@
     <!-- PAGE LEVEL SCRIPTS -->
     <link href="<?php echo base_url().'assets/site/css/header-1.min.css'?>" rel="stylesheet" type="text/css" />
     <link href="<?php echo base_url().'assets/site/css/color_scheme/green.min.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
+    
+    <!-- CUSTOM -->
+    <link href="<?php echo base_url().'assets/site/css/custom.css'?>" rel="stylesheet" type="text/css" />
 </head>

@@ -39,14 +39,13 @@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12">
                                             <label for="business">Negócio *</label>
-                                            <input type="text" name="business" id="business" class="form-control" data-provide="typeahead" value="<?php echo ((isset($item->id_business) && $item->id_business) ? $item->business : '')?>" <?php echo ((isset($item->id_business) && $item->id_business) ? 'disabled="disabled"' : 'required="required"')?>/>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row form-notfind-business">
-                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                        <div class="alert alert-warning">
-                                            Se você não encontrar o negócio que precisa <a href="<?php echo base_url().'contato'; ?>">INFORME-NOS</a> por gentileza.
+                                            <div class="fancy-form">
+                                                <i class="fa fa-briefcase"></i>
+                                                <input type="text" name="business" id="business" class="form-control" data-provide="typeahead" value="<?php echo ((isset($item->id_business) && $item->id_business) ? $item->business : '')?>" <?php echo ((isset($item->id_business) && $item->id_business) ? 'disabled="disabled"' : 'required="required"')?>/>
+                                                <span class="fancy-tooltip top-left">
+                                                    <em>Selecione os negócios disponiveis na lista de sugestões!</em>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -61,43 +60,36 @@
                                     <div class="form-group">
                                         <div class="col-md-12 col-sm-12">
                                             <label for="description">Descrição *</label>
-                                            <textarea name="description" id="description" rows="4" class="form-control" <?php echo ((!isset($item)) ? 'required="required"' : 'disabled="disabled"'); ?>><?php echo set_value('description', (isset($item->description) && $item->description) ? $item->description : '') ?></textarea>
-                                        </div>
-                                    </div>
-                                    <?php if(!isset($item)): ?>
-                                        <div class="col-md-12 col-sm-12 margin-top-20">
-                                            <div class="alert alert-info">
-                                                * Descreva com o maximo de detalhes possivel a necessidade desse estabelecimento no seu bairro.
+                                            <div class="fancy-form">
+                                                <textarea name="description" id="description" rows="4" class="form-control" <?php echo ((!isset($item)) ? 'required="required"' : 'disabled="disabled"'); ?>><?php echo set_value('description', (isset($item->description) && $item->description) ? $item->description : '') ?></textarea>
+                                                <i class="fa fa-keyboard-o"><!-- icon --></i>
+                                                <span class="fancy-hint size-11 text-muted">
+                                                    <strong>* Descreva com o máximo de detalhes possível a necessidade desse negócio no seu bairro.</strong>
+                                                </span>
                                             </div>
                                         </div>
-                                    <?php endif; ?>
+                                    </div>
                                 </div>
                                 <div class="row form-input">
                                     <div class="form-group">
                                         <div class="col-md-6 col-sm-6">
                                             <span>Existe esse negócio no bairro ?</span><br>
                                             <label class="radio">
+                                                <input type="radio" name="have_business_neighborhood" value="0" <?php echo (isset($item->have_business_neighborhood) ? 'disabled="disabled"' : '')?> <?php echo ((isset($item->have_business_neighborhood) && !$item->have_business_neighborhood) || !isset($item)) ? 'checked="checked"' : ''; ?>>
+                                                <i></i> Não
+                                            </label>
+                                            <label class="radio">
                                                 <input type="radio" name="have_business_neighborhood" value="1" <?php echo (isset($item->have_business_neighborhood) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->have_business_neighborhood) && $item->have_business_neighborhood) ? 'checked="checked"' : ''; ?>>
                                                 <i></i> Sim
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="have_business_neighborhood" value="0" <?php echo (isset($item->have_business_neighborhood) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->have_business_neighborhood) && !$item->have_business_neighborhood) ? 'checked="checked"' : ''; ?>>
-                                                <i></i> Não
-                                            </label>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6">
-                                            <span>Solicitação feita a algum orgão público ?</span><br>
-                                            <label class="radio">
-                                                <input type="radio" name="request_public_agency" value="1" <?php echo (isset($item->request_public_agency) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->request_public_agency) && $item->request_public_agency) ? 'checked="checked"' : ''; ?>>
-                                                <i></i> Sim
-                                            </label>
-                                            <label class="radio">
-                                                <input type="radio" name="request_public_agency" value="0" <?php echo (isset($item->request_public_agency) ? 'disabled="disabled"' : '')?> <?php echo (isset($item->request_public_agency) && !$item->request_public_agency) ? 'checked="checked"' : ''; ?>>
-                                                <i></i> Não
                                             </label>
                                         </div>
                                     </div>
                                 </div>
+                                <?php if(!isset($item)):?>
+                                <div class="alert alert-info form-input">
+                                    <p class="small">Se você vai fazer apenas o seu pedido, digite 1. Se você vai pedir por mais pessoas, digite a quantidade e nos envie seu abaixo assinado!</p>
+                                </div>
+                                <?php endif; ?>
                                 <div class="row form-input">
                                     <div class="form-group">
                                         <div class="col-md-3 col-sm-12">
@@ -105,21 +97,31 @@
                                             <?php if(isset($item)):?>
                                             <input type="text" name="quantity" id="quantity" min="<?php echo $item->quantity + 1; ?>" value="<?php echo $item->quantity; ?>" class="form-control stepper" disabled="disabled">
                                             <?php else:?>
-                                            <input type="number" name="quantity" id="quantity" min="0" value="" class="form-control">
+                                            <div class="fancy-form">
+                                                <i class="fa fa-comments-o"></i>
+                                                <input type="number" name="quantity" id="quantity" min="0" value="" class="form-control">
+                                                <span class="fancy-tooltip top-left">
+                                                    <em>No Faz Que Falta você pode ser a força que move todo um grupo!</em>
+                                                </span>
+                                            </div>
                                             <?php endif;?>
                                         </div>
-                                    </div>
-                                </div>
-                                <?php if(!isset($item) || $item->user_create == $this->session->userdata['email']): ?>
-                                <div class="row form-input">
-                                    <div class="uploadfiles">
-                                        <div class="col-md-12 col-sm-12">
-                                            <input class="custom-file-upload" type="file" id="file" name="files" data-btn-text="Selecionar Arquivo" />
-                                            <small class="text-muted block">Tamanho máximo de: 2Mb (Word, PDF com Nome, E-mail, CPF e CEP)</small>
+                                        <?php if(!isset($item) || $item->user_create == $this->session->userdata['email']): ?>
+                                        <div class="col-md-3 col-sm-12">
+                                            <div class="uploadfiles">
+                                                <label>Modelo</label>
+                                                <a href="<?php echo base_url().'util/download_modelo/'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
+                                            </div>
                                         </div>
+                                        <div class="col-md-6 col-sm-12">
+                                            <div class="uploadfiles">
+                                                <label for="file">Anexo (Tamanho máximo de: 5Mb)</label>
+                                                <input class="custom-file-upload" type="file" id="file" name="files" data-btn-text="Arquivo" />
+                                            </div>
+                                        </div>
+                                        <?php endif; ?>
                                     </div>
                                 </div>
-                                <?php endif; ?>
                                 <?php if(isset($attachments['itens'], $this->session->userdata['admin']) && $this->session->userdata['admin'] && !empty($attachments['itens'])): ?>
                                 <div class="row form-input">
                                     <div class="form-group">

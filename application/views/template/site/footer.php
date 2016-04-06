@@ -1,91 +1,69 @@
 <footer id="footer">
     <div class="container">
         <div class="row">
-            <div class="col-md-3">
-                <!-- Footer Logo -->
+            <div class="col-md-8">
                 <img class="footer-logo" src="<?php echo base_url().'assets/site/images/logo-footer.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta" />
-                <!-- Small Description -->
-                <p>Integer posuere erat a ante venenatis dapibus posuere velit aliquet.</p>
-                <!-- Contact Address -->
                 <address>
                     <ul class="list-unstyled">
                         <li class="footer-sprite address">
-                            Av. Deputado João Leopoldo Jacomel 33<br>
-                            Braga, São José dos Pinhais<br>
-                            Paraná - Brasil<br>
+                            São José dos Pinhais - Paraná - Brasil
                         </li>
-                        <li class="footer-sprite phone">
-                            Telefone: (41)-3355-6688
-                        </li>
-                        <li class="footer-sprite email">
-                            <a href="mailto:contato@fazquefalta.com.br">contato@fazquefalta.com.br</a>
+                        <li>
+                            <p class="margin-bottom-0">Horário de Atendimento</p><br>
+                            <p>
+                                <span class="block"><strong>Segunda - Sexta:</strong> 08:00 as 18:00</span><br>
+                                <span class="block"><strong>Sabádo e Domingo:</strong> Fechado </span>
+                            </p>
                         </li>
                     </ul>
                 </address>
-                <!-- /Contact Address -->
+                <hr />
+                <div class="row">
+                    <div class="col-md-6 col-sm-6 hidden-xs">
+                        <div class="clearfix">
+                            <p class="margin-bottom-10">Acompanhe o nosso sonho e vem com a gente!</p>
+                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                                <i class="icon-facebook"></i>
+                                <i class="icon-facebook"></i>
+                            </a>
+                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
+                                <i class="icon-twitter"></i>
+                                <i class="icon-twitter"></i>
+                            </a>
+                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                                <i class="icon-gplus"></i>
+                                <i class="icon-gplus"></i>
+                            </a>
+                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                                <i class="icon-linkedin"></i>
+                                <i class="icon-linkedin"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="col-md-3">
-                <!-- Latest Blog Post -->
-                <h4 class="letter-spacing-1">LATEST NEWS</h4>
-                <ul class="footer-posts list-unstyled">
-                    <li>
-                        <a href="#">Donec sed odio dui. Nulla vitae elit libero, a pharetra augue</a>
-                        <small>29 June 2015</small>
-                    </li>
-                    <li>
-                        <a href="#">Nullam id dolor id nibh ultricies</a>
-                        <small>29 June 2015</small>
-                    </li>
-                    <li>
-                        <a href="#">Duis mollis, est non commodo luctus</a>
-                        <small>29 June 2015</small>
-                    </li>
-                </ul>
-                <!-- /Latest Blog Post -->
-            </div>
-            <div class="col-md-2">
-                <!-- Links -->
-                <h4 class="letter-spacing-1">EXPLORE SMARTY</h4>
-                <ul class="footer-links list-unstyled">
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Services</a></li>
-                        <li><a href="#">Our Clients</a></li>
-                        <li><a href="#">Our Pricing</a></li>
-                        <li><a href="#">Smarty Tour</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                </ul>
-                <!-- /Links -->
-            </div>
-            <div class="col-md-4">
-                <!-- Latest Blog Post -->
-                <h4 class="letter-spacing-1">LATEST NEWS</h4>
-                <ul class="footer-posts list-unstyled">
-                    <li>
-                        <a href="#">Donec sed odio dui. Nulla vitae elit libero, a pharetra augue</a>
-                        <small>29 June 2015</small>
-                    </li>
-                    <li>
-                        <a href="#">Nullam id dolor id nibh ultricies</a>
-                        <small>29 June 2015</small>
-                    </li>
-                    <li>
-                        <a href="#">Duis mollis, est non commodo luctus</a>
-                        <small>29 June 2015</small>
-                    </li>
-                </ul>
-                <!-- /Latest Blog Post -->
+            <div class="col-md-4" id="contato">
+                <h4 class="letter-spacing-1">Tem alguma dúvida? Conta pra gente!</h4>
+                <form id="form-contact">
+                    <input type="hidden" value="1" name="send_message">
+                    <input required type="text" value="" class="form-control" name="name" id="name" placeholder="* Nome">
+                    <input required type="email" value="" class="form-control" name="from" id="email" placeholder="* E-mail">
+                    <input required type="text" value="" class="form-control" name="subject" id="subject" placeholder="* Assunto">
+                    <textarea required maxlength="10000" rows="8" class="form-control" name="message" id="message" placeholder="* Mensagem"></textarea>
+                    <input type="submit" value="ENVIAR" class="btn btn-success" />
+                </form>
             </div>
         </div>
     </div>
     <div class="copyright">
         <div class="container">
-            <ul class="pull-right nomargin list-inline mobile-block">
-                    <li><a href="#">Terms &amp; Conditions</a></li>
-                    <li>&bull;</li>
-                    <li><a href="#">Privacy</a></li>
+            <ul class="list-inline inline-links mobile-block pull-right nomargin">
+                <li><a href="<?php echo base_url().'home'; ?>">Home</a></li>
+                <li><a href="<?php echo base_url().'negocios_abertos'; ?>">Negócios Já Abertos</a></li>
+                <li><a href="<?php echo base_url().'quem_somos'; ?>">Quem Somos</a></li>
+                <li><a href="<?php echo base_url().'acesso'; ?>">Login</a></li>
             </ul>
-            &copy; All Rights Reserved, CTP Group
+            &copy; Todos os Direitos Reservados, CTP GROUP
         </div>
     </div>
 </footer>

@@ -4,7 +4,7 @@ class Contato extends MY_Controller
 {
         private $validate = array(
                                     array('field'=> 'name', 'label' => 'Nome', 'rules' => 'required|trim'),
-                                    array('field'=> 'email', 'label' => 'E-mail', 'rules' => 'valid_email|required|trim'),
+                                    array('field'=> 'from', 'label' => 'E-mail', 'rules' => 'valid_email|required|trim'),
                                     array('field'=> 'subject', 'label' => 'Assunto', 'rules' => 'required|trim'),
                                     array('field'=> 'message', 'label' => 'Mensagem', 'rules' => 'required|trim'),
                                 ); 
@@ -14,30 +14,36 @@ class Contato extends MY_Controller
                 parent::__construct(FALSE);
         }
 
-        public function index()
+        public function send()
         {
-                $classe = strtolower(__CLASS__);
-                $function = strtolower(__FUNCTION__);
-                $data['classe'] = $classe;
-                $data['function'] = $function;
-                $data['action'] = base_url().$classe.'/'.$function;
-                $this->form_validation->set_rules($this->validate); 
-                if($this->form_validation->run())
+                if($this->input->is_ajax_request())
                 {
-                        $post = $this->_post();
-                        $post['from'] = 'contato@fazquefalta.com.br';
-                        $post['to'] = 'contato@fazquefalta.com.br';
-                        $send = $this->send_email($post);
-                        $data['info']['error'] = ($send) ? 0 : 1;
-                        $data['info']['message'] = ($send) ? 'E-mail enviado com sucesso.' : 'Ocorreu um erro ao enviar e-mail. Por favor tente novamente mais tarde.';
+                        $this->form_validation->set_rules($this->validate); 
+                        if($this->form_validation->run())
+                        {
+                                $data = $this->_post();
+                                if(isset($data['send_message']) && $data['send_message'])
+                                {
+                                        $data['to'] = 'contato@fazquefalta.com.br';
+                                        unset($data['send_message'], $data['is_ajax']);
+                                        $send = $this->send_email($data);
+                                        $return = ($send) ? 'E-mail enviado com sucesso.' : 'Ocorreu um erro ao enviar e-mail. Por favor tente novamente mais tarde.';
+                                }
+                                else
+                                {
+                                        $return = 'Não é possivel enviar e-mail.';
+                                }
+                        }
+                        else
+                        {
+                                $return = validation_errors('', '');
+                        }
+                        echo json_encode($return);
                 }
-                $this->layout
-                    ->set_title('Faz, Que Falta - Contato')
-                    ->set_keywords('Faz, Que Falta - Contato')
-                    ->set_description('')
-                    ->set_js('//maps.google.com/maps/api/js?sensor=true', 1)
-                    ->set_js('site/js/contact.js')
-                    ->set_view('pages/site/contact', $data);
+                else
+                {
+                        redirect('home');
+                }
         }
         
         private function _post()

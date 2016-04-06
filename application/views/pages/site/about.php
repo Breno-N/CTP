@@ -7,8 +7,10 @@
                 <div class="heading-title">
                     <h2>Quem somos</h2>
                 </div>
-                <p>Lorem ipsum dolor sit amet tempus malesuada. Suspendisse in dui. Ut elit metus, quis consectetuer congue augue quis erat. Quisque pretium eu, aliquam odio. Donec a pellentesque consectetuer, augue nec odio. Nam accumsan at, porttitor sem at porttitor laoreet viverra mattis. Aliquam ultricies accumsan. In tempus. Pellentesque felis.</p>
-                <p>Aliquam nisl. Nunc condimentum wisi. Aenean nonummy risus at eros. Suspendisse congue odio at purus. Quisque eu justo. Quisque eu eros. Sed accumsan dictum, laoreet sit amet ante. Curabitur ultrices iaculis. In gravida eros in consequat diam. Donec nonummy, tellus in lorem lorem pretium magna. In hac habitasse platea dictumst. Suspendisse elit eu scelerisque a, gravida vel, purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Aenean dictum vitae, cursus sapien. Morbi accumsan imperdiet, lorem semper facilisis nisl neque vel tortor. Cum sociis natoque penatibus et ultrices volutpat. Donec viverra et, feugiat venenatis, nunc justo non nunc. Phasellus vitae ante. Donec sit amet lorem. Vestibulum tempus. Nullam sapien. Donec pede. Lorem ipsum dolor tellus, imperdiet wisi. Phasellus purus. Praesent dictum accumsan at, posuere.</p>
+                <p>O Faz Que Falta é o sistema que busca contribuir para a transformação social através do empreendedorismo.</p>
+                <p>Nós criamos a ligação da sua demanda não atendida com o empreendedor que pode atender esse pedido.</p>
+                <p>Nosso sonho começou em abril de 2016.</p>
+                <p>Nos ajude a transformar a sociedade! Apoie essa ideia e faça seus pedidos!</p>
                 <div class="row margin-top-60">
                     <div class="col-sm-6">
                         <div class="heading-title heading-border-bottom heading-color">
