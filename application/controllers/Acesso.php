@@ -58,7 +58,7 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/recover_pass';
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
-                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
                         ->set_js('site/js/footer.js')
@@ -142,7 +142,7 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/recover_pass';
                 $this->layout
                             ->set_title('Faz, Que Falta - Acesso')
-                            ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                            ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                             ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                             ->set_js('site/js/address.js')
                             ->set_js('site/js/footer.js')
@@ -231,7 +231,7 @@ class Acesso extends MY_Controller
                 $data['action_recover_pass'] = base_url().$class.'/'.$function;
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
-                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
                         ->set_js('site/js/footer.js')

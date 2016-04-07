@@ -54,7 +54,7 @@ class Home extends MY_Controller
                 $data['action'] = base_url().'home';
                 $this->layout
                         ->set_title('Faz, Que Falta')
-                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos, Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/business_autocomplete.js')
                         ->set_js('site/js/requests.js')
