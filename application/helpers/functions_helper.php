@@ -97,17 +97,3 @@ function read_csv($file = '')
                 //var_dump($query).PHP_EOL;
         }
 }
-
-function not_support_browser()
-{
-    preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
-    if(count($matches) < 2)
-    {
-            preg_match('/Trident\/\d{1,2}.\d{1,2}; rv:([0-9]*)/', $_SERVER['HTTP_USER_AGENT'], $matches);
-    }
-    if (count($matches) > 1)
-    {
-            $version = $matches[1];
-            return ($version <= 8) ? TRUE : FALSE;
-    }
-}

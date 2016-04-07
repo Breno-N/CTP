@@ -9,7 +9,7 @@ class MY_Controller extends CI_Controller
         {
                 parent::__construct();
                 
-                if(not_support_browser()) redirect('manutencao/sem_suporte');
+                if($this->_not_support_browser()) redirect('manutencao/sem_suporte');
                 
                 if($maintenance) redirect('manutencao');
 
@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller
 
                 if(isset($login) && $login) $this->_is_authenticated();
         }
-
+        
         /**
          * Função responsavel por verificar se o usuario esta logado utilizando dados da sessão,
          * caso contrário redireciona para tela de login.
@@ -146,5 +146,16 @@ class MY_Controller extends CI_Controller
                 $this->layout
                         ->set_title('Admin - Erro')
                         ->set_view('pages/admin/contents/error', $data, 'template/admin/');
+        }
+        
+        private function _not_support_browser()
+        {
+                $this->load->library('user_agent');
+                
+                $browser = $this->agent->browser();
+                
+                $version = floor($this->agent->version());
+                
+                return ($browser == 'Internet Explorer' && $version <= 8) ? TRUE : FALSE;
         }
 }
