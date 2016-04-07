@@ -14,7 +14,7 @@
             <!-- MIDDLE  -->
             <?php echo $content; ?>
             <!-- /MIDDLE  -->
-                
+            
         </div>
         
         <!-- JAVASCRIPT FILES -->

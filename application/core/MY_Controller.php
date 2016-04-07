@@ -9,7 +9,9 @@ class MY_Controller extends CI_Controller
         {
                 parent::__construct();
                 
-                if($maintenance || is_ie8()) redirect('manutencao');
+                if(not_support_browser()) redirect('manutencao/sem_suporte');
+                
+                if($maintenance) redirect('manutencao');
 
                 $this->load->library(array('layout'));
 
