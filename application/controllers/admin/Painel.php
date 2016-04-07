@@ -4,7 +4,7 @@ class Painel extends MY_Controller
 {
         public function __construct() 
         {
-                parent::__construct(FALSE);
+                parent::__construct();
                 $this->load->model(array('requests_model', 'news_model'));
         }
 

@@ -4,7 +4,7 @@ class Pedidos extends MY_Controller
 {
         public function __construct() 
         {
-            parent::__construct(FALSE);
+            parent::__construct();
                 $this->load->model(array('requests_model', 'users_model', 'user_request_model', 
                     'neighborhood_model', 'attachment_model', 'business_model', 'type_business_model', 
                     'type_request_status_model', 'requests_comments_model'));

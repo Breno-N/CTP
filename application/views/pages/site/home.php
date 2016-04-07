@@ -1,19 +1,18 @@
 <!-- PRESENTATION -->
-<section>
+<section class="padding-30">
     <div class="container">
         <div class="row">
-            <div class="col-lg-7 col-md-7 col-sm-12">
-                <!-- VIMEO VIDEO -->
+            <div class="col-md-offset-2 col-md-8 col-sm-12">
                 <div class="embed-responsive embed-responsive-16by9 block margin-bottom-60">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xBddbkRDpQs" width="800" height="450"></iframe>
+                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xBddbkRDpQs" ></iframe>
                 </div>
             </div>
-            <div class="col-lg-5 col-md-5 col-sm-12">
+            <div class="col-md-12 col-sm-12 text-center">
                 <h2 class="size-25">Bem Vindo ao FAZ, QUE FALTA!</h2>
-                <p>O Faz Que Falta é a SUA chance de mudar o seu contexto social!</p>
-                <p>Nós apresentamos sua demanda para os empreendedores e assim possibilitamos um impacto social através do empreendedorismo!</p>
-                <p>É o trabalho em conjunto da população impactando a realidade!</p>
-                <p>Vem com a gente!</p>
+                <p class="lead font-lato">O Faz Que Falta é a SUA chance de mudar o seu contexto social!</p>
+                <p class="font-lato">Nós apresentamos sua demanda para os empreendedores e assim possibilitamos um impacto social através do empreendedorismo!</p>
+                <p class="font-lato">É o trabalho em conjunto da população impactando a realidade!</p>
+                <p class="font-lato">Vem com a gente!</p>
             </div>
         </div>
     </div>
@@ -31,7 +30,7 @@
 <!-- /CALLOUT -->
 
 <!-- /REQUEST -->
-<section>
+<section class="padding-30">
     <div class="container">
         <div class="row">
             <?php if(validation_errors()): ?>

@@ -97,7 +97,7 @@ $autoload['helper'] = array('url','functions_helper');
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array('ci_opauth');
+$autoload['config'] = array('');
 
 /*
 | -------------------------------------------------------------------

@@ -26,10 +26,6 @@
                                 <i class="icon-facebook"></i>
                                 <i class="icon-facebook"></i>
                             </a>
-                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-twitter pull-left" data-toggle="tooltip" data-placement="top" title="Twitter">
-                                <i class="icon-twitter"></i>
-                                <i class="icon-twitter"></i>
-                            </a>
                             <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
                                 <i class="icon-gplus"></i>
                                 <i class="icon-gplus"></i>

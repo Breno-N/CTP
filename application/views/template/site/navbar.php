@@ -19,9 +19,6 @@
                         <li>
                             <a href="<?php echo base_url().'quem_somos'; ?>">Quem Somos</a>
                         </li>
-                        <!--<li>
-                            <a href="<?php //echo base_url().'contato'; ?>">Contato</a>
-                        </li>-->
                         <?php if(isset($this->session->userdata['id']) && !empty($this->session->userdata['id'])): ?>
                             <li>
                                 <a href="<?php echo base_url().'admin/painel'?>">

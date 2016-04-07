@@ -185,27 +185,6 @@ class Acesso extends MY_Controller
                             ->set_view('pages/site/validate_register', $data);
         }
         
-        public function do_login_social($strategy = '')
-        {
-                if(isset($strategy) && !empty($strategy))
-                {
-                        $this->load->library('Opauth/Opauth', $this->config->item('opauth_config'), false);
-                        $this->opauth->run();   
-                }
-                else
-                {
-                        redirect('acesso');
-                }
-        }
-        
-        public function validate_login_social()
-        {
-                $response = unserialize(base64_decode( $_POST['opauth'] ));
-                echo("<pre>");
-                print_r($response);
-                echo("</pre>");
-        }
-        
         public function recover_pass()
         {
                 $this->form_validation->set_rules('email', 'E-mail', array('required', 'valid_email', 'trim'));
