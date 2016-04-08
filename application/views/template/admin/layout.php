@@ -7,9 +7,7 @@
         <!-- WRAPPER -->
         <div id="wrapper" class="clearfix">
             
-            <!-- NAVBAR -->
             <?php echo $navbar; ?>
-            <!-- /NAVBAR -->
             
             <!-- MIDDLE  -->
             <?php echo $content; ?>

@@ -1,3 +1,4 @@
+<!-- NAVBAR -->
 <div id="header" class="sticky clearfix">
     <header id="topNav">
         <div class="container">
@@ -46,3 +47,4 @@
         </div>
     </header>
 </div>
+<!-- /NAVBAR -->

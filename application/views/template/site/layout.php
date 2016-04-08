@@ -11,17 +11,14 @@
     <body class="smoothscroll enable-animation">
         
         <div id="wrapper">
-            <!-- NAVBAR -->
-            <?php echo $navbar; ?>
-            <!-- /NAVBAR -->
             
-             <!-- CONTENT -->
+            <?php echo $navbar; ?>
+            
+            <!-- CONTENT -->
             <?php echo $content; ?>
             <!-- /CONTENT -->
             
-            <!-- FOOTER -->
             <?php echo $footer; ?>
-            <!-- /FOOTER -->
             
         </div>
         
@@ -45,7 +42,6 @@
 
             ga('create', 'UA-75979753-1', 'auto');
             ga('send', 'pageview');
-
         </script>
         
     </body>

@@ -43,7 +43,7 @@ class Acesso extends MY_Controller
                                 );
                                 $this->session->set_userdata($session);
                                 $this->save_log('Usuário logou no sistema');
-                                redirect('admin/painel/index');
+                                redirect('admin/painel/');
                         }
                         else
                         {
@@ -59,7 +59,7 @@ class Acesso extends MY_Controller
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
                         ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);
@@ -143,7 +143,7 @@ class Acesso extends MY_Controller
                 $this->layout
                             ->set_title('Faz, Que Falta - Acesso')
                             ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                            ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                            ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                             ->set_js('site/js/address.js')
                             ->set_js('site/js/footer.js')
                             ->set_view('pages/site/access', $data);
@@ -232,7 +232,7 @@ class Acesso extends MY_Controller
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/address.js')
                         ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);

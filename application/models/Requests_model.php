@@ -207,4 +207,17 @@ class Requests_model extends MY_Model
                 $return = $this->get_itens_($data);
                 return $return['qtde'][0];
         }
+        
+        public function is_quantity_greater_than_1($quantity = '')
+        {
+                if(isset($quantity) && $quantity > 1)
+                {
+                        return (isset($_FILES['files']['name']) && !empty($_FILES['files']['name']) ? TRUE : FALSE);
+                }
+                else
+                {
+                        return TRUE;
+                }
+            
+        }
 }

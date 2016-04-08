@@ -53,7 +53,7 @@ class Pedidos extends MY_Controller
                         $this->_adicionar_pedido_session();
                         $this->form_validation->set_rules('business', 'Negócio', array('required', array('is_valid_business', array($this->business_model, 'is_valid_business')), 'trim'));
                         $this->form_validation->set_rules('description', 'Descrição', array('required', 'trim'));
-                        $this->form_validation->set_rules('quantity', 'Reforçar Pedidos', array('integer', 'trim'));
+                        $this->form_validation->set_rules('quantity', 'Quantidade', array('integer', array('is_quantity_greater_than_1', array($this->requests_model, 'is_quantity_greater_than_1')), 'trim'));
                         if($this->form_validation->run())
                         {
                                 $data = $this->_post();
@@ -76,7 +76,7 @@ class Pedidos extends MY_Controller
                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
                                         if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
                                         {
-                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/'), 'Arquivo');
+                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/').$id.'/', 'Arquivo');
                                         }
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');

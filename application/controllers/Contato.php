@@ -18,6 +18,7 @@ class Contato extends MY_Controller
         {
                 if($this->input->is_ajax_request())
                 {
+                        $this->form_validation->set_error_delimiters('', '');
                         $this->form_validation->set_rules($this->validate); 
                         if($this->form_validation->run())
                         {
@@ -36,7 +37,7 @@ class Contato extends MY_Controller
                         }
                         else
                         {
-                                $return = validation_errors('', '');
+                                $return = validation_errors();
                         }
                         echo json_encode($return);
                 }

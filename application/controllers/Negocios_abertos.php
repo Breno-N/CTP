@@ -5,13 +5,14 @@ class Negocios_abertos extends MY_Controller
         public function __construct() 
         {
                 parent::__construct(FALSE);
-                $this->load->model(array('business_model'));
+                $this->load->model(array('business_model', 'requests_model'));
         }
 
         public function index()
         {
                 $this->form_validation->set_rules('business', 'Negócio', array('required', array('is_valid_business', array($this->business_model, 'is_valid_business')), 'trim'));
                 $this->form_validation->set_rules('description', 'Descrição', array('required', 'trim'));
+                $this->form_validation->set_rules('quantity', 'Quantidade', array('integer', array('is_quantity_greater_than_1', array($this->requests_model, 'is_quantity_greater_than_1')), 'trim'));
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
@@ -45,7 +46,7 @@ class Negocios_abertos extends MY_Controller
                 $this->layout
                         ->set_title('Faz, Que Falta - Negócios Abertos')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Negócios Abertos - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_js('site/js/business_autocomplete.js')
                         ->set_js('site/js/requests.js')
                         ->set_js('site/js/footer.js')

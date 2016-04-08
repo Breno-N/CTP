@@ -37,15 +37,6 @@ class MY_Controller extends CI_Controller
                 if(!$this->session->userdata['admin']) redirect($redirect);
         }
 
-        protected function save_log($message = '', $user = '')
-        {
-                $data['description'] = $message;
-                $data['user'] = (isset($this->session->userdata['email']) && !empty($this->session->userdata['email']) ? $this->session->userdata['email'] : $user);
-                $data['date'] = date('Y-m-d H:i:s');
-                $this->load->model('logs_model');
-                $this->logs_model->insert($data);
-        }
-
         /*
          * Função para montar diretorios recursivamente.
          * 
@@ -148,6 +139,15 @@ class MY_Controller extends CI_Controller
                         ->set_view('pages/admin/contents/error', $data, 'template/admin/');
         }
         
+        protected function save_log($message = '', $user = '')
+        {
+                $data['description'] = $message;
+                $data['user'] = (isset($this->session->userdata['email']) && !empty($this->session->userdata['email']) ? $this->session->userdata['email'] : $user);
+                $data['date'] = date('Y-m-d H:i:s');
+                $this->load->model('logs_model');
+                $this->logs_model->insert($data);
+        }
+        
         private function _not_support_browser()
         {
                 $this->load->library('user_agent');
@@ -157,5 +157,23 @@ class MY_Controller extends CI_Controller
                 $version = floor($this->agent->version());
                 
                 return ($browser == 'Internet Explorer' && $version <= 8) ? TRUE : FALSE;
+        }
+        
+        protected function is_same_request()
+        {
+                $method = $this->input->server('REQUEST_METHOD');
+                if( $method =='POST' )
+                {
+                        $request = md5( implode($this->input->post(NULL, TRUE)) );
+                        $last_request = $this->session->userdata['last_request'];
+                        if(isset($last_request) && ($last_request == $request) )
+                        {
+                                return TRUE;
+                        }
+                        else
+                        {
+                                $this->session->set_userdata(array('last_request' => $request));
+                        }
+                }
         }
 }

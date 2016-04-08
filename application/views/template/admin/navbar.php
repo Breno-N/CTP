@@ -1,3 +1,4 @@
+<!-- NAVBAR -->
 <aside id="aside">
     <nav id="sideNav">
         <ul class="nav nav-list">
@@ -73,7 +74,9 @@
 <header id="header">
     <button id="mobileMenuBtn"></button>
     <span class="logo pull-left">
-        <img src="<?php echo base_url().'/assets/admin/images/logo.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta"  height="35" />
+        <a href="<?php echo base_url().'admin/painel/'; ?>">
+            <img src="<?php echo base_url().'/assets/admin/images/logo.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta"  height="35" />
+        </a>
     </span>
     <nav>
         <ul class="nav pull-right">
@@ -99,3 +102,4 @@
         </ul>
     </nav>
 </header>
+<!-- /NAVBAR -->

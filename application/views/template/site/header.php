@@ -9,6 +9,9 @@
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
     
+    <!-- FAVICON -->
+    <link href="<?php echo base_url().'assets/site/images/favicon.ico'; ?>" rel="shortcut icon" type="image/x-icon" />
+    
     <!-- WEB FONTS : use %7C instead of | (pipe) -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 

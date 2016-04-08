@@ -1,3 +1,4 @@
+<!-- FOOTER -->
 <footer id="footer">
     <div class="container">
         <div class="row">
@@ -8,35 +9,28 @@
                         <li class="footer-sprite address">
                             São José dos Pinhais - Paraná - Brasil
                         </li>
-                        <li>
-                            <p class="margin-bottom-0">Horário de Atendimento</p><br>
-                            <p>
-                                <span class="block"><strong>Segunda - Sexta:</strong> 08:00 as 18:00</span><br>
-                                <span class="block"><strong>Sabádo e Domingo:</strong> Fechado </span>
-                            </p>
-                        </li>
                     </ul>
-                </address>
-                <hr />
-                <div class="row">
-                    <div class="col-md-6 col-sm-6 hidden-xs">
-                        <div class="clearfix">
-                            <p class="margin-bottom-10">Acompanhe o nosso sonho e vem com a gente!</p>
-                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
-                                <i class="icon-facebook"></i>
-                                <i class="icon-facebook"></i>
-                            </a>
-                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
-                                <i class="icon-gplus"></i>
-                                <i class="icon-gplus"></i>
-                            </a>
-                            <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                                <i class="icon-linkedin"></i>
-                                <i class="icon-linkedin"></i>
-                            </a>
+                    <hr />
+                    <div class="row">
+                        <div class="col-md-6 col-sm-6">
+                            <div class="clearfix">
+                                <p class="margin-bottom-10">Acompanhe o nosso sonho e vem com a gente!</p>
+                                <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
+                                    <i class="icon-facebook"></i>
+                                    <i class="icon-facebook"></i>
+                                </a>
+                                <a href="#" class="social-icon social-icon-sm social-icon-transparent social-gplus pull-left" data-toggle="tooltip" data-placement="top" title="Google plus">
+                                    <i class="icon-gplus"></i>
+                                    <i class="icon-gplus"></i>
+                                </a>
+                                <a href="#" class="social-icon social-icon-sm social-icon-transparent social-linkedin pull-left" data-toggle="tooltip" data-placement="top" title="Linkedin">
+                                    <i class="icon-linkedin"></i>
+                                    <i class="icon-linkedin"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
+                </address>
             </div>
             <div class="col-md-4" id="contato">
                 <h4 class="letter-spacing-1">Tem alguma dúvida? Conta pra gente!</h4>
@@ -63,3 +57,4 @@
         </div>
     </div>
 </footer>
+<!-- /FOOTER -->
