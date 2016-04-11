@@ -8,11 +8,11 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 text-center">
-                <h2 class="size-25">Bem Vindo ao FAZ, QUE FALTA!</h2>
-                <p class="lead font-lato">O Faz Que Falta é a SUA chance de mudar o seu contexto social!</p>
-                <p class="font-lato">Nós apresentamos sua demanda para os empreendedores e assim possibilitamos um impacto social através do empreendedorismo!</p>
-                <p class="font-lato">É o trabalho em conjunto da população impactando a realidade!</p>
-                <p class="font-lato">Vem com a gente!</p>
+                <h1 class="margin-bottom-20">Bem Vindo ao FAZ, QUE FALTA!</h1>
+                <h2 class="font-lato size-20">O Faz Que Falta é a SUA chance de mudar o seu contexto social!</h2>
+                <h3 class="font-lato size-18">Nós apresentamos sua demanda para os empreendedores e assim possibilitamos um impacto social através do empreendedorismo!</h3>
+                <h3 class="font-lato size-18">É o trabalho em conjunto da população impactando a realidade!</h3>
+                <h3 class="font-lato size-18">Vem com a gente!</h3>
             </div>
         </div>
     </div>
@@ -23,7 +23,7 @@
 <section class="callout-dark heading-title heading-arrow-bottom padding-40">
     <div class="container">
         <div class="text-center">
-            <h3 class="size-30"><i>Pronto para começar ? Nos diga o que falta no seu bairro!</i></h3>
+            <h2 class="size-30"><i>Pronto para começar ? Nos diga o que falta no seu bairro!</i></h2>
         </div>
     </div>
 </section>
@@ -113,7 +113,7 @@
                                 <div class="col-md-3 col-sm-12">
                                     <div class="uploadfiles">
                                         <label>Modelo</label>
-                                        <a href="<?php echo base_url().'util/download_modelo/'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
+                                        <a href="<?php echo base_url().'modelo/modelo.pdf'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">

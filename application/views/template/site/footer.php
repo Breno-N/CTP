@@ -12,9 +12,9 @@
                     </ul>
                     <hr />
                     <div class="row">
-                        <div class="col-md-6 col-sm-6">
+                        <div class="col-md-12 col-sm-12">
                             <div class="clearfix">
-                                <p class="margin-bottom-10">Acompanhe o nosso sonho e vem com a gente!</p>
+                                <h5 class="margin-bottom-10 letter-spacing-1">Acompanhe o nosso sonho e vem com a gente!</h5>
                                 <a href="#" class="social-icon social-icon-sm social-icon-transparent social-facebook pull-left" data-toggle="tooltip" data-placement="top" title="Facebook">
                                     <i class="icon-facebook"></i>
                                     <i class="icon-facebook"></i>
@@ -33,7 +33,7 @@
                 </address>
             </div>
             <div class="col-md-4" id="contato">
-                <h4 class="letter-spacing-1">Tem alguma dúvida? Conta pra gente!</h4>
+                <h5 class="letter-spacing-1">Tem alguma dúvida? Conta pra gente!</h5>
                 <form id="form-contact">
                     <input type="hidden" value="1" name="send_message">
                     <input required type="text" value="" class="form-control" name="name" id="name" placeholder="* Nome">
@@ -49,8 +49,8 @@
         <div class="container">
             <ul class="list-inline inline-links mobile-block pull-right nomargin">
                 <li><a href="<?php echo base_url().'home'; ?>">Home</a></li>
-                <li><a href="<?php echo base_url().'negocios_abertos'; ?>">Negócios Já Abertos</a></li>
-                <li><a href="<?php echo base_url().'quem_somos'; ?>">Quem Somos</a></li>
+                <li><a href="<?php echo base_url().'negocios-abertos'; ?>">Negócios Já Abertos</a></li>
+                <li><a href="<?php echo base_url().'quem-somos'; ?>">Quem Somos</a></li>
                 <li><a href="<?php echo base_url().'acesso'; ?>">Login</a></li>
             </ul>
             &copy; Todos os Direitos Reservados, CTP GROUP

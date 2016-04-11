@@ -5,7 +5,7 @@
             <div class="col-md-12">
                 <img class="pull-left" src="assets/site/images/about.png" alt="" />
                 <div class="heading-title">
-                    <h2>Quem somos</h2>
+                    <h1>Quem somos</h1>
                 </div>
                 <p>O Faz Que Falta é o sistema que busca contribuir para a transformação social através do empreendedorismo.</p>
                 <p>Nós criamos a ligação da sua demanda não atendida com o empreendedor que pode atender esse pedido.</p>

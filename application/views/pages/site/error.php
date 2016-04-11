@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h2>OPS, <strong>Página não encontrada, assim como o serviço que você precisa!</strong></h2>
-                <h3>Faça seu pedido agora</h3>
+                <h1>OPS, <strong>Página não encontrada, assim como o serviço que você precisa!</strong></h1>
+                <h2>Faça seu pedido agora</h2>
             </div>
         </div>
         <div class="row">
@@ -94,7 +94,7 @@
                                 <div class="col-md-3 col-sm-12">
                                     <div class="uploadfiles">
                                         <label>Modelo</label>
-                                        <a href="<?php echo base_url().'util/download_modelo/'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
+                                        <a href="<?php echo base_url().'modelo/modelo.pdf'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">

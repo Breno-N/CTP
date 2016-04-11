@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h2>Ainda não temos nenhum negócio aberto. Apoie essa ideia! Faça seu pedido!</h2>
+                <h1>Ainda não temos nenhum negócio aberto. Apoie essa ideia! Faça seu pedido!</h1>
             </div>
         </div>
         <div class="row">
@@ -93,7 +93,7 @@
                                 <div class="col-md-3 col-sm-12">
                                     <div class="uploadfiles">
                                         <label>Modelo</label>
-                                        <a href="<?php echo base_url().'util/download_modelo/'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
+                                        <a href="<?php echo base_url().'modelo/modelo.pdf'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
                                     </div>
                                 </div>
                                 <div class="col-md-6 col-sm-12">

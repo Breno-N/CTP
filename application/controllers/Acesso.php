@@ -238,6 +238,20 @@ class Acesso extends MY_Controller
                         ->set_view('pages/site/access', $data);
         }
         
+        public function social()
+        {
+                $this->load->library('Opauth/Opauth', $this->config->item('opauth_config'), false);
+                $this->opauth->run();    
+        }
+        
+        public function auth_social()
+        {
+                $response = unserialize(base64_decode( $_POST['opauth'] ));
+                echo("<pre>");
+                print_r($response);
+                echo("</pre>");
+        }
+        
         public function logoff()
         {
                 if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))

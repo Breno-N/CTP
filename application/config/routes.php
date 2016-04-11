@@ -51,7 +51,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'home';
 $route['404_override'] = 'erro';
-$route['translate_uri_dashes'] = FALSE;
+$route['translate_uri_dashes'] = TRUE;
 
 $route['admin'] = 'acesso';
 
@@ -59,3 +59,13 @@ $route['home/(:any)'] = 'home';
 $route['home/(:any)/(:any)'] = 'home';
 $route['home/(:any)/(:any)/(:any)'] = 'home';
 $route['home/(:any)/(:any)/(:any)/(:any)'] = 'home';
+
+$route['negocios-abertos/(:any)'] = 'negocios_abertos';
+$route['negocios-abertos/(:any)/(:any)'] = 'negocios_abertos';
+$route['negocios-abertos/(:any)/(:any)/(:any)'] = 'negocios_abertos';
+$route['negocios-abertos/(:any)/(:any)/(:any)/(:any)'] = 'negocios_abertos';
+
+$route['quem-somos/(:any)'] = 'quem_somos';
+$route['quem-somos/(:any)/(:any)'] = 'quem_somos';
+$route['quem-somos/(:any)/(:any)/(:any)'] = 'quem_somos';
+$route['quem-somos/(:any)/(:any)/(:any)/(:any)'] = 'quem_somos';

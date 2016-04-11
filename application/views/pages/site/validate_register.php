@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h2>Ativação de Cadastro</h2>
+                <h1>Ativação de Cadastro</h1>
             </div>
         </div>
         <div class="row">

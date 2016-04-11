@@ -15,10 +15,10 @@
                             <a href="<?php echo base_url(); ?>">Home</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'negocios_abertos'; ?>">Negócios Já Abertos</a>
+                            <a href="<?php echo base_url().'negocios-abertos'; ?>">Negócios Já Abertos</a>
                         </li>
                         <li>
-                            <a href="<?php echo base_url().'quem_somos'; ?>">Quem Somos</a>
+                            <a href="<?php echo base_url().'quem-somos'; ?>">Quem Somos</a>
                         </li>
                         <?php if(isset($this->session->userdata['id']) && !empty($this->session->userdata['id'])): ?>
                             <li>
