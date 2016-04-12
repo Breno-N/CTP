@@ -2,8 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h1>OPS, <strong>Página não encontrada, assim como o serviço que você precisa!</strong></h1>
-                <h2>Faça seu pedido agora</h2>
+                <h2 class="margin-bottom-10">OPS, <strong>Página não encontrada, assim como o serviço que você precisa!</strong></h2>
+                <h2>Faça seu pedido!</h2>
             </div>
         </div>
         <div class="row">
@@ -28,13 +28,6 @@
                                             <em>Selecione os negócios disponiveis na lista de sugestões!</em>
                                         </span>
                                     </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row form-notfind-business">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="alert alert-warning">
-                                    Se você não encontrar o negócio que precisa <a href="<?php echo base_url().'contato'; ?>">INFORME-NOS</a> por gentileza.
                                 </div>
                             </div>
                         </div>

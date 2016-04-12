@@ -2,12 +2,10 @@
     
     $(function(){
         
-        var url_default = '/ctp/admin/pedidos/';
-        
         $('#request-support').on('click', function(e){
             var request = $(this).attr('data-id');
             if(confirm('Deseja apoiar esta solicitação ?')){
-                $.post(url_default + 'apoiar', {'request' : request}).then(function(result){
+                $.post(url_default + 'admin/pedidos/apoiar', {'request' : request}).then(function(result){
                     if(result != '' && result != '0' && result != null && result != undefined){
                         window.alert('Operação realizada com sucesso.');
                         window.location.reload(true); 

@@ -1,8 +1,17 @@
 loadScript(plugin_path + 'bootstrap.typeahead/bootstrap3-typeahead.min.js', function() {
     (function(){ 
         
-        var business = $('#business');
-        get_all_bussines(business);
+        if($('#business')[0]){
+            var business = $('#business');
+            get_all_bussines(business);
+            
+            business.on('blur', function(){
+                var name = $(this).val();
+                if($('.form-link-warning')[0]){
+                    have_business_neighborhood_request(name);
+                }
+            });
+        }
         
         if($('.form-link-warning')[0]){
             $('.form-link-warning').hide();
@@ -12,21 +21,14 @@ loadScript(plugin_path + 'bootstrap.typeahead/bootstrap3-typeahead.min.js', func
             $('.form-notfind-business').hide();
         }
         
-        business.on('blur', function(){
-            var name = $(this).val();
-            if($('.form-link-warning')[0]){
-                have_business_neighborhood_request(name);
-            }
-        });
-        
         function get_all_bussines(place){
-            $.getJSON('/ctp/util/get_business').then(function(result){
+            $.getJSON(url_default + 'util/get_business').then(function(result){
                 place.typeahead({ source : result });
             });
         }
         
         function have_business_neighborhood_request(business){
-            $.getJSON('/ctp/util/have_business_neighborhood_request', {business : business}).then(function(result){
+            $.getJSON(url_default + 'util/have_business_neighborhood_request', {business : business}).then(function(result){
                 if(result != '' && result != null && result != undefined){
                     $('.form-link-warning').show();
                     $('.form-input').hide();

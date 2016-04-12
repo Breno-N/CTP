@@ -2,7 +2,8 @@
     <div class="container">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h1>Ainda não temos nenhum negócio aberto. Apoie essa ideia! Faça seu pedido!</h1>
+                <h1 class="margin-bottom-10">Ainda não temos nenhum negócio aberto.</h1>
+                <h2>Apoie essa ideia! Faça seu pedido!</h2>
             </div>
         </div>
         <div class="row">
@@ -30,18 +31,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="row form-notfind-business">
-                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                <div class="alert alert-warning">
-                                    Se você não encontrar o negócio que precisa <a href="<?php echo base_url().'contato'; ?>">INFORME-NOS</a> por gentileza.
-                                </div>
-                            </div>
-                        </div>
                         <?php if(isset($this->session->userdata['authentication']) && $this->session->userdata['authentication']): ?>
                         <div class="row form-link-warning">
                             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                 <div class="alert alert-warning">
-                                    O négocio selecionado já foi solicitado em seu bairro, para visualizar o pedido <a href="" id="link-support"> Clique Aqui </a>.
+                                    <h4>O négocio selecionado já foi solicitado em seu bairro, para visualizar o pedido <a href="" id="link-support"> Clique Aqui </a></h4>.
                                 </div>
                             </div>
                         </div>

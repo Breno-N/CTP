@@ -1,9 +1,7 @@
 <section id="middle">
-    <!-- page title -->
     <header id="page-header">
         <h1> Painel </h1> 
     </header>
-    <!-- /page title -->
     <div id="content" class="dashboard padding-20">
         <div id="panel-1" class="panel panel-default">
             <div class="panel-heading">

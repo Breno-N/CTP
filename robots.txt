@@ -1,0 +1,10 @@
+User-agent: *
+# Paths (clean URLs)
+Disallow: /admin/
+Disallow: /acesso/do_login/
+Disallow: /acesso/do_register/
+Disallow: /acesso/recover_pass/
+Disallow: /acesso/logoff/
+Disallow: /util/
+Disallow: /modelo/
+Disallow: /uploads/

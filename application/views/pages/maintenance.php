@@ -14,19 +14,9 @@
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
 
-        <!-- WEB FONTS : use %7C instead of | (pipe) -->
+        <link href="<?php echo base_url().'assets/site/images/favicon.ico'; ?>" rel="shortcut icon" type="image/x-icon" />
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
-
-        <!-- CORE CSS -->
-        <link href="<?php echo base_url().'assets/site/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
-
-        <!-- THEME CSS -->
-        <link href="<?php echo base_url().'assets/site/css/essentials.css'?>" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url().'assets/site/css/layout.css" rel="stylesheet'?>" type="text/css" />
-
-        <!-- PAGE LEVEL SCRIPTS -->
-        <link href="<?php echo base_url().'assets/site/css/header-1.css'?>" rel="stylesheet" type="text/css" />
-        <link href="<?php echo base_url().'assets/site/css/color_scheme/green.css'?>" rel="stylesheet" type="text/css" id="color_scheme" />
+        <link href="<?php echo base_url().'assets/site/css/style.min.css'?>" rel="stylesheet" type="text/css" />
     </head>
     <body class="bg-grey">
         <div id="wrapper">
@@ -55,9 +45,7 @@
             </div>
         </div>
 
-        <!-- JAVASCRIPT FILES -->
         <script type="text/javascript">var plugin_path ='<?php echo base_url().'assets/site/plugins/' ?>';</script>
-        <script type="text/javascript" src="<?php echo base_url().'assets/site/plugins/jquery/jquery-2.1.4.min.js'?>"></script>
-        <script type="text/javascript" src="<?php echo base_url().'assets/site/js/scripts.js'?>"></script>
+        <script type="text/javascript" src="<?php echo base_url().'assets/site/js/script.min.js'?>"></script>
     </body>
 </html>

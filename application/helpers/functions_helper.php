@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 /*
 * Função que realiza a limpeza dos dados que são passados por POST ou GET

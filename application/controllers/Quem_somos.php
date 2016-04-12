@@ -11,9 +11,8 @@ class Quem_somos extends MY_Controller
         {
                 $this->layout
                     ->set_title('Faz, Que Falta - Sobre')
-                    ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                    ->set_description('Quem Somos - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                    ->set_js('site/js/footer.js')
+                    ->set_keywords('Faz Que Falta, empreendedorismo, empreendedor, transformação social, demanda, sociedade, pedidos, ideia')
+                    ->set_description('Quem Somos - Faz Que Falta, conheça um pouco de quem faz o Faz Que Falta')
                     ->set_view('pages/site/about', array());
         }
 }

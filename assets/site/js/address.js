@@ -13,7 +13,7 @@
     function get_address(zip_code, place){
         var div = $(place);
         var html = '';
-        $.getJSON('/ctp/util/get_address', {zip_code : zip_code })
+        $.getJSON(url_default + 'util/get_address', {zip_code : zip_code })
         .done(function(result){
             html = result.state + ' - ' + result.city + ' - ' + result.neighborhood + ' - ' + result.street;
             div.removeClass('alert-warning').addClass('alert-info').html(html);

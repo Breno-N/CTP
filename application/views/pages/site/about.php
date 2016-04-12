@@ -1,16 +1,15 @@
-<!-- ABOUT -->
 <section>
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                <img class="pull-left" src="assets/site/images/about.png" alt="" />
+                <img class="pull-left" src="assets/site/images/about.png" alt="Quem somos - Faz Que Falta" />
                 <div class="heading-title">
                     <h1>Quem somos</h1>
                 </div>
-                <p>O Faz Que Falta é o sistema que busca contribuir para a transformação social através do empreendedorismo.</p>
-                <p>Nós criamos a ligação da sua demanda não atendida com o empreendedor que pode atender esse pedido.</p>
-                <p>Nosso sonho começou em abril de 2016.</p>
-                <p>Nos ajude a transformar a sociedade! Apoie essa ideia e faça seus pedidos!</p>
+                <h2 class="size-18">O Faz Que Falta é o sistema que busca contribuir para a transformação social através do empreendedorismo.</h2>
+                <h3 class="size-17">Nós criamos a ligação da sua demanda não atendida com o empreendedor que pode atender esse pedido.</h3>
+                <h4 class="size-16">Nosso sonho começou em abril de 2016.</h4>
+                <h4 class="size-16">Nos ajude a transformar a sociedade! Apoie essa ideia e faça seus pedidos!</h4>
                 <div class="row margin-top-60">
                     <div class="col-sm-6">
                         <div class="heading-title heading-border-bottom heading-color">
@@ -69,4 +68,3 @@
         </div>
     </div>
 </section>
-<!-- /ABOUT -->

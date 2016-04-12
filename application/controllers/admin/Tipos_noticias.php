@@ -24,10 +24,6 @@ class Tipos_noticias extends MY_Controller
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
                         ->set_title('Admin - Tipos de Notícias')
-                        ->set_css('admin/css/layout-datatables.css')
-                        ->set_js('admin/js/data_table.js')
-                        ->set_js('admin/js/update_delete.js')
-                        ->set_js('admin/js/type_news.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                         ->set_breadcrumbs('Tipos de Notícias', 'admin/tipos_noticias/', 1)
                         ->set_view('pages/admin/contents/type_news', $data, 'template/admin/');

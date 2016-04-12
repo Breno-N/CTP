@@ -54,12 +54,9 @@ class Home extends MY_Controller
                 $data = $this->get_itens_table();
                 $data['action'] = base_url().'home';
                 $this->layout
-                        ->set_title('Faz, Que Falta')
-                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_js('site/js/business_autocomplete.js')
-                        ->set_js('site/js/requests.js')
-                        ->set_js('site/js/footer.js')
+                        ->set_title('Faz Que Falta')
+                        ->set_keywords('empreendedores, empreendedorismo, impacto social, contexto social, trabalho em conjunto, negócio, social, Faz Que Falta, demanda, pedido, bairro')
+                        ->set_description('Faz Que Falta, o sistema que conecta os empreendedores às demandas da sociedade. Faça o seu pedido!')
                         ->set_view('pages/site/home', $data);
         }
         

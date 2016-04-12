@@ -22,10 +22,6 @@ class Usuarios extends MY_Controller
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
                         ->set_title('Admin - Usuários')
-                        ->set_css('admin/css/layout-datatables.css')
-                        ->set_js('admin/js/data_table.js')
-                        ->set_js('admin/js/update_delete.js')
-                        ->set_js('admin/js/users.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                         ->set_breadcrumbs('Usuários', 'admin/usuarios/', 1)
                         ->set_view('pages/admin/contents/users', $data, 'template/admin/');
@@ -59,6 +55,11 @@ class Usuarios extends MY_Controller
                         {
                                 $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash('123') ;
                                 $data['date_create'] = date('Y-m-d');
+                                if(isset($data['birthday']) && !empty($data['birthday']))
+                                {
+                                        $birthday = explode('/', $data['birthday']);
+                                        $data['birthday'] = $birthday[2].'-'.$birthday[1].'-'.$birthday[0];
+                                }
                                 $id = $this->users_model->insert($data);
                                 $this->save_log('Usuarios inserido ID : '.$id);
                                 redirect('admin/usuarios/editar/'.$id.'/1');
@@ -77,7 +78,6 @@ class Usuarios extends MY_Controller
                 $data['types_user'] = $this->get_type_user();
                 $this->layout
                             ->set_title('CTP - Admin - Usuários - Adicionar')
-                            ->set_js('admin/js/address.js')
                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                             ->set_breadcrumbs('Usuarios', 'admin/usuarios/', 0)
                             ->set_breadcrumbs('Adicionar', 'admin/usuarios/', 1)
@@ -163,7 +163,6 @@ class Usuarios extends MY_Controller
                                         $is_admin = (isset($this->session->userdata['admin']) && $this->session->userdata['admin']) ? 0 : 1;
                                         $this->layout
                                                 ->set_title('Admin - Usuários - Editar')
-                                                ->set_js('admin/js/address.js')
                                                 ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                                 ->set_breadcrumbs('Usuarios', 'admin/usuarios/', $is_admin)
                                                 ->set_breadcrumbs('Editar', 'admin/usuarios/', 1)

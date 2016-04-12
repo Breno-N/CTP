@@ -26,7 +26,7 @@
                                 <td><?php echo $item->active; ?></td>
                                 <td>
                                     <a href="<?php echo $action_editar.$item->id; ?>" class="btn btn-3d btn-default btn-update">
-                                        <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> Detalhes
+                                        <span class="fa fa-edit" aria-hidden="true"></span> Detalhes
                                     </a>
                                 </td>
                             </tr>

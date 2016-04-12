@@ -24,10 +24,6 @@ class Tipos_status_requisicoes extends MY_Controller
                 $data['action_adicionar'] = base_url().'admin/'.strtolower(__CLASS__).'/adicionar';
                 $this->layout
                         ->set_title('Admin - Tipos de Status de Requisições')
-                        ->set_css('admin/css/layout-datatables.css')
-                        ->set_js('admin/js/data_table.js')
-                        ->set_js('admin/js/update_delete.js')
-                        ->set_js('admin/js/type_request_status.js')
                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                         ->set_breadcrumbs('Tipos de Status de Requisições', 'admin/tipos_status_requisicoes/', 1)
                         ->set_view('pages/admin/contents/type_request_status', $data, 'template/admin/');

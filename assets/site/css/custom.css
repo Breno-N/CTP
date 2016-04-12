@@ -1,6 +1,18 @@
+.parallax .citizens{
+    color: #3498db;
+}
+.parallax .businessman{
+    color: #e74c3c;
+}
+.parallax .all-requests{
+    color: #16a085;
+}
+.parallax .open-requests{
+    color: #9b59b6;
+}
+
 #footer .copyright{
     background-color: #F38F20;
-    //background-color: #ffac38;
     color:#000000;
 }
 #footer .copyright a, #footer ul.inline-links > li + li::before{

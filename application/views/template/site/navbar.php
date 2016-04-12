@@ -1,4 +1,3 @@
-<!-- NAVBAR -->
 <div id="header" class="sticky clearfix">
     <header id="topNav">
         <div class="container">
@@ -23,20 +22,17 @@
                         <?php if(isset($this->session->userdata['id']) && !empty($this->session->userdata['id'])): ?>
                             <li>
                                 <a href="<?php echo base_url().'admin/painel'?>">
-                                    <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
                                     Painel
                                 </a>
                             </li>
                             <li>
                                 <a href="<?php echo base_url().'acesso/logoff'?>">
-                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     Deslogar
                                 </a>
                             </li>
                         <?php else : ?>
                             <li>
                                 <a href="<?php echo base_url().'acesso'?>">
-                                    <span class="glyphicon glyphicon-user" aria-hidden="true"></span>
                                     Login
                                 </a>
                             </li>
@@ -47,4 +43,3 @@
         </div>
     </header>
 </div>
-<!-- /NAVBAR -->

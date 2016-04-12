@@ -60,8 +60,6 @@ class Acesso extends MY_Controller
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_js('site/js/address.js')
-                        ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);
         }
         
@@ -144,8 +142,6 @@ class Acesso extends MY_Controller
                             ->set_title('Faz, Que Falta - Acesso')
                             ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                             ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                            ->set_js('site/js/address.js')
-                            ->set_js('site/js/footer.js')
                             ->set_view('pages/site/access', $data);
         }
         
@@ -233,8 +229,6 @@ class Acesso extends MY_Controller
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_js('site/js/address.js')
-                        ->set_js('site/js/footer.js')
                         ->set_view('pages/site/access', $data);
         }
         

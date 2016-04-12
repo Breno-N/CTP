@@ -1,4 +1,3 @@
-<!-- NAVBAR -->
 <aside id="aside">
     <nav id="sideNav">
         <ul class="nav nav-list">
@@ -102,4 +101,3 @@
         </ul>
     </nav>
 </header>
-<!-- /NAVBAR -->

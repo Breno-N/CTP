@@ -16,8 +16,8 @@ $config['opauth_config'] = array(
                 'client_secret' => 'VrGKatUMItrl9u5e8bD-Pn4-'
             ),
             'LinkedIn' => array(
-                'api_key' => 'YOUR API KEY',
-                'secret_key' => 'YOUR SECRET KEY'
+                'api_key' => '77oq1yrhmvgopz',
+                'secret_key' => 'fH3fxOTSngqp1RQi'
             ),
         )
     );

@@ -1,4 +1,3 @@
-<!-- PRESENTATION -->
 <section class="padding-30">
     <div class="container">
         <div class="row">
@@ -8,7 +7,7 @@
                 </div>
             </div>
             <div class="col-md-12 col-sm-12 text-center">
-                <h1 class="margin-bottom-20">Bem Vindo ao FAZ, QUE FALTA!</h1>
+                <h1 class="margin-bottom-20">Bem Vindo ao FAZ QUE FALTA!</h1>
                 <h2 class="font-lato size-20">O Faz Que Falta é a SUA chance de mudar o seu contexto social!</h2>
                 <h3 class="font-lato size-18">Nós apresentamos sua demanda para os empreendedores e assim possibilitamos um impacto social através do empreendedorismo!</h3>
                 <h3 class="font-lato size-18">É o trabalho em conjunto da população impactando a realidade!</h3>
@@ -17,9 +16,7 @@
         </div>
     </div>
 </section>
-<!-- /PRESENTATION -->
 
-<!-- CALLOUT -->
 <section class="callout-dark heading-title heading-arrow-bottom padding-40">
     <div class="container">
         <div class="text-center">
@@ -27,9 +24,7 @@
         </div>
     </div>
 </section>
-<!-- /CALLOUT -->
 
-<!-- /REQUEST -->
 <section class="padding-30">
     <div class="container">
         <div class="row">
@@ -137,37 +132,35 @@
         </div>
     </div>
 </section>
- <!-- /REQUEST -->
- 
-<!-- PARALLAX -->
-<section class="parallax parallax-2" style="background-image: url('assets/site/images/parallax.jpg');">
-    <div class="overlay dark-8"><!-- dark overlay [1 to 9 opacity] --></div>
+
+<section id="parallax-informative" class="parallax parallax-2">
+    <div class="overlay dark-8"></div>
     <div class="container">
         <div class="row countTo-sm text-center">
             <div class="col-xs-6 col-sm-3">
                 <i class="ico-lg ico-transparent et-profile-male"></i>
-                <div class="block size-40" style="color: #3498db;">
+                <div class="block size-40 citizens">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $citizens; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">USUÁRIOS</h3>
             </div>
             <div class="col-xs-6 col-sm-3">
                 <i class="ico-lg ico-transparent et-briefcase"></i>
-                <div class="block size-40" style="color: #e74c3c;">
+                <div class="block size-40 businessman">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $businessman; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">EMPRESAS</h3>
             </div>
             <div class="col-xs-6 col-sm-3">
                 <i class="ico-lg ico-transparent et-chat"></i>
-                <div class="block size-40" style="color: #16a085;">
+                <div class="block size-40 all-requests">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $all_requests; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">PEDIDOS</h3>
             </div>
             <div class="col-xs-6 col-sm-3">
                 <i class="ico-lg ico-transparent et-linegraph"></i>
-                <div class="block size-40" style="color: #9b59b6;">
+                <div class="block size-40 open-requests">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $open_requests; ?></strong> %
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">CONVERSÃO</h3>
@@ -175,4 +168,3 @@
         </div>
     </div>
 </section>
-<!-- /PARALLAX -->

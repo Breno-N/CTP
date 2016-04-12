@@ -45,11 +45,8 @@ class Negocios_abertos extends MY_Controller
                 $data['action'] = base_url().'negocios_abertos';
                 $this->layout
                         ->set_title('Faz, Que Falta - Negócios Abertos')
-                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Negócios Abertos - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_js('site/js/business_autocomplete.js')
-                        ->set_js('site/js/requests.js')
-                        ->set_js('site/js/footer.js')
+                        ->set_keywords('Faz Que Falta, negócio, negocios, negócio aberto, negócios abertos, ideia, pedido, bairro')
+                        ->set_description('Negócios Abertos - Faz Que Falta, visualize os negócios abertos e faça o seu pedido!')
                         ->set_view('pages/site/open_business', $data);
         }
         

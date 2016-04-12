@@ -1,4 +1,3 @@
-<!-- LOGIN-REGISTER -->
 <section>
     <div class="container">
         <div class="row">
@@ -46,6 +45,12 @@
                                     <div class="margin-bottom-20">&ndash; OR &ndash;</div>
                                     <a href="<?php echo base_url().'acesso/social/google'; ?>" class="btn btn-block btn-social btn-google margin-top-10">
                                         <i class="fa fa-google"></i> Login com Google
+                                    </a>
+                                    <a href="<?php echo base_url().'acesso/social/facebook'; ?>" class="btn btn-block btn-social btn-facebook margin-top-10">
+                                        <i class="fa fa-facebook"></i> Login com Facebook
+                                    </a>
+                                    <a href="<?php echo base_url().'acesso/social/linkedin'; ?>" class="btn btn-block btn-social btn-linkedin margin-top-10">
+                                        <i class="fa fa-linkedin"></i> Login com Linkedin
                                     </a>
                                 </div>
                             </div>
@@ -126,4 +131,3 @@
         </div>
     </div>
 </section>
-<!-- /LOGIN-REGISTER -->
