@@ -1,10 +1,9 @@
 User-agent: *
 # Paths (clean URLs)
 Disallow: /admin/
-Disallow: /acesso/do_login/
-Disallow: /acesso/do_register/
-Disallow: /acesso/recover_pass/
-Disallow: /acesso/logoff/
+Disallow: /acesso/
 Disallow: /util/
 Disallow: /modelo/
 Disallow: /uploads/
+
+Sitemap: http://www.fazquefalta.com.br/sitemap.xml
