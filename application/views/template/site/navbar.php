@@ -33,7 +33,7 @@
                         <?php else : ?>
                             <li>
                                 <a href="<?php echo base_url().'acesso'?>">
-                                    Login
+                                    Acesso
                                 </a>
                             </li>
                         <?php endif; ?>

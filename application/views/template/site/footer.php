@@ -52,7 +52,7 @@
     <div class="copyright">
         <div class="container">
             <ul class="list-inline inline-links mobile-block pull-right nomargin">
-                <li><a href="<?php echo base_url().'home'; ?>">Home</a></li>
+                <li><a href="<?php echo base_url(); ?>">Home</a></li>
                 <li><a href="<?php echo base_url().'negocios-abertos'; ?>">Negócios Já Abertos</a></li>
                 <li><a href="<?php echo base_url().'quem-somos'; ?>">Quem Somos</a></li>
                 <li><a href="<?php echo base_url().'acesso'; ?>">Login</a></li>

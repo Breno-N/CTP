@@ -52,7 +52,7 @@ class Home extends MY_Controller
                         }
                 }
                 $data = $this->get_itens_table();
-                $data['action'] = base_url().'home';
+                $data['action'] = base_url();
                 $this->layout
                         ->set_title('Faz Que Falta')
                         ->set_keywords('empreendedores, empreendedorismo, impacto social, contexto social, trabalho em conjunto, negócio, social, Faz Que Falta, demanda, pedido, bairro')

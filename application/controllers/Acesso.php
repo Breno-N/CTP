@@ -255,7 +255,7 @@ class Acesso extends MY_Controller
                 }
                 $this->save_log('Usuário deslogou do sistema');
                 $this->session->sess_destroy();
-                redirect('home');
+                redirect('/');
         }
         
         private function _post()
