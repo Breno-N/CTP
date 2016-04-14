@@ -99,8 +99,8 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
-                                <button type="submit" id="pedir" class="btn btn-3d btn-teal margin-top-10">
+                            <div class="col-md-3">
+                                <button type="submit" id="pedir" class="btn btn-3d btn-teal btn-block margin-top-10">
                                     REALIZAR PEDIDO
                                 </button>
                             </div>

@@ -16,23 +16,9 @@ class Erro extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
-                        $pedido_session = array(
-                            'pedido_session' => array(
-                                'business' => $post['business'],
-                                'description' => $post['description'],
-                                'have_business_neighborhood' => (isset($post['have_business_neighborhood']) && $post['have_business_neighborhood'] ? 1 : 0),
-                                'quantity' => 1,
-                            )
-                        );
-                        $this->session->set_tempdata($pedido_session, NULL, 600);
-                        if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
-                        {
-                                $pedido_upload['pedido_upload']['tmp_id'] = mt_rand();
-                                $pedido_upload['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
-                                $pedido_upload['pedido_upload']['tmp_ext'] = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
-                                $this->do_upload($pedido_upload['pedido_upload']['tmp_id'], $pedido_upload['pedido_upload']['tmp_path'], 'Arquivo');
-                                $this->session->set_userdata($pedido_upload);
-                        }
+                        $this->_set_temp_pedido($post);
+                        $this->_unlink_temp_pedido_upload();
+                        $this->_set_temp_pedido_upload($_FILES);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
                                 redirect('acesso');

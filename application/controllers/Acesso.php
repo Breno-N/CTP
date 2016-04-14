@@ -38,6 +38,7 @@ class Acesso extends MY_Controller
                                     'type' => $user->id_type_user,
                                     'neighborhood' => $user->id_neighborhood,
                                     'can_post' => $user->can_post,
+                                    'photo' => $user->photo,
                                     'authentication' => TRUE,
                                     'admin' => ($user->id_type_user == 5487) ? TRUE : FALSE,
                                 );

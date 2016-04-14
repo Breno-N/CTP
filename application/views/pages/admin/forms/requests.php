@@ -149,8 +149,8 @@
                                 <?php endif; ?>
                             <?php else: ?>
                             <div class="row form-input">
-                                <div class="col-md-12">
-                                    <button type="submit" id="pedir" class="btn btn-3d btn-teal margin-top-30">
+                                <div class="col-md-3">
+                                    <button type="submit" id="pedir" class="btn btn-3d btn-teal btn-block margin-top-30">
                                         REALIZAR PEDIDO
                                     </button>
                                 </div>

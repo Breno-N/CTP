@@ -75,6 +75,7 @@ class Users_model extends MY_Model
                         ctp_neighborhoods.description as neighborhood,
                         ctp_citys.id_state as state,
                         ctp_citys.description as city,
+                        ctp_attachment.path as photo,
                         ';
                 $data['tables'] =   array(
                                         array($this->table),
@@ -82,6 +83,7 @@ class Users_model extends MY_Model
                                         array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'LEFT'),
                                         array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = ctp_address.id_neighborhood', 'join' => 'LEFT'),
                                         array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'LEFT'),
+                                        array('from' => 'ctp_attachment', 'where' => 'ctp_attachment.id_user_request = '.$this->table.'.id', 'join' => 'LEFT'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
                 $data['column'] = $column;

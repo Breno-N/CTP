@@ -397,9 +397,10 @@ class OpauthStrategy{
 	public static function httpRequest($url, $options = null, &$responseHeaders = null){
 		$context = null;
 		if (!empty($options) && is_array($options)){
+                        //$options = array_merge($options, array( "ssl" => array( "verify_peer" => false, "verify_peer_name" => false, ) ) );
 			$context = stream_context_create($options);
 		}
-
+                
 		$content = file_get_contents($url, false, $context);
 		$responseHeaders = implode("\r\n", $http_response_header);
                 

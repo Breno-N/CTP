@@ -2,9 +2,6 @@
 
 class MY_Controller extends CI_Controller
 {
-        /**
-         * Função construtora da classe que herda da classe pai.
-         */
         public function __construct($login = TRUE, $maintenance = FALSE)
         {
                 parent::__construct();
@@ -18,31 +15,16 @@ class MY_Controller extends CI_Controller
                 if(isset($login) && $login) $this->_is_authenticated();
         }
         
-        /**
-         * Função responsavel por verificar se o usuario esta logado utilizando dados da sessão,
-         * caso contrário redireciona para tela de login.
-         */
         private function _is_authenticated()
         {
                 if(!$this->session->userdata('authentication')) redirect('acesso');
         }
 
-        /**
-         * Função responsavel por verificar a permissão do usuário logado.
-         * @author Breno Henrique Moreno Nunes
-         * @params string $redirect funcao para redirecionar caso não esteja autorizado
-         */
         protected function _is_autorized($redirect = '')
         {
-                if(!$this->session->userdata['admin']) redirect($redirect);
+                if(!$this->session->userdata('admin')) redirect($redirect);
         }
 
-        /*
-         * Função para montar diretorios recursivamente.
-         * 
-         * @author Breno Henrique Moreno Nunes
-         * @params string $dir caminho do diretorio a ser criado
-         */
         public function build_dir($dir = '')
         {
                 if (!is_dir($dir) )
@@ -60,15 +42,7 @@ class MY_Controller extends CI_Controller
                         }
                 }
         }
-
-        /*
-        * Função para fazer o upload do arquivo em diretorio informado de uploads
-        * Retorna array com informações do arquivo que foi feito upload
-        * 
-        * @author Breno Henrique Moreno Nunes
-        * @params string $dir
-        * @return array $data 
-        */
+        
         public function do_upload($id = '', $path = '', $type = '')
         {
                 $data = array();
@@ -79,31 +53,66 @@ class MY_Controller extends CI_Controller
                 $config['allowed_types'] = 'pdf|jpg|jpeg|png|tif';
                 $config['max_size'] = 5120; // 5 mega
                 $config['file_name'] = $id;
-
                 $this->load->library('upload', $config);
-
+                
                 if(!$this->upload->do_upload('files')) 
                 {
                         $data['upload'] = array('error' => $this->upload->display_errors());
                 }
                 else
                 {
+                        if($type == 'Foto')
+                        {
+                                $resize['image_library'] = 'gd2';
+                                $resize['source_image'] = $path.$this->upload->data('file_name');
+                                $resize['create_thumb'] = FALSE;
+                                $resize['maintain_ratio'] = TRUE;
+                                $resize['width'] = 283;
+                                $resize['height'] = 188;
+                                $this->load->library('image_lib', $resize);
+                                $this->image_lib->resize();
+                        }
                         $this->load->model('attachment_model');
                         $this->attachment_model->insert(array('id_user_request' => $id, 'description' =>  $this->upload->data('file_name'), 'path' => $path.$this->upload->data('file_name'), 'type' => $type));
                         $data['upload'] = array('success' => $this->upload->data());
                 }
                 return $data;
         }
+        
+        protected function _set_temp_pedido($post = array())
+        {
+                $pedido_session = array(
+                    'pedido_session' => array(
+                        'business' => $post['business'],
+                        'description' => $post['description'],
+                        'have_business_neighborhood' => (isset($post['have_business_neighborhood']) && $post['have_business_neighborhood'] ? 1 : 0),
+                        'quantity' => (isset($post['quantity']) ? $post['quantity'] : 1),
+                    )
+                );
+                $this->session->set_tempdata($pedido_session, NULL, 600);
+        }
+        
+        protected function _set_temp_pedido_upload($files = array())
+        {
+                if(isset($files['files']['name']) && !empty($files['files']['name']))
+                {
+                        $pedido_upload['pedido_upload']['tmp_id'] = mt_rand();
+                        $pedido_upload['pedido_upload']['tmp_path'] = 'uploads/files/'.date('Y/m/');
+                        $pedido_upload['pedido_upload']['tmp_ext'] = pathinfo($files['files']['name'], PATHINFO_EXTENSION);
+                        $this->do_upload($pedido_upload['pedido_upload']['tmp_id'], $pedido_upload['pedido_upload']['tmp_path'], 'Arquivo');
+                        $this->session->set_userdata($pedido_upload);
+                }
+        }
+        
+        protected function _unlink_temp_pedido_upload()
+        {
+                if(isset($this->session->userdata['pedido_upload']['tmp_id']) && !empty($this->session->userdata['pedido_upload']['tmp_id']))
+                {
+                        $old_file = $this->session->userdata['pedido_upload']['tmp_path'].$this->session->userdata['pedido_upload']['tmp_id'].'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
+                        unlink($old_file);
+                }
+        }
 
-        /*
-         * Função para encaminhar emails utilizando a função mail do PHP.
-         * Retorna TRUE caso o endereço seja aceito para o encaminhamento do email, ou
-         * FALSE se não for aceito ou ocorrer erro de validação. 
-         * 
-         * @author Breno Henrique Moreno Nunes
-         * @params array $email
-         * @return boolean $retorno
-         */
         public function send_email($email = array())
         {
                 $retorno = FALSE;

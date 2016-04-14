@@ -1,3 +1,9 @@
+#pedir{
+    background-color: #8ab933;
+}
+#parallax-informative{
+    background-image: url("assets/site/images/parallax.jpg");
+}
 .parallax .citizens{
     color: #3498db;
 }

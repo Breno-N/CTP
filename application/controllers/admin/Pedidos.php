@@ -269,7 +269,6 @@ class Pedidos extends MY_Controller
         {
                 $this->_is_autorized('admin/painel/');
                 if(empty($id)) exit();
-                //$file = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$id.' AND ctp_attachment.type = "Arquivo" ');
                 $file = $this->attachment_model->get_item('ctp_attachment.id = '.$id.' AND ctp_attachment.type = "Arquivo" ');
                 $name = explode('.', $file->description);
                 $name = $file->id.'.'.$name[1];
