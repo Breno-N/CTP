@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-offset-2 col-md-8 col-sm-12">
-                <div class="embed-responsive embed-responsive-4by3 block margin-bottom-40">
+                <div class="embed-responsive embed-responsive-16by9 block margin-bottom-40">
                     <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/xBddbkRDpQs" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>

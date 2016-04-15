@@ -78,7 +78,6 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_business.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $data['limit'] = 5;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -96,7 +95,6 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_citys.description, ctp_neighborhoods.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $data['limit'] = 5;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -115,7 +113,24 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_states.description, ctp_citys.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $data['limit'] = 5;
+                $return = $this->get_itens_($data);
+                return (isset($return['itens']) ? $return['itens'] : array()) ;
+        }
+        
+        public function get_itens_by_state($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
+        {
+                $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
+                $data['fields'] .= 'ctp_states.description as state';
+                $data['tables'] =   array(
+                                        array($this->table),
+                                        array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
+                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'INNER'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
+                                    );
+                $data['where'] = (isset($where) && $where) ? $where : 'ctp_requests.active = 1';
+                $data['group'] = 'ctp_states.description, ctp_citys.description';
+                $data['column'] = $column;
+                $data['order'] = $order;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }

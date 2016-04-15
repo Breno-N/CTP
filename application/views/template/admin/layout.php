@@ -8,5 +8,6 @@
         </div>
         <script type="text/javascript"> var plugin_path = '<?php echo base_url().'assets/admin/plugins/' ?>'; var url_default = '<?php echo base_url(); ?>'; window.page_action = '<?php echo (strstr($_SERVER['HTTP_HOST'], 'localhost') ? '/ctp/'.uri_string().'/' : '/'.uri_string().'/'); ?>'; </script>
         <script type="text/javascript" src="<?php echo base_url().'assets/admin/js/script.min.js'?>"></script>
+        <script type="text/javascript" src="<?php echo base_url().'assets/admin/js/panel.js'?>"></script>
     </body>
 </html>
