@@ -39,7 +39,7 @@ class Home extends MY_Controller
         
         public function get_itens_informative()
         {
-                $informative['all_requests'] = $this->requests_model->get_total_itens();
+                $informative['all_requests'] = $this->requests_model->get_total_requsts();
                 $informative['businessman'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 2');
                 $informative['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 1');
                 $informative['open_requests'] = $this->requests_model->get_total_itens('ctp_requests.id_type_request_status = 1');

@@ -53,7 +53,7 @@ class Usuarios extends MY_Controller
                         $address_exists = $this->address_model->get_total_itens('ctp_address.zip_code = '.$data['id_address'], 'ctp_address.zip_code', 'DESC', 1);
                         if($address_exists)
                         {
-                                $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash('123') ;
+                                $data['password'] = (isset($data['password']) && !empty($data['password'])) ? Bcrypt::hash($data['password']) : Bcrypt::hash(uniqid()) ;
                                 $data['date_create'] = date('Y-m-d');
                                 if(isset($data['birthday']) && !empty($data['birthday']))
                                 {
