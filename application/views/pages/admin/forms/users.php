@@ -34,7 +34,7 @@
                             <figure class="margin-bottom-10">
                                 <?php 
                                 if(isset($user_photo->path) && !empty($user_photo->path)):
-                                    $photo = base_url().$user_photo->path;
+                                    $photo = (strstr($user_photo->path, 'http') ? $user_photo->path : base_url().$user_photo->path);
                                 else:
                                     $photo = base_url().'assets/admin/images/user.jpg';
                                 endif;

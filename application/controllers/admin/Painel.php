@@ -25,7 +25,7 @@ class Painel extends MY_Controller
         {
                 $informative['all_requests'] = $this->requests_model->get_total_itens();
                 $informative['businessman'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 2');
-                $informative['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 1');
+                $informative['citizens'] = $this->users_model->get_total_itens('ctp_users.id_type_user = 1 AND ctp_users.active = 1');
                 return $informative;
         }
         

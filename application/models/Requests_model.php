@@ -78,6 +78,7 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_business.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
+                $data['limit'] = 4;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -95,6 +96,7 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_citys.description, ctp_neighborhoods.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
+                $data['limit'] = 4;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -113,6 +115,7 @@ class Requests_model extends MY_Model
                 $data['group'] = 'ctp_states.description, ctp_citys.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
+                $data['limit'] = 4;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -128,9 +131,10 @@ class Requests_model extends MY_Model
                                         array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 $data['where'] = (isset($where) && $where) ? $where : 'ctp_requests.active = 1';
-                $data['group'] = 'ctp_states.description, ctp_citys.description';
+                $data['group'] = 'ctp_states.description';
                 $data['column'] = $column;
                 $data['order'] = $order;
+                $data['limit'] = 4;
                 $return = $this->get_itens_($data);
                 return (isset($return['itens']) ? $return['itens'] : array()) ;
         }
@@ -192,15 +196,15 @@ class Requests_model extends MY_Model
                                         array('from' => 'ctp_business', 'where' => 'ctp_business.id = '.$this->table.'.id_business AND ctp_business.active = 1', 'join' => 'INNER'),
                                         array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),                    
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
-                                        array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
+                                        //array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
                                     );
                 $data['where'] = $where;
-                $data['group'] = 'id';
+                //$data['group'] = 'id';
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $data['offset'] = $offset;
-                $data['limit'] = $limit;
+                //$data['limit'] = $limit;
                 $return = $this->get_itens_($data);
                 return $return;
         }
@@ -221,6 +225,19 @@ class Requests_model extends MY_Model
                 $data['order'] = $order;
                 $return = $this->get_itens_($data);
                 return $return['qtde'][0];
+        }
+        
+        public function get_total_requsts($where = array(), $column = 'ctp_requests.id', $order = 'DESC')
+        {
+                $data['fields'] = 'SUM('.$this->table.'.quantity) as quantity ';
+                $data['tables'] =  array(
+                                        array($this->table),
+                                    );
+                if(isset($where) && $where) $data['where'] = $where;
+                $data['column'] = $column;
+                $data['order'] = $order;
+                $return = $this->get_itens_($data);
+                return (isset($return['itens'][0]->quantity) ? $return['itens'][0]->quantity : 0) ;
         }
         
         public function is_quantity_greater_than_1($quantity = '')

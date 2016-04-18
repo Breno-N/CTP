@@ -130,16 +130,18 @@ class Usuarios extends MY_Controller
                                 $id = $this->users_model->update($data, 'ctp_users.id = '.$codigo);
                                 if($this->session->userdata['id'] == $codigo)
                                 {
-                                        $session['nome'] = $data['name'];
+                                        if(isset($data['name']) && !empty($data['name'])) $session['nome'] = $data['name'];
                                 }
-                                $this->session->set_userdata($session);
                                 if(!empty($_FILES['files']['name']))
                                 {
                                         $old_photo = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
                                         unlink($old_photo->path);
                                         $this->attachment_model->remove('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
                                         $this->do_upload($codigo, 'uploads/users/', 'Foto');
+                                        $new_photo = $this->attachment_model->get_item('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Foto" ');
+                                        $session['photo'] = $new_photo->path;
                                 }
+                                $this->session->set_userdata($session);
                                 $this->save_log('Usuarios editado ID : '.$codigo);
                                 redirect('admin/usuarios/editar/'.$codigo.'/1');
                         }

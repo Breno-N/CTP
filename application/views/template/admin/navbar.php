@@ -81,7 +81,14 @@
         <ul class="nav pull-right">
             <li class="dropdown pull-left">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-close-others="true">
-                    <img class="user-avatar" alt="" src="<?php echo ( isset($this->session->userdata['photo']) && !empty($this->session->userdata['photo']) ? base_url().$this->session->userdata('photo') : base_url().'/assets/admin/images/noavatar.jpg' ); ?> " height="34" /> 
+                    <?php 
+                        if(isset($this->session->userdata['photo']) && !empty($this->session->userdata['photo'])):
+                            $photo = ( strstr($this->session->userdata['photo'], 'http') ? $this->session->userdata['photo'] : base_url().$this->session->userdata['photo'] );
+                        else:
+                            $photo = base_url().'/assets/admin/images/noavatar.jpg';
+                        endif;
+                    ?>
+                    <img class="user-avatar" alt="" src="<?php echo $photo; ?> " height="34" /> 
                     <span class="user-name">
                         <span class="hidden-xs">
                             <?php echo (isset($this->session->userdata['name']) && !empty($this->session->userdata['name']) ? $this->session->userdata['name'] : ''); ?><i class="fa fa-angle-down"></i>

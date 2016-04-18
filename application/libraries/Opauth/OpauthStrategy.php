@@ -325,7 +325,8 @@ class OpauthStrategy{
 	 * @param array $data Data to be POSTed
 	 */
 	public static function clientPost($url, $data = array()){
-		$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
+		//$html = '<html><body onload="postit();"><form name="auth" method="post" action="'.$url.'">';
+		$html = '<html><body><form name="auth" method="post" action="'.$url.'">';
 		
 		if (!empty($data) && is_array($data)){
 			$flat = self::flattenArray($data);
@@ -335,7 +336,7 @@ class OpauthStrategy{
 		}
 		
 		$html .= '</form>';
-		$html .= '<script type="text/javascript">function postit(){ document.auth.submit(); }</script>';
+		$html .= '<script type="text/javascript">(function(){ postit(); function postit(){ document.auth.submit(); }  })();  </script>';
 		$html .= '</body></html>';
 		echo $html;
 	}

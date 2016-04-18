@@ -242,9 +242,93 @@ class Acesso extends MY_Controller
         public function auth_social()
         {
                 $response = unserialize(base64_decode( $_POST['opauth'] ));
-                echo("<pre>");
-                print_r($response);
-                echo("</pre>");
+                if(!isset($response['error']) && empty($response['error']))
+                {
+                        if(isset($response['auth']) && !empty($response['auth']))
+                        {
+                                $email = $response['auth']['info']['email'];
+                                $name = $response['auth']['info']['name'];
+                                $image = (isset($response['auth']['info']['image']) ? $response['auth']['info']['image'] : NULL);
+                                $user = $this->users_model->get_item('ctp_users.email = "'.$email.'"');
+                                if(isset($user) && !empty($user))
+                                {
+                                        $session = array(
+                                            'id' => $user->id,
+                                            'name' => $user->name,
+                                            'email' => $user->email,
+                                            'type' => $user->id_type_user,
+                                            'neighborhood' => $user->id_neighborhood,
+                                            'can_post' => $user->can_post,
+                                            'photo' => $user->photo,
+                                            'authentication' => TRUE,
+                                            'admin' => ($user->id_type_user == 5487) ? TRUE : FALSE,
+                                        );
+                                        $this->session->set_userdata($session);
+                                        $this->save_log('Usuário usou login social para logar no sistema.');
+                                        redirect('admin/painel/');
+                                }
+                                else
+                                {
+                                        $new_user['name'] = $name;
+                                        $new_user['email'] = $email;
+                                        $new_user['password'] = Bcrypt::hash(mt_rand());
+                                        $id = $this->users_model->insert($new_user);
+                                        if($id)
+                                        {
+                                                if(isset($image) && !empty($image))
+                                                {
+                                                        $this->load->model('attachment_model');
+                                                        $attachment['id_user_request'] = $id;
+                                                        $attachment['description'] = $id;
+                                                        $attachment['path'] = $image;
+                                                        $attachment['type'] = 'Foto';
+                                                        $this->attachment_model->insert($attachment);
+                                                }
+                                                $session = array(
+                                                    'id' => $id,
+                                                    'name' => $name,
+                                                    'email' => $email,
+                                                    'type' => 1,
+                                                    'neighborhood' => '',
+                                                    'can_post' => 1,
+                                                    'photo' => (isset($image) && !empty($image) ? $image : '') ,
+                                                    'authentication' => TRUE,
+                                                    'admin' => FALSE,
+                                                );
+                                                $this->session->set_userdata($session);
+                                                $this->save_log('Usuário usou login social para logar no sistema.');
+                                                redirect('admin/painel/');
+                                        }
+                                        else
+                                        {
+                                                $data['info']['error'] = 1;
+                                                $data['info']['message'] = 'Não é possivel fazer o login social no momento. Tente novamente mais tarde.';
+                                        }
+                                        
+                                }
+                        }
+                        else
+                        {
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Não é possivel fazer o login social no momento. Tente novamente mais tarde.';
+                        }
+                }
+                else
+                {
+                        $data['info']['error'] = 1;
+                        $data['info']['message'] = 'Erro ao fazer login social, permissões necessárias não liberadas.';
+                }
+                $class = strtolower(__CLASS__);
+                $function = strtolower(__FUNCTION__);
+                $data['action_login'] = base_url().$class.'/'.$function;
+                $data['action_register'] = base_url().$class.'/do_register';
+                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $this->layout
+                        ->set_title('Faz, Que Falta - Acesso')
+                        ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
+                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_view('pages/site/access', $data);
+                
         }
         
         public function logoff()

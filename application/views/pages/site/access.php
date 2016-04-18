@@ -42,7 +42,7 @@
                                 </form>
                                 <hr />
                                 <div class="text-center">
-                                    <div class="margin-bottom-20">&ndash; OR &ndash;</div>
+                                    <div class="margin-bottom-20">&ndash; OU &ndash;</div>
                                     <a href="<?php echo base_url().'acesso/social/google'; ?>" class="btn btn-block btn-social btn-google margin-top-10">
                                         <i class="fa fa-google"></i> Login com Google
                                     </a>

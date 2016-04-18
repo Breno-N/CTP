@@ -103,7 +103,7 @@ else
                 'dsn'	=> '',
                 'hostname' => 'mysql.fazquefalta.com.br',
                 'username' => 'fazquebr',
-                'password' => '',
+                'password' => '32fazq01',
                 'database' => 'fazquebr',
                 'dbdriver' => 'mysqli',
                 'dbprefix' => '',

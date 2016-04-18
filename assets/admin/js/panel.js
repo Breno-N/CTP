@@ -27,17 +27,26 @@ loadScript(plugin_path + 'chart.chartjs/Chart.min.js', function() {
                     }
                 ]
             };
-           
+            
+            var p1 = Math.floor(Math.random()*9);
+            var p2 = Math.floor(Math.random()*9);
+            var p3 = Math.floor(Math.random()*9);
+            var p4 = Math.floor(Math.random()*9);
+            var p5 = Math.floor(Math.random()*9);
+            var p6 = Math.floor(Math.random()*9);
+            
             $.getJSON(url_default + 'admin/painel/get_charts').then(function(result){
                 if(result != '' && result != '0' && result != null && result != undefined){
                     $('#graphs').show();
                     
                     $.each(result.states , function(k, v){
-                        dataPieState.push({ value : v.quantity, label : v.state, color: '#' + Math.floor(Math.random()*9) + Math.floor(Math.random()*9) + 'DA' + Math.floor(Math.random()*9) + 'D', highlight: '#' +  Math.floor(Math.random()*9) +  Math.floor(Math.random()*9) + 'AD' +  Math.floor(Math.random()*9) + 'D1'});
+                        //dataPieState.push({ value : v.quantity, label : v.state, color: '#' +p1 + p2 + 'DA' + p3 + 'D', highlight: '#' +  Math.floor(Math.random()*9) +  Math.floor(Math.random()*9) + 'AD' +  Math.floor(Math.random()*9) + 'D1'});
+                        dataPieState.push({ value : v.quantity, label : v.state, color: '#' + p1 + p2 + p3 + p4 + p5 + p6, highlight: '#' + p2 + p3 + p6 + p4 + p1 + p5 });
                     });
                     
                     $.each(result.citys , function(k, v){
-                        dataDoughnutCitys.push({ value : v.quantity, label : v.city, color: '#' + Math.floor(Math.random()*9) + Math.floor(Math.random()*9) + 'BF' + Math.floor(Math.random()*9) + 'D', highlight: '#' +  Math.floor(Math.random()*9) +  Math.floor(Math.random()*9) + 'AD' +  Math.floor(Math.random()*9) + 'D1'});
+                        //dataDoughnutCitys.push({ value : v.quantity, label : v.city, color: '#' + Math.floor(Math.random()*9) + Math.floor(Math.random()*9) + 'BF' + Math.floor(Math.random()*9) + 'D', highlight: '#' +  Math.floor(Math.random()*9) +  Math.floor(Math.random()*9) + 'AD' +  Math.floor(Math.random()*9) + 'D1'});
+                        dataDoughnutCitys.push({ value : v.quantity, label : v.city, color: '#' + p6 + p4 + p1 + p2 + p5 + p3, highlight: '#' +  p1 + p6 + p2 + p5 + p3 + p4});
                     });
                     
                     $.each(result.type_business, function(k, v){

@@ -67,8 +67,6 @@ RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)$ index.php/$1 [L,QSA]
 
-#Redirecionamento de url sem www para com www
-#RewriteEngine On
 #RewriteCond %{HTTP_HOST} ^fazquefalta.com.br
 #RewriteRule ^ http://www.fazquefalta.com.br%{REQUEST_URI} [L,R=301]
 

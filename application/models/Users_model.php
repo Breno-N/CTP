@@ -106,7 +106,7 @@ class Users_model extends MY_Model
                 $data['tables'] =   array(
                                         array($this->table),
                                         array('from' => 'ctp_type_users', 'where' => 'ctp_type_users.id = '.$this->table.'.id_type_user AND ctp_type_users.active = 1', 'join' => 'INNER'),
-                                        array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'INNER'),
+                                        array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'LEFT'),
                                         //array('from' => 'ctp_neighborhood', 'where' => 'ctp_neighborhood.id = ctp_address.id_neighborhood', 'join' => 'INNER'),
                                         //array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhood.id_city', 'join' => 'INNER'),
                                     );
