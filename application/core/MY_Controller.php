@@ -6,7 +6,7 @@ class MY_Controller extends CI_Controller
         {
                 parent::__construct();
                 
-                if($this->_not_support_browser()) redirect('manutencao/sem_suporte');
+                if(not_support_browser()) redirect('manutencao/sem_suporte');
                 
                 if($maintenance) redirect('manutencao');
 
@@ -24,30 +24,12 @@ class MY_Controller extends CI_Controller
         {
                 if(!$this->session->userdata('admin')) redirect($redirect);
         }
-
-        public function build_dir($dir = '')
-        {
-                if (!is_dir($dir) )
-                {
-                        $temp = str_replace('\\', '/', $dir);
-                        $temp = explode('/', $temp);
-                        $path = $temp[0];
-                        $qtde = count($temp);
-                        $i = 0;
-                        while($i < $qtde)
-                        {
-                                if(!is_dir($path)) {  mkdir($path, 0777); }
-                                $i++;
-                                if($i < $qtde){ $path .= '/'.$temp[$i]; }
-                        }
-                }
-        }
         
         public function do_upload($id = '', $path = '', $type = '')
         {
                 $data = array();
 
-                if(!is_dir($path)) $this->build_dir($path);
+                if(!is_dir($path)) build_dir($path);
 
                 $config['upload_path'] = $path;
                 $config['allowed_types'] = 'pdf|jpg|jpeg|png|tif';
@@ -141,13 +123,6 @@ class MY_Controller extends CI_Controller
                 return $retorno;
         }
 
-        protected function error($data = array())
-        {
-                $this->layout
-                        ->set_title('Admin - Erro')
-                        ->set_view('pages/admin/contents/error', $data, 'template/admin/');
-        }
-        
         protected function save_log($message = '', $user = '')
         {
                 $data['description'] = $message;
@@ -157,32 +132,10 @@ class MY_Controller extends CI_Controller
                 $this->logs_model->insert($data);
         }
         
-        private function _not_support_browser()
+        protected function error($data = array())
         {
-                $this->load->library('user_agent');
-                
-                $browser = $this->agent->browser();
-                
-                $version = floor($this->agent->version());
-                
-                return ($browser == 'Internet Explorer' && $version <= 8) ? TRUE : FALSE;
-        }
-        
-        protected function is_same_request()
-        {
-                $method = $this->input->server('REQUEST_METHOD');
-                if( $method =='POST' )
-                {
-                        $request = md5( implode($this->input->post(NULL, TRUE)) );
-                        $last_request = $this->session->userdata['last_request'];
-                        if(isset($last_request) && ($last_request == $request) )
-                        {
-                                return TRUE;
-                        }
-                        else
-                        {
-                                $this->session->set_userdata(array('last_request' => $request));
-                        }
-                }
+                $this->layout
+                        ->set_title('Admin - Erro')
+                        ->set_view('pages/admin/contents/error', $data, 'template/admin/');
         }
 }

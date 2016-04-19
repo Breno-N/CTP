@@ -41,7 +41,7 @@
                                             <label for="business">Negócio *</label>
                                             <div class="fancy-form">
                                                 <i class="fa fa-briefcase"></i>
-                                                <input type="text" name="business" id="business" class="form-control" data-provide="typeahead" value="<?php echo ((isset($item->id_business) && $item->id_business) ? $item->business : '')?>" <?php echo ((isset($item->id_business) && $item->id_business) ? 'disabled="disabled"' : 'required="required"')?>/>
+                                                <input type="text" name="business" id="business" class="form-control" data-provide="typeahead" autocomplete="off" value="<?php echo ((isset($item->id_business) && $item->id_business) ? $item->business : '')?>" <?php echo ((isset($item->id_business) && $item->id_business) ? 'disabled="disabled"' : 'required="required"')?>/>
                                                 <span class="fancy-tooltip top-left">
                                                     <em>Selecione os negócios disponiveis na lista de sugestões!</em>
                                                 </span>

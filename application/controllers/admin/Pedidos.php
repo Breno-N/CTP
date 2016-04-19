@@ -134,7 +134,8 @@ class Pedidos extends MY_Controller
                                                                 $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
                                                                 $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
 
-                                                                $this->build_dir($new_dir);
+                                                                //$this->build_dir($new_dir);
+                                                                build_dir($new_dir);
                                                                 $new_file = $new_dir.$new_name;
 
                                                                 rename($old_file, $new_file);
@@ -155,7 +156,8 @@ class Pedidos extends MY_Controller
                                                         $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
                                                         $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
                                                         
-                                                        $this->build_dir($new_dir);
+                                                        //$this->build_dir($new_dir);
+                                                        build_dir($new_dir);
                                                         $new_file = $new_dir.$new_name;
                                                        
                                                         rename($old_file, $new_file);
@@ -189,7 +191,8 @@ class Pedidos extends MY_Controller
                                                         $new_dir = 'uploads/files/'.date('Y/m/').$id.'/';
                                                         $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
                                                         
-                                                        $this->build_dir($new_dir);
+                                                        //$this->build_dir($new_dir);
+                                                        build_dir($new_dir);
                                                         $new_file = $new_dir.$new_name;
                                                        
                                                         rename($old_file, $new_file);

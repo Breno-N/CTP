@@ -1,12 +1,5 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-/*
-* Função que realiza a limpeza dos dados que são passados por POST ou GET
-* @author Breno Henrique Moreno Nunes
-* 
-* @params array $item
-* @return array $retorno
-*/
 function sanitize($item = array())
 {
         if(isset($item) && $item)
@@ -30,13 +23,6 @@ function sanitize($item = array())
         return $item;
 }
 
-/*
-* Função que realiza curl na url informada por parametro
-* @author Breno Henrique Moreno Nunes
-* 
-* @params string $url url em que será executada o curl
-* @return array|boolean $retorno retorna um array de dados se der certo ou booleano se der errado
-*/
 function curl_executavel($url)
 {
         $ch = curl_init();
@@ -47,14 +33,6 @@ function curl_executavel($url)
         return $retorno;
 }
 
-/*
-* Função que monta select html de acordo com valores passados por parametros
-* @author Breno Henrique Moreno Nunes
-* 
-* @params array $itens array com itens do select
-* @params string $selected valor do item selecionado se tiver
-* @return string $retorno string contendo html montado
-*/
 function form_select($itens = array(), $selected = '')
 {
         $retorno  = '<select name="'.$itens['nome'].'" id="'.$itens['nome'].'" '.$itens['extra'].'>';
@@ -95,5 +73,57 @@ function read_csv($file = '')
                 //$val = implode(',', $r);
                 //$query = 'INSERT INTO ctp_business (id_type_business, description) VALUES '.$val;
                 //var_dump($query).PHP_EOL;
+        }
+}
+
+function build_dir($dir = '')
+{
+        if (!is_dir($dir) )
+        {
+                $temp = str_replace('\\', '/', $dir);
+                $temp = explode('/', $temp);
+                $path = $temp[0];
+                $qtde = count($temp);
+                $i = 0;
+                while($i < $qtde)
+                {
+                        if(!is_dir($path)) {  mkdir($path, 0777); }
+                        $i++;
+                        if($i < $qtde){ $path .= '/'.$temp[$i]; }
+                }
+        }
+}
+
+function not_support_browser()
+{
+        $return = FALSE;
+        
+        preg_match('/MSIE (.*?);/', $_SERVER['HTTP_USER_AGENT'], $matches);
+
+        if(count($matches) < 2) preg_match('/Trident\/\d{1,2}.\d{1,2}; rv:([0-9]*)/', $_SERVER['HTTP_USER_AGENT'], $matches);
+
+        if (count($matches)>1)
+        {
+            $version = $matches[1];
+            $return =  ($version <= 8) ? TRUE : FALSE;
+        }
+        return $return;
+}
+
+function is_same_request()
+{
+        $method = $_SERVER['REQUEST_METHOD'];
+        if( $method =='POST' )
+        {
+                $request = md5( implode($_POST) );
+                $last_request = $_SESSION['last_request'];
+                if(isset($last_request) && ($last_request == $request) )
+                {
+                        return TRUE;
+                }
+                else
+                {
+                        $_SESSION['last_request'] = $request;
+                }
         }
 }
