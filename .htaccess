@@ -1,3 +1,13 @@
+<files ~ "^.*\.([Hh][Tt][Aa])">
+order allow,deny
+deny from all
+satisfy all
+</files>
+
+<FilesMatch ".(htm|html|css|js)$">
+AddDefaultCharset UTF-8
+</FilesMatch>
+
 #Força a utilizar Cache-Control e Expires header
 <IfModule mod_headers.c>
   Header unset ETag
