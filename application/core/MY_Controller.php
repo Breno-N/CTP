@@ -68,10 +68,10 @@ class MY_Controller extends CI_Controller
                         'business' => $post['business'],
                         'description' => $post['description'],
                         'have_business_neighborhood' => (isset($post['have_business_neighborhood']) && $post['have_business_neighborhood'] ? 1 : 0),
-                        'quantity' => (isset($post['quantity']) ? $post['quantity'] : 1),
+                        'quantity' => (isset($post['quantity']) && !empty($post['quantity']) && $post['quantity'] ? $post['quantity'] : 1),
                     )
                 );
-                $this->session->set_tempdata($pedido_session, NULL, 600);
+                $this->session->set_tempdata($pedido_session, NULL, 3600);
         }
         
         protected function _set_temp_pedido_upload($files = array())

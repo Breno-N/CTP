@@ -4,18 +4,13 @@
     </header>
     <div id="content" class="dashboard padding-20">
         <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <div class="col-md-12 col-sm-12">
                 <h2 class="font-lato size-20">Quer ver nosso video novamente? Clique <a href="<?php echo base_url().''; ?>">Aqui</a></h2>
             </div>
-            <!--<div class="col-md-offset-2 col-md-8 col-sm-12">
-                <div class="embed-responsive embed-responsive-16by9 block margin-bottom-40">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yMjtH4utJRI" frameborder="0" allowfullscreen></iframe>
-                </div>
-            </div>-->
         </div>
         <div id="graphs" class="margin-top-40 margin-bottom-60">
             <div class="row">
-                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-center">
+                <div class="col-md-12 col-sm-12 text-center">
                     <h3 class="header-text">Informações Gerais</h3>
                 </div>
             </div>

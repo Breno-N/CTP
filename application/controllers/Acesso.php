@@ -9,11 +9,11 @@ class Acesso extends MY_Controller
                 $this->load->model(array('users_model', 'address_model'));
         }
         
-        public function index()
+        public function index($msg = NULL)
         {
                 if(!$this->session->userdata('authentication'))
                 {
-                        $this->do_login();
+                        $this->fazer_login($msg);
                 }
                 else
                 {
@@ -21,7 +21,7 @@ class Acesso extends MY_Controller
                 }
         }
         
-        public function do_login()
+        public function fazer_login($msg = NULL)
         {
                 $this->form_validation->set_rules('email', 'Login', array('required', 'valid_email', 'trim'));
                 $this->form_validation->set_rules('password', 'Senha', array('required', 'trim'));
@@ -54,9 +54,14 @@ class Acesso extends MY_Controller
                 }
                 $class = strtolower(__CLASS__);
                 $function = strtolower(__FUNCTION__);
-                $data['action_login'] = base_url().$class.'/'.$function;
-                $data['action_register'] = base_url().$class.'/do_register';
-                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_register'] = base_url().$class.'/fazer-registro';
+                $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
+                if(isset($msg, $this->session->userdata['pedido_session']) && !empty($this->session->userdata['pedido_session']) && $msg == 'fazer-pedido')
+                {
+                        $data['info']['error'] = 0;
+                        $data['info']['message'] = 'Para realizar o pedido, faça seu login ou cadastra-se. Por questões de segurança se a confirmação ocorrer depois de 1 hora você terá que realizar o pedido novamente.';
+                }
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
@@ -95,7 +100,7 @@ class Acesso extends MY_Controller
                 }
         }
         
-        public function do_register()
+        public function fazer_registro()
         {
                 $this->form_validation->set_rules('name', 'Nome', array('trim'));
                 $this->form_validation->set_rules('email', 'E-mail', array('required', 'trim', 'valid_email', 'is_unique[ctp_users.email]'));
@@ -116,7 +121,7 @@ class Acesso extends MY_Controller
                                 $email['to'] = $post['email'];
                                 $email['subject'] = 'Confirmação de cadastro';
                                 $email['message']  = 'Para realizar a ativação de cadastro clique no link abaixo<br><br>';
-                                $email['message'] .= base_url().'acesso/validate_register/'.$post['active_token'].'  <br><br><br>';
+                                $email['message'] .= base_url().'acesso/validar-registro/'.$post['active_token'].'  <br><br><br>';
                                 if($this->send_email($email))
                                 {
                                         $data['info']['error'] = 0;
@@ -136,9 +141,9 @@ class Acesso extends MY_Controller
                 }
                 $class = strtolower(__CLASS__);
                 $function = strtolower(__FUNCTION__);
-                $data['action_login'] = base_url().$class.'/do_login';
-                $data['action_register'] = base_url().$class.'/'.$function;
-                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_register'] = base_url().$class.'/fazer-registro';
+                $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
                             ->set_title('Faz, Que Falta - Acesso')
                             ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
@@ -146,7 +151,7 @@ class Acesso extends MY_Controller
                             ->set_view('pages/site/access', $data);
         }
         
-        public function validate_register($token = '')
+        public function validar_registro($token = '')
         {
                 if(isset($token) && !empty($token))
                 {
@@ -182,7 +187,7 @@ class Acesso extends MY_Controller
                             ->set_view('pages/site/validate_register', $data);
         }
         
-        public function recover_pass()
+        public function recuperar_senha()
         {
                 $this->form_validation->set_rules('email', 'E-mail', array('required', 'valid_email', 'trim'));
                 if($this->form_validation->run())
@@ -223,9 +228,9 @@ class Acesso extends MY_Controller
                 }
                 $class = strtolower(__CLASS__);
                 $function = strtolower(__FUNCTION__);
-                $data['action_login'] = base_url().$class.'/do_login';
-                $data['action_register'] = base_url().$class.'/do_register';
-                $data['action_recover_pass'] = base_url().$class.'/'.$function;
+                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_register'] = base_url().$class.'/fazer-registro';
+                $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
@@ -320,9 +325,9 @@ class Acesso extends MY_Controller
                 }
                 $class = strtolower(__CLASS__);
                 $function = strtolower(__FUNCTION__);
-                $data['action_login'] = base_url().$class.'/'.$function;
-                $data['action_register'] = base_url().$class.'/do_register';
-                $data['action_recover_pass'] = base_url().$class.'/recover_pass';
+                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_register'] = base_url().$class.'/fazer-registro';
+                $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
                         ->set_title('Faz, Que Falta - Acesso')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')

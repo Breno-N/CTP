@@ -21,7 +21,7 @@ class Negocios_abertos extends MY_Controller
                         $this->_set_temp_pedido_upload($_FILES);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
-                                redirect('acesso');
+                                redirect('acesso/fazer-login/fazer-pedido');
                         }
                         else
                         {

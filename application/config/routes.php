@@ -69,3 +69,8 @@ $route['quem-somos/(:any)'] = 'quem_somos';
 $route['quem-somos/(:any)/(:any)'] = 'quem_somos';
 $route['quem-somos/(:any)/(:any)/(:any)'] = 'quem_somos';
 $route['quem-somos/(:any)/(:any)/(:any)/(:any)'] = 'quem_somos';
+
+$route['acesso/fazer-login/'] = 'acessos/fazer_login/';
+$route['acesso/fazer-registro/'] = 'acessos/fazer_registro/';
+$route['acesso/validar-registro/'] = 'acessos/validar_registro/';
+$route['acesso/recuperar-senha/'] = 'acessos/recuperar_senha/';
