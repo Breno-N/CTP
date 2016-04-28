@@ -21,14 +21,14 @@ class Negocios_abertos extends MY_Controller
                         $this->_set_temp_pedido_upload($_FILES);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
-                                redirect('acesso/fazer-login/fazer-pedido');
+                                redirect('login/fazer-login/fazer-pedido');
                         }
                         else
                         {
                                 redirect('admin/pedidos/adicionar');
                         }
                 }
-                $data['action'] = base_url().'negocios_abertos';
+                $data['action'] = base_url().'negocios-abertos';
                 $this->layout
                         ->set_title('Faz, Que Falta - Negócios Abertos')
                         ->set_keywords('Faz Que Falta, negócio, negocios, negócio aberto, negócios abertos, ideia, pedido, bairro')

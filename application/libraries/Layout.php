@@ -39,11 +39,17 @@ class Layout
         private $breadcrumbs = '';
         
          /**
+         * Propriedade privada da classe que representa uma lista de discussão do disqus em formato de string
+         * @property string 
+         */
+        private $disqus = '';
+        
+         /**
          * Propriedade privada da classe que representa uma view ou parte de html em formato de string
          * @property string 
          */
         private $html = '';
-
+        
          /**
          * Propriedade privada da classe que representa o objeto CI do CodeIgniter
          * @property object 
@@ -137,6 +143,17 @@ class Layout
                         $retorno .= '</ol>';
                 }
                 return $retorno;
+        }
+        
+        /**
+         * Função que recupera um html que monta a lista de dsicussão do disqus em formato de string
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @return string contem o html
+         */
+        public function get_disqus()
+        {
+                return $this->disqus;
         }
         
         /**
@@ -256,6 +273,18 @@ class Layout
         }
         
         /**
+         * Função que seta a view com a lista de discussão do disqus em formato de string
+         * 
+         * @author Breno Henrique Moreno Nunes
+         * @return string html em formato de string
+         */
+        public function set_disqus()
+        {
+                $this->disqus = $this->CI->load->view('template/disqus', NULL, TRUE);
+                return $this;
+        }
+        
+        /**
          * Função que seta a view ou parte do html em formato de string
          * 
          * @author Breno Henrique Moreno Nunes
@@ -267,7 +296,7 @@ class Layout
         {
                 $this->html = $this->CI->load->view($html, $data, TRUE);
         }
-
+        
         /**
          * Função que seta duas views padrões: topo e o rodape, e entre elas carrega a view informada
          * para montar a pagina, com ou sem dados adicionais.

@@ -13,13 +13,13 @@
                             $texto = 'Dados salvos com sucesso!';
                             break;
                         case '2':
-                            $texto = 'Pedido já existe!';
+                            $texto = 'Pedido já existe e você acaba de apoiar!';
                             break;
                         case '3':
                             $texto = 'Pedido apoiado com sucesso!';
                             break;
                     endswitch;
-                    echo $texto;
+                    echo (isset($texto) && !empty($texto) ? $texto : '');
                 ?>
             </h4>
         </div>
@@ -110,7 +110,7 @@
                                         <div class="col-md-3 col-sm-12">
                                             <div class="uploadfiles">
                                                 <label>Modelo</label>
-                                                <a href="<?php echo base_url().'util/download_modelo/'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
+                                                <a href="<?php echo base_url().'modelo/modelo.pdf'; ?>" class="btn btn-3d btn-success btn-block">Download</a>
                                             </div>
                                         </div>
                                         <div class="col-md-6 col-sm-12">
@@ -161,5 +161,12 @@
                 </div>
             </div>
         </div>
+        <?php if(isset($disqus) && !empty($disqus)): ?>
+        <div class="row">
+            <div class="col-md-12 col-sm-12">
+                <?php echo $disqus; ?>
+            </div>
+        </div>
+        <?php endif; ?>
     </div>
 </section>

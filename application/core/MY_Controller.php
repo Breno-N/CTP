@@ -17,7 +17,7 @@ class MY_Controller extends CI_Controller
         
         private function _is_authenticated()
         {
-                if(!$this->session->userdata('authentication')) redirect('acesso');
+                if(!$this->session->userdata('authentication')) redirect('login');
         }
 
         protected function _is_autorized($redirect = '')
@@ -112,10 +112,7 @@ class MY_Controller extends CI_Controller
                         {
                                 $this->email->from($email['from']);
                         }
-                        if(isset($email['cc']) && !empty($email['cc']))
-                        {
-                                $this->email->cc($email['cc']);
-                        }
+                        $this->email->cc(array('guilhermec341@gmail.com', 'marcello.do.nascimento@gmail.com'));
                         $this->email->subject($email['subject']);
                         $this->email->message($email['message']);
                         $retorno = $this->email->send();

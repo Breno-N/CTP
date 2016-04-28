@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Acesso extends MY_Controller
+class Login extends MY_Controller
 {
         public function __construct() 
         {
@@ -53,7 +53,6 @@ class Acesso extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $function = strtolower(__FUNCTION__);
                 $data['action_login'] = base_url().$class.'/'.'fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
@@ -63,9 +62,9 @@ class Acesso extends MY_Controller
                         $data['info']['message'] = 'Para realizar o pedido, faça seu login ou cadastra-se. Por questões de segurança se a confirmação ocorrer depois de 1 hora você terá que realizar o pedido novamente.';
                 }
                 $this->layout
-                        ->set_title('Faz, Que Falta - Acesso')
+                        ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_view('pages/site/access', $data);
         }
         
@@ -140,14 +139,13 @@ class Acesso extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $function = strtolower(__FUNCTION__);
                 $data['action_login'] = base_url().$class.'/'.'fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
-                            ->set_title('Faz, Que Falta - Acesso')
+                            ->set_title('Faz, Que Falta - Login')
                             ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                            ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                            ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                             ->set_view('pages/site/access', $data);
         }
         
@@ -227,14 +225,13 @@ class Acesso extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $function = strtolower(__FUNCTION__);
                 $data['action_login'] = base_url().$class.'/'.'fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
-                        ->set_title('Faz, Que Falta - Acesso')
+                        ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_view('pages/site/access', $data);
         }
         
@@ -324,14 +321,13 @@ class Acesso extends MY_Controller
                         $data['info']['message'] = 'Erro ao fazer login social, permissões necessárias não liberadas.';
                 }
                 $class = strtolower(__CLASS__);
-                $function = strtolower(__FUNCTION__);
                 $data['action_login'] = base_url().$class.'/'.'fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
-                        ->set_title('Faz, Que Falta - Acesso')
+                        ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
-                        ->set_description('Acesso - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
+                        ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
                         ->set_view('pages/site/access', $data);
                 
         }

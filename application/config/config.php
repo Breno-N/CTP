@@ -17,7 +17,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | environments.
 |
 */
-$config['base_url'] =  (strstr($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost/ctp/' : 'http://www.fazquefalta.com.br/');
+$config['base_url'] =  (strstr($_SERVER['HTTP_HOST'], 'localhost') ? 'http://localhost/ctp/' : 'https://www.fazquefalta.com.br/');
 
 /*
 |--------------------------------------------------------------------------

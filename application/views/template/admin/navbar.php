@@ -101,7 +101,7 @@
                     </li>
                     <li class="divider"></li>
                     <li>
-                        <a href="<?php echo base_url().'acesso/logoff'; ?>"><i class="fa fa-power-off"></i> Sair </a>
+                        <a href="<?php echo base_url().'login/logoff'; ?>"><i class="fa fa-power-off"></i> Sair </a>
                     </li>
                 </ul>
             </li>

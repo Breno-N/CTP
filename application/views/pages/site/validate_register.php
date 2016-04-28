@@ -21,7 +21,7 @@
             </div>
             <?php endif; ?>
             <div class="col-md-12 col-sm-12 margin-top-20">
-                <a class="size-20 font-lato" href="<?php echo base_url().'acesso'; ?>">
+                <a class="size-20 font-lato" href="<?php echo base_url().'login'; ?>">
                     <i class="glyphicon glyphicon-menu-left margin-right-10 size-16"></i> Logar / Registrar
                 </a>
             </div>

@@ -5,7 +5,7 @@
     <div id="content" class="dashboard padding-20">
         <div class="row">
             <div class="col-md-12 col-sm-12">
-                <h2 class="font-lato size-20">Quer ver nosso video novamente? Clique <a href="<?php echo base_url().''; ?>">Aqui</a></h2>
+                <h2 class="font-lato size-20">Quer ver nosso video novamente? Clique <a href="<?php echo base_url(); ?>" target="_blank">Aqui</a></h2>
             </div>
         </div>
         <div id="graphs" class="margin-top-40 margin-bottom-60">

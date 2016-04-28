@@ -134,7 +134,6 @@ class Pedidos extends MY_Controller
                                                                 $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
                                                                 $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
 
-                                                                //$this->build_dir($new_dir);
                                                                 build_dir($new_dir);
                                                                 $new_file = $new_dir.$new_name;
 
@@ -156,7 +155,6 @@ class Pedidos extends MY_Controller
                                                         $new_dir = 'uploads/files/'.date('Y/m/').$business_exists_neighborhood.'/';
                                                         $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
                                                         
-                                                        //$this->build_dir($new_dir);
                                                         build_dir($new_dir);
                                                         $new_file = $new_dir.$new_name;
                                                        
@@ -191,7 +189,6 @@ class Pedidos extends MY_Controller
                                                         $new_dir = 'uploads/files/'.date('Y/m/').$id.'/';
                                                         $new_name = date('His').'.'.$this->session->userdata['pedido_upload']['tmp_ext'];
                                                         
-                                                        //$this->build_dir($new_dir);
                                                         build_dir($new_dir);
                                                         $new_file = $new_dir.$new_name;
                                                        
@@ -230,6 +227,7 @@ class Pedidos extends MY_Controller
                                 $data['type_business'] = $this->get_type_business();
                                 $data['attachments'] = $this->attachment_model->get_itens('ctp_attachment.id_user_request = '.$codigo.' AND ctp_attachment.type = "Arquivo" AND ctp_attachment.done = 0');
                                 $data['request_support'] = $this->user_request_model->get_item('ctp_user_request.id_request = '.$codigo.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                                //$data['disqus'] = $this->_get_disqus();
                                 $this->layout
                                         ->set_title('Admin - Pedidos - Detalhes')
                                         ->set_breadcrumbs('Painel', 'admin/painel/', 0)
@@ -295,6 +293,11 @@ class Pedidos extends MY_Controller
         public function get_type_business()
         {
                 return $this->type_business_model->get_select('ctp_type_business.active = 1', 'description', 'ASC');
+        }
+        
+        private function _get_disqus()
+        {
+                return  $this->layout->set_disqus()->get_disqus();
         }
        
         private function _get()

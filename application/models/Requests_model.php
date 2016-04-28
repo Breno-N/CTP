@@ -200,10 +200,10 @@ class Requests_model extends MY_Model
                                         array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
                                     );
                 $data['where'] = $where;
-                //$data['group'] = 'id';
+                $data['group'] = 'id';
                 $data['column'] = $column;
                 $data['order'] = $order;
-                $data['offset'] = $offset;
+                //$data['offset'] = $offset;
                 //$data['limit'] = $limit;
                 $return = $this->get_itens_($data);
                 return $return;

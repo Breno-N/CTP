@@ -26,14 +26,14 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="<?php echo base_url().'acesso/logoff'?>">
-                                    Deslogar
+                                <a href="<?php echo base_url().'login/logoff'?>">
+                                    Logout
                                 </a>
                             </li>
                         <?php else : ?>
                             <li>
-                                <a href="<?php echo base_url().'acesso'?>">
-                                    Acesso
+                                <a href="<?php echo base_url().'login'?>">
+                                    Login
                                 </a>
                             </li>
                         <?php endif; ?>
