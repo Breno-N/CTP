@@ -103,16 +103,18 @@ class Requests_model extends MY_Model
         
         public function get_itens_by_city($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
         {
+                //$data['fields']  = 'quantity, ';
                 $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
-                $data['fields'] .= 'ctp_citys.description as city';
+                $data['fields'] .= 'ctp_requests.city as city';
                 $data['tables'] =   array(
                                         array($this->table),
                                         array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'INNER'),
-                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 $data['where'] = (isset($where) && $where) ? $where : 'ctp_requests.active = 1';
-                $data['group'] = 'ctp_states.description, ctp_citys.description';
+                //$data['group'] = 'ctp_states.description, ctp_citys.description';
+                $data['group'] = 'ctp_requests.city';
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $data['limit'] = 4;
@@ -122,16 +124,18 @@ class Requests_model extends MY_Model
         
         public function get_itens_by_state($where = array(), $column = 'ctp_requests.quantity', $order = 'DESC')
         {
+                //$data['fields']  = 'quantity, ';
                 $data['fields']  = 'SUM('.$this->table.'.quantity) as quantity, ';
-                $data['fields'] .= 'ctp_states.description as state';
+                $data['fields'] .= 'ctp_requests.state as state';
                 $data['tables'] =   array(
                                         array($this->table),
                                         array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
-                                        array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'INNER'),
-                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'INNER'),
+                                        //array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'INNER'),
                                     );
                 $data['where'] = (isset($where) && $where) ? $where : 'ctp_requests.active = 1';
-                $data['group'] = 'ctp_states.description';
+                //$data['group'] = 'ctp_states.description';
+                $data['group'] = 'ctp_requests.state';
                 $data['column'] = $column;
                 $data['order'] = $order;
                 $data['limit'] = 4;
@@ -197,7 +201,7 @@ class Requests_model extends MY_Model
                                         array('from' => 'ctp_type_business', 'where' => 'ctp_type_business.id = ctp_business.id_type_business', 'join' => 'INNER'),                    
                                         array('from' => 'ctp_type_request_status', 'where' => 'ctp_type_request_status.id = '.$this->table.'.id_type_request_status', 'join' => 'INNER'),
                                         //array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = '.$this->table.'.id_neighborhood', 'join' => 'INNER'),
-                                        //array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
+                                        array('from' => 'ctp_user_request', 'where' => 'ctp_user_request.id_request = '.$this->table.'.id', 'join' => 'INNER')
                                     );
                 $data['where'] = $where;
                 $data['group'] = 'id';

@@ -17,14 +17,18 @@
                                 <th>Id</th>
                                 <th>Descrição</th>
                                 <th>Tipo</th>
-                                <th>Feito</th>
+                                <th>Concluido</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php foreach($itens['itens'] as $item): ?>
                             <tr class="text-justify data-item" data-id="<?php echo $item->id; ?>">
                                 <td><?php echo $item->id; ?></td>
-                                <td><?php echo $item->description; ?></td>
+                                <td>
+                                    <a href="<?php echo base_url().$item->path; ?>" target="_blank">
+                                        <?php echo $item->description; ?>
+                                    </a>
+                                </td>
                                 <td><?php echo $item->type; ?></td>
                                 <td><?php echo $item->done; ?></td>
                             </tr>

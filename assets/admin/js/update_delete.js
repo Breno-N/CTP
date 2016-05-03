@@ -50,7 +50,7 @@
             $('#btn-done').on('click', function(e){
                 e.preventDefault();
                 if(selecteds.length > 0){
-                    if(confirm('Deseja marcar como Feito este(s) registro(s)?')){
+                    if(confirm('Deseja marcar como Concluido este(s) registro(s)?')){
                         done(window.page_action);
                     }
                 }else{

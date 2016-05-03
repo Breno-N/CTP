@@ -16,9 +16,9 @@ class Erro extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $post = $this->_post();
-                        $this->_set_temp_pedido($post);
-                        $this->_unlink_temp_pedido_upload();
-                        $this->_set_temp_pedido_upload($_FILES);
+                        $this->_set_temp_request($post);
+                        $this->_unlink_temp_request_upload();
+                        $this->_set_temp_request_upload($_FILES);
                         if(!isset($this->session->userdata['authentication']) || !$this->session->userdata['authentication'])
                         {
                                 redirect('login/fazer-login/fazer-pedido');

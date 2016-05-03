@@ -1,8 +1,8 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 $config['opauth_config'] = array(
-        'path' => (strstr($_SERVER['HTTP_HOST'], 'localhost') ? '/ctp/acesso/social/' : '/acesso/social/'),
-        'callback_url' => (strstr($_SERVER['HTTP_HOST'], 'localhost') ? '/ctp/acesso/auth_social/' : '/acesso/auth_social/'),
+        'path' => (strstr($_SERVER['HTTP_HOST'], 'localhost') ? '/ctp/login/social/' : '/login/social/'),
+        'callback_url' => (strstr($_SERVER['HTTP_HOST'], 'localhost') ? '/ctp/login/auth_social/' : '/login/auth_social/'),
         'callback_transport' => 'post',
         'security_salt' => '$2a$08$MTY1MzE3NDMwNTU3MGI5MOIpr93AKWkNIp1uuqoqE5w5LKCBQ6BLO',
         'debug' => FALSE,

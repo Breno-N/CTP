@@ -35,7 +35,7 @@ class Pedidos extends MY_Controller
         
         private function _init_data_table()
         {
-                $default_filter = ($this->session->userdata['type'] != '1') ? 'ctp_requests.active = 1' : 'ctp_requests.active = 1 AND (ctp_user_request.id_user = '.$this->session->userdata['id'].' OR ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].')';
+                $default_filter = ($this->session->userdata['type'] == '5487') ? 'ctp_requests.active = 1' : 'ctp_requests.active = 1 AND (ctp_user_request.id_user = '.$this->session->userdata['id'].' OR ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].')';
                 $data['itens'] = $this->requests_model->get_itens($default_filter);
                 $data['action_detalhes'] = base_url().'admin/'.strtolower(__CLASS__).'/detalhes/';
                 $this->layout->set_html('pages/admin/tables/requests', $data);
@@ -55,24 +55,53 @@ class Pedidos extends MY_Controller
                                 $data = $this->_post();
                                 $id_business = $this->business_model->get_business_by_name($data['business']);
                                 $data['id_business'] = $id_business;
-                                $data['quantity'] = (isset($data['quantity']) && !empty($data['quantity']) ? $data['quantity'] : 1);
-                                $data['request_public_agency'] = (isset($data['request_public_agency']) ? 1 : 0 );
-                                $data['have_business_neighborhood'] = (isset($data['have_business_neighborhood']) ? 1 : 0 );
-                                $data['id_neighborhood'] = $this->session->userdata['neighborhood'];
-                                $data['user_create'] = $this->session->userdata['email'];
-                                $data['date_create'] = date('Y-m-d');
-                                unset($data['business']);
-                                $id = $this->requests_model->insert($data);
-                                if($id)
+                                $business_exists_neighborhood = $this->requests_model->get_select_business('ctp_business.id = "'.$id_business.'" AND ctp_requests.id_neighborhood = '.$this->session->userdata['neighborhood'].' AND ctp_requests.active = 1');
+                                if($business_exists_neighborhood)
                                 {
-                                        $this->save_log('Pedidos inserido ID : '.$id);
-                                        $data_user_request['id_request'] = $id;
-                                        $data_user_request['id_user'] = $this->session->userdata['id'];
-                                        $id_user_request = $this->user_request_model->insert($data_user_request);
-                                        $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
-                                        if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
+                                        $update = 0;
+                                        $have_support = $this->user_request_model->get_item('ctp_user_request.id_request = '.$business_exists_neighborhood.' AND ctp_user_request.id_user = '.$this->session->userdata['id']);
+                                        if(!isset($have_support))
                                         {
-                                                $this->do_upload($id, 'uploads/files/'.date('Y/m/').$id.'/', 'Arquivo');
+                                                $data_user_request['id_user'] = $this->session->userdata['id'];
+                                                $data_user_request['id_request'] = $business_exists_neighborhood;
+                                                $id_user_request = $this->user_request_model->insert($data_user_request);
+                                                if($id_user_request)
+                                                {
+                                                        $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                                        //$qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$business_exists_neighborhood);
+                                                        //$update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$business_exists_neighborhood);
+                                                        //$this->save_log('Pedidos apoiado ID : '.$business_exists_neighborhood);
+                                                        redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/3');
+                                                }
+                                        }
+                                        else
+                                        {
+                                                redirect('admin/pedidos/detalhes/'.$business_exists_neighborhood.'/2');
+                                        }
+                                }
+                                else
+                                {
+                                        $data['quantity'] = (isset($data['quantity']) && !empty($data['quantity']) ? $data['quantity'] : 1);
+                                        $data['request_public_agency'] = (isset($data['request_public_agency']) ? 1 : 0 );
+                                        $data['have_business_neighborhood'] = (isset($data['have_business_neighborhood']) ? 1 : 0 );
+                                        $data['id_neighborhood'] = $this->session->userdata['neighborhood'];
+                                        $data['city'] = $this->session->userdata['city'];
+                                        $data['state'] = $this->session->userdata['state'];
+                                        $data['user_create'] = $this->session->userdata['email'];
+                                        $data['date_create'] = date('Y-m-d');
+                                        unset($data['business']);
+                                        $id = $this->requests_model->insert($data);
+                                        if($id)
+                                        {
+                                                $this->save_log('Pedidos inserido ID : '.$id);
+                                                $data_user_request['id_request'] = $id;
+                                                $data_user_request['id_user'] = $this->session->userdata['id'];
+                                                $id_user_request = $this->user_request_model->insert($data_user_request);
+                                                $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
+                                                if(isset($_FILES['files']['name']) && !empty($_FILES['files']['name']))
+                                                {
+                                                        $this->do_upload($id, 'uploads/files/'.date('Y/m/').$id.'/', 'Arquivo');
+                                                }
                                         }
                                 }
                                 redirect('admin/pedidos/detalhes/'.$id.'/1');
@@ -124,9 +153,9 @@ class Pedidos extends MY_Controller
                                                 if($id_user_request)
                                                 {
                                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
-                                                        $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$business_exists_neighborhood);
-                                                        $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$business_exists_neighborhood);
-                                                        $this->save_log('Pedidos apoiado ID : '.$business_exists_neighborhood);
+                                                        //$qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$business_exists_neighborhood);
+                                                        //$update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$business_exists_neighborhood);
+                                                        //$this->save_log('Pedidos apoiado ID : '.$business_exists_neighborhood);
                                                         
                                                         if(isset($this->session->userdata['pedido_upload']) && !empty($this->session->userdata['pedido_upload']))
                                                         {
@@ -172,6 +201,8 @@ class Pedidos extends MY_Controller
                                 {
                                         $data['id_business'] = $id_business;
                                         $data['id_neighborhood'] = $this->session->userdata['neighborhood'];
+                                        $data['city'] = $this->session->userdata['city'];
+                                        $data['state'] = $this->session->userdata['state'];
                                         $data['user_create'] = $this->session->userdata['email'];
                                         $data['date_create'] = date('Y-m-d');
                                         $id = $this->requests_model->insert($data);
@@ -257,9 +288,9 @@ class Pedidos extends MY_Controller
                                 if($id_user_request)
                                 {
                                         $this->save_log('Relação de Pedidos e Usuarios inserido ID : '.$id_user_request);
-                                        $qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$support['request']);
-                                        $update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$support['request']);
-                                        $this->save_log('Pedidos apoiado ID : '.$support['request']);
+                                        //$qtde = $this->requests_model->get_quantity('ctp_requests.id = '.$support['request']);
+                                        //$update = $this->requests_model->update(array('quantity' => ++$qtde), 'ctp_requests.id = '.$support['request']);
+                                        //$this->save_log('Pedidos apoiado ID : '.$support['request']);
                                 }
                         }
                 }

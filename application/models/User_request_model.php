@@ -98,4 +98,11 @@ class User_request_model extends MY_Model
                 $return = $this->get_itens_($data);
                 return $return['qtde'];
         }
+        
+        public function user_already_support_request($user = '', $request = '')
+        {
+                $qtde = $this->get_total_itens('ctp_user_request.id_user = '.$user.' AND ctp_user_request.id_request = '.$request);
+                
+                return ($qtde[0]) ? TRUE : FALSE;
+        }
 }

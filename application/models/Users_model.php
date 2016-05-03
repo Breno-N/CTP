@@ -8,7 +8,7 @@ class Users_model extends MY_Model
         {
                 parent::__construct();
         }
-
+        
         public function insert($data = array(), $debug =  FALSE)
         {
                 $this->db->insert($this->table, $data);
@@ -73,7 +73,8 @@ class Users_model extends MY_Model
                         CONCAT(ctp_address.type_street, " ", ctp_address.street) as street,
                         ctp_neighborhoods.id as id_neighborhood,
                         ctp_neighborhoods.description as neighborhood,
-                        ctp_citys.id_state as state,
+                        ctp_states.description as state,
+                        ctp_citys.id_state as id_state,
                         ctp_citys.description as city,
                         ctp_attachment.path as photo,
                         ';
@@ -83,6 +84,7 @@ class Users_model extends MY_Model
                                         array('from' => 'ctp_address', 'where' => 'ctp_address.zip_code = '.$this->table.'.id_address', 'join' => 'LEFT'),
                                         array('from' => 'ctp_neighborhoods', 'where' => 'ctp_neighborhoods.id = ctp_address.id_neighborhood', 'join' => 'LEFT'),
                                         array('from' => 'ctp_citys', 'where' => 'ctp_citys.id = ctp_neighborhoods.id_city', 'join' => 'LEFT'),
+                                        array('from' => 'ctp_states', 'where' => 'ctp_states.id = ctp_citys.id_state', 'join' => 'LEFT'),
                                         array('from' => 'ctp_attachment', 'where' => 'ctp_attachment.id_user_request = '.$this->table.'.id', 'join' => 'LEFT'),
                                     );
                 if(isset($where) && $where) $data['where'] = $where;
@@ -144,6 +146,19 @@ class Users_model extends MY_Model
                 return $return['qtde'];
         }
         
+        public function get_id_by_field($where = array(), $column = 'ctp_users.id', $order = 'DESC')
+        {
+                $data['fields'] = $this->table.'.id as id';
+                $data['tables'] =   array(
+                                        array($this->table)
+                                    );
+                $data['where']  = $where;
+                $data['column'] = $column;
+                $data['order'] = $order;
+                $return = $this->get_itens_($data);
+                return (isset($return['itens'][0]->id) ? $return['itens'][0]->id : 0) ;
+        }
+        
         public function is_valid_cpf($cpf = '')
         {
                 if(isset($cpf) && !empty($cpf))
@@ -175,5 +190,16 @@ class Users_model extends MY_Model
                 {
                         return TRUE;
                 }
+        }
+        
+        public function user_exists($cpf = '', $email = '')
+        {
+                $user_cpf = $this->get_id_by_field('ctp_users.cpf = "'.$cpf.'" ');
+                
+                $user_email = $this->get_id_by_field('ctp_users.email = "'.$email.'" ');
+                
+                $user = ( ($user_cpf) ? $user_cpf : ( ($user_email) ? $user_email : 0) );
+                
+                return ($user) ? $user : FALSE;
         }
 }

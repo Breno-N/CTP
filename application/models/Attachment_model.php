@@ -94,4 +94,17 @@ class Attachment_model extends MY_Model
                 $return = $this->get_itens_($data);
                 return $return['qtde'][0];
         }
+        
+        public function is_extension_csv()
+        {
+                if(isset($_FILES['files']) && !empty($_FILES['files']))
+                {   
+                        $ext = pathinfo($_FILES['files']['name'], PATHINFO_EXTENSION);
+                        return ($ext == 'csv') ? TRUE : FALSE; 
+                }
+                else
+                {
+                        return FALSE;
+                }
+        }
 }

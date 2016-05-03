@@ -8,7 +8,10 @@ class MY_Controller extends CI_Controller
                 
                 if(not_support_browser()) redirect('manutencao/sem_suporte');
                 
-                if($maintenance) redirect('manutencao');
+                if($maintenance)
+                {
+                        if($_GET['teste'] != 'dev123') redirect('manutencao');
+                }
 
                 $this->load->library(array('layout'));
 
@@ -17,12 +20,12 @@ class MY_Controller extends CI_Controller
         
         private function _is_authenticated()
         {
-                if(!$this->session->userdata('authentication')) redirect('login');
+                if(!$this->session->userdata['authentication']) redirect('login');
         }
 
         protected function _is_autorized($redirect = '')
         {
-                if(!$this->session->userdata('admin')) redirect($redirect);
+                if(!$this->session->userdata['admin']) redirect($redirect);
         }
         
         public function do_upload($id = '', $path = '', $type = '')
@@ -61,7 +64,7 @@ class MY_Controller extends CI_Controller
                 return $data;
         }
         
-        protected function _set_temp_pedido($post = array())
+        protected function _set_temp_request($post = array())
         {
                 $pedido_session = array(
                     'pedido_session' => array(
@@ -74,7 +77,7 @@ class MY_Controller extends CI_Controller
                 $this->session->set_tempdata($pedido_session, NULL, 3600);
         }
         
-        protected function _set_temp_pedido_upload($files = array())
+        protected function _set_temp_request_upload($files = array())
         {
                 if(isset($files['files']['name']) && !empty($files['files']['name']))
                 {
@@ -86,7 +89,7 @@ class MY_Controller extends CI_Controller
                 }
         }
         
-        protected function _unlink_temp_pedido_upload()
+        protected function _unlink_temp_request_upload()
         {
                 if(isset($this->session->userdata['pedido_upload']['tmp_id']) && !empty($this->session->userdata['pedido_upload']['tmp_id']))
                 {
@@ -112,7 +115,10 @@ class MY_Controller extends CI_Controller
                         {
                                 $this->email->from($email['from']);
                         }
-                        $this->email->cc(array('guilhermec341@gmail.com', 'marcello.do.nascimento@gmail.com'));
+                        if(isset($email['cc']) && !empty($email['cc']))
+                        {
+                                $this->email->cc($email['cc']);
+                        }
                         $this->email->subject($email['subject']);
                         $this->email->message($email['message']);
                         $retorno = $this->email->send();

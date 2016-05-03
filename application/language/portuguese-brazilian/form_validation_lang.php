@@ -41,3 +41,4 @@ $lang['form_validation_is_valid_business'] = 'O valor informado no campo {field}
 $lang['form_validation_is_valid_cpf'] = '{field} inválido.';
 $lang['form_validation_is_valid_address'] = '{field} não econtrado.';
 $lang['form_validation_is_quantity_greater_than_1'] = 'A quantidade de pedidos foi maior que 1 mas não foi incluido anexo.';
+$lang['form_validation_is_extension_csv'] = 'O arquivo enviado não esta no formato CSV.';

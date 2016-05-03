@@ -26,6 +26,7 @@ class Contato extends MY_Controller
                                 if(isset($data['send_message']) && $data['send_message'])
                                 {
                                         $data['to'] = 'contato@fazquefalta.com.br';
+                                        $data['cc'] = array('guilhermec341@gmail.com', 'marcello.do.nascimento@gmail.com');
                                         unset($data['send_message'], $data['is_ajax']);
                                         $send = $this->send_email($data);
                                         $return = ($send) ? 'E-mail enviado com sucesso.' : 'Ocorreu um erro ao enviar e-mail. Por favor tente novamente mais tarde.';

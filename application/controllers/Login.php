@@ -37,6 +37,8 @@ class Login extends MY_Controller
                                     'email' => $user->email,
                                     'type' => $user->id_type_user,
                                     'neighborhood' => $user->id_neighborhood,
+                                    'city' => $user->city,
+                                    'state' => $user->state,
                                     'can_post' => $user->can_post,
                                     'photo' => $user->photo,
                                     'authentication' => TRUE,
@@ -120,7 +122,7 @@ class Login extends MY_Controller
                                 $email['to'] = $post['email'];
                                 $email['subject'] = 'Confirmação de cadastro';
                                 $email['message']  = 'Para realizar a ativação de cadastro clique no link abaixo<br><br>';
-                                $email['message'] .= base_url().'acesso/validar-registro/'.$post['active_token'].'  <br><br><br>';
+                                $email['message'] .= base_url().'login/validar-registro/'.$post['active_token'].'  <br><br><br>';
                                 if($this->send_email($email))
                                 {
                                         $data['info']['error'] = 0;
@@ -191,7 +193,8 @@ class Login extends MY_Controller
                 if($this->form_validation->run())
                 {
                         $data = $this->_post();
-                        $qtde = $this->users_model->get_password_by_email('ctp_users.email = "'.$data['email'].'"');
+                        //$qtde = $this->users_model->get_password_by_email('ctp_users.email = "'.$data['email'].'"');
+                        $qtde = $this->users_model->get_total_itens('ctp_users.email = "'.$data['email'].'"');
                         if($qtde > 0)
                         {
                                 $temp_password = uniqid(mt_rand(), TRUE);
@@ -208,7 +211,7 @@ class Login extends MY_Controller
                                         $email['subject'] = 'Recuperação de senha';
                                         $email['message']  = 'Recebemos a solicitação de recuperação de senha.<br>';
                                         $email['message'] .= 'Abaixo segue senha temporaria que é valida para a data da solicitação.<br>';
-                                        $email['message'] .= 'Utilize-a para acessar o Painel de controle e depois realizae a troca de sua senha<br><br>';
+                                        $email['message'] .= 'Utilize-a para acessar o Painel de controle e depois realize a troca de sua senha<br><br>';
                                         $email['message'] .= $temp_password.'  <br><br><br>';
                                         $email['message'] .= 'Se você não solicitou a recuperação de senha por favor desconsidere este e-mail.<br><br>';
                                         if($this->send_email($email))
@@ -222,6 +225,11 @@ class Login extends MY_Controller
                                                 $data['info']['message'] = 'Erro ao tentar recuperar senha. Tente novamente mais tarde.';
                                         }
                                 }
+                        }
+                        else
+                        {
+                                $data['info']['error'] = 1;
+                                $data['info']['message'] = 'Erro ao tentar recuperar senha para e-mail informado.';
                         }
                 }
                 $class = strtolower(__CLASS__);
@@ -260,6 +268,8 @@ class Login extends MY_Controller
                                             'email' => $user->email,
                                             'type' => $user->id_type_user,
                                             'neighborhood' => $user->id_neighborhood,
+                                            'city' => $user->city,
+                                            'state' => $user->state,
                                             'can_post' => $user->can_post,
                                             'photo' => $user->photo,
                                             'authentication' => TRUE,
@@ -292,6 +302,8 @@ class Login extends MY_Controller
                                                     'email' => $email,
                                                     'type' => 1,
                                                     'neighborhood' => '',
+                                                    'city' => '',
+                                                    'state' => '',
                                                     'can_post' => 1,
                                                     'photo' => (isset($image) && !empty($image) ? $image : '') ,
                                                     'authentication' => TRUE,
