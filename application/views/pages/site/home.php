@@ -133,37 +133,29 @@
     </div>
 </section>
 
-<section id="parallax-informative" class="parallax parallax-2">
-    <div class="overlay dark-8"></div>
+<section class="callout-dark heading-title padding-50 info-requests">
     <div class="container">
         <div class="row countTo-sm text-center">
-            <div class="col-xs-6 col-sm-3">
-                <i class="ico-lg ico-transparent et-profile-male"></i>
+            <div class="col-xs-12 col-sm-4">
+                <i class="ico-lg et-profile-male"></i>
                 <div class="block size-40 citizens">
-                    <strong class="countTo size-40" data-speed="3000"><?php echo $citizens; ?></strong>
+                    <strong class="countTo size-40 red" data-speed="3000"><?php echo $citizens; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">USUÁRIOS</h3>
             </div>
-            <div class="col-xs-6 col-sm-3">
-                <i class="ico-lg ico-transparent et-briefcase"></i>
+            <div class="col-xs-12 col-sm-4">
+                <i class="ico-lg et-briefcase"></i>
                 <div class="block size-40 businessman">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $businessman; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">EMPRESAS</h3>
             </div>
-            <div class="col-xs-6 col-sm-3">
-                <i class="ico-lg ico-transparent et-chat"></i>
+            <div class="col-xs-12 col-sm-4">
+                <i class="ico-lg et-chat"></i>
                 <div class="block size-40 all-requests">
                     <strong class="countTo size-40" data-speed="3000"><?php echo $all_requests; ?></strong>
                 </div>
                 <h3 class="size-15 margin-top-10 margin-bottom-0">PEDIDOS</h3>
-            </div>
-            <div class="col-xs-6 col-sm-3">
-                <i class="ico-lg ico-transparent et-linegraph"></i>
-                <div class="block size-40 open-requests">
-                    <strong class="countTo size-40" data-speed="3000"><?php echo $open_requests; ?></strong> %
-                </div>
-                <h3 class="size-15 margin-top-10 margin-bottom-0">CONVERSÃO</h3>
             </div>
         </div>
     </div>
