@@ -32,7 +32,7 @@ loadScript(plugin_path + 'bootstrap.typeahead/bootstrap3-typeahead.min.js', func
                 if(result != '' && result != null && result != undefined){
                     $('.form-link-warning').show();
                     $('.form-input').hide();
-                    $('#link-support').attr('href', '/ctp/admin/pedidos/detalhes/' + result);
+                    $('#link-support').attr('href', url_default + 'admin/pedidos/detalhes/' + result);
                 }else{
                     $('.form-link-warning').hide();
                     $('.form-input').show();

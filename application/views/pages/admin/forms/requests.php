@@ -122,7 +122,7 @@
                                         <?php endif; ?>
                                     </div>
                                 </div>
-                                <?php if(isset($attachments['itens'], $this->session->userdata['admin']) && $this->session->userdata['admin'] && !empty($attachments['itens'])): ?>
+                                <?php if(isset($attachments['itens'], $this->session->userdata['admin']) && !empty($attachments['itens']) && $this->session->userdata['admin']): ?>
                                 <div class="row form-input">
                                     <div class="form-group">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

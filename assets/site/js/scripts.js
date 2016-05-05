@@ -50,7 +50,7 @@
 
 		/* --- */
 		if(jQuery("html").hasClass("chrome") && jQuery("body").hasClass("smoothscroll")) {
-			loadScript(plugin_path + 'smoothscroll.js', function() {
+			loadScript(plugin_path + 'smoothscroll.min.js', function() {
 				jQuery.smoothScroll();
 			});
 		}
@@ -1951,7 +1951,7 @@
 		var file_container = jQuery("input[type=file]");
 
 		if(file_container.length > 0) {
-			loadScript(plugin_path + 'custom.fle_upload.js');
+			loadScript(plugin_path + 'custom.fle_upload.min.js');
 		}
 
 
