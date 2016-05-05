@@ -33,12 +33,12 @@ loadScript(plugin_path + 'bootstrap.typeahead/bootstrap3-typeahead.min.js', func
                     $('.form-link-warning').show();
                     $('.form-input').hide();
                     $('#link-support').attr('href', url_default + 'admin/pedidos/detalhes/' + result);
-                    $('#pedir').attr('disabled', true);
+                    if($('#pedir')[0]) $('#pedir').attr('disabled', true);
                 }else{
                     $('.form-link-warning').hide();
                     $('.form-input').show();
                     $('#link-support').attr('href', '');
-                    $('#pedir').attr('disabled', false);
+                    if($('#pedir')[0]) $('#pedir').attr('disabled', false);
                 }
             });
         }
