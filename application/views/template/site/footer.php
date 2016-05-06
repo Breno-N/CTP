@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <img class="footer-logo" src="<?php echo base_url().'assets/site/images/logo-footer.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta" />
+                <img class="footer-logo" src="<?php echo base_url().'assets/images/logo-footer.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta" />
                 <address>
                     <ul class="list-unstyled">
                         <li class="footer-sprite address">
@@ -48,6 +48,7 @@
                 </div>
             </div>
         </div>
+        <?php if(FALSE): ?>
         <div class="row">
             <div class="col-md-12 pull-right">
                 <!--- DO NOT EDIT - GlobalSign SSL Site Seal Code - DO NOT EDIT --->
@@ -66,6 +67,7 @@
                 <!--- DO NOT EDIT - GlobalSign SSL Site Seal Code - DO NOT EDIT --->
             </div>
         </div>
+        <?php endif; ?>
     </div>
     <div class="copyright">
         <div class="container">

@@ -117,8 +117,6 @@ class Pedidos extends MY_Controller
                                 $data['type_business'] = $this->get_type_business();
                                 $this->layout
                                             ->set_title('Admin - Pedidos - Adicionar')
-                                            ->set_js('admin/js/business_autocomplete.js')
-                                            ->set_js('admin/js/requests.js')
                                             ->set_breadcrumbs('Painel', 'admin/painel/', 0)
                                             ->set_breadcrumbs('Pedidos', 'admin/pedidos/', 0)
                                             ->set_breadcrumbs('Adicionar', 'admin/pedidos/', 1)

@@ -6,7 +6,9 @@
     <div class="margin-left-20 margin-top-20">
         <div class="margin-bottom-10">
             <a href="<?php echo $action_adicionar; ?>" class="btn btn-3d btn-blue"><i class="fa fa-plus"></i>Novo</a>
+            <?php if(isset($itens['itens']) && !empty($itens['itens'])): ?>
             <button id="btn-delete" class="btn btn-3d btn-red"><i class="fa fa-close"></i>Excluir</button>
+            <?php endif; ?>
         </div>
     </div>
     <?php echo $data_table; ?>

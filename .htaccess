@@ -5,7 +5,7 @@ satisfy all
 </files>
 
 <FilesMatch ".(htm|html|css|js)$">
-AddDefaultCharset UTF-8
+ AddDefaultCharset UTF-8
 </FilesMatch>
 
 #Força a utilizar Cache-Control e Expires header

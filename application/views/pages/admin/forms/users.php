@@ -36,7 +36,7 @@
                                 if(isset($user_photo->path) && !empty($user_photo->path)):
                                     $photo = (strstr($user_photo->path, 'http') ? $user_photo->path : base_url().$user_photo->path);
                                 else:
-                                    $photo = base_url().'assets/admin/images/user.jpg';
+                                    $photo = base_url().'assets/images/user.jpg';
                                 endif;
                                 ?>
                                 <img class="img-responsive" src="<?php echo $photo; ?>" />

@@ -25,7 +25,7 @@ class Util extends MY_Controller
                 }
         }
         
-        public function get_business()
+        public function get_all_business()
         {
                 if($this->input->is_ajax_request())
                 {

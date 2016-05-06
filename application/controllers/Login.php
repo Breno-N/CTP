@@ -55,7 +55,7 @@ class Login extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_login'] = base_url().$class.'/fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 if(isset($msg, $this->session->userdata['pedido_session']) && !empty($this->session->userdata['pedido_session']) && $msg == 'fazer-pedido')
@@ -141,7 +141,7 @@ class Login extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_login'] = base_url().$class.'/fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
@@ -233,7 +233,7 @@ class Login extends MY_Controller
                         }
                 }
                 $class = strtolower(__CLASS__);
-                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_login'] = base_url().$class.'/fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout
@@ -333,7 +333,7 @@ class Login extends MY_Controller
                         $data['info']['message'] = 'Erro ao fazer login social, permissões necessárias não liberadas.';
                 }
                 $class = strtolower(__CLASS__);
-                $data['action_login'] = base_url().$class.'/'.'fazer-login';
+                $data['action_login'] = base_url().$class.'/fazer-login';
                 $data['action_register'] = base_url().$class.'/fazer-registro';
                 $data['action_recover_pass'] = base_url().$class.'/recuperar-senha';
                 $this->layout

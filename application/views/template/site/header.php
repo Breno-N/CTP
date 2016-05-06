@@ -7,9 +7,9 @@
     <!-- mobile settings -->
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
     <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-    <link href="<?php echo base_url().'assets/site/images/favicon.ico'; ?>" rel="shortcut icon" type="image/x-icon" />
+    <link href="<?php echo base_url().'assets/images/favicon.ico'; ?>" rel="shortcut icon" type="image/x-icon" />
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
-    <link href="<?php echo base_url().'assets/site/css/style.min.css'?>" rel="stylesheet" type="text/css" />
+    <link href="<?php echo base_url().'assets/css/style_site.min.css'?>" rel="stylesheet" type="text/css" />
     <script>
         (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
         (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

@@ -13,7 +13,7 @@
             <?php echo $footer; ?>
         </div>
         <a href="#" id="toTop"></a>
-        <script type="text/javascript">var plugin_path ='<?php echo base_url().'assets/site/plugins/' ?>'; var url_default = '<?php echo base_url(); ?>'</script>
-        <script type="text/javascript" src="<?php  echo base_url().'assets/site/js/script.min.js'?>"></script>
+        <script type="text/javascript">var plugin_path ='<?php echo base_url().'assets/plugins/' ?>'; var url_default = '<?php echo base_url(); ?>'</script>
+        <script type="text/javascript" src="<?php  echo base_url().'assets/js/script_site.min.js'?>"></script>
     </body>
 </html>

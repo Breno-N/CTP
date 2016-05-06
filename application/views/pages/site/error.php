@@ -46,7 +46,7 @@
                                     <label for="description">Descrição *</label>
                                     <div class="fancy-form">
                                         <textarea name="description" id="description" rows="4" class="form-control" required="required"></textarea>
-                                        <i class="fa fa-keyboard-o"><!-- icon --></i>
+                                        <i class="fa fa-keyboard-o"></i>
                                         <span class="fancy-hint size-11 text-muted">
                                             <strong>* Descreva com o máximo de detalhes possível a necessidade desse negócio no seu bairro.</strong>
                                         </span>

@@ -74,7 +74,7 @@
     <button id="mobileMenuBtn"></button>
     <span class="logo pull-left">
         <a href="<?php echo base_url().'admin/painel/'; ?>">
-            <img src="<?php echo base_url().'/assets/admin/images/logo.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta"  height="35" />
+            <img src="<?php echo base_url().'/assets/images/logo.png'?>"  alt="Logo - Faz que Falta" title="Logo - Faz que Falta"  height="35" />
         </a>
     </span>
     <nav>
@@ -85,7 +85,7 @@
                         if(isset($this->session->userdata['photo']) && !empty($this->session->userdata['photo'])):
                             $photo = ( strstr($this->session->userdata['photo'], 'http') ? $this->session->userdata['photo'] : base_url().$this->session->userdata['photo'] );
                         else:
-                            $photo = base_url().'/assets/admin/images/noavatar.jpg';
+                            $photo = base_url().'/assets/images/noavatar.jpg';
                         endif;
                     ?>
                     <img class="user-avatar" alt="" src="<?php echo $photo; ?> " height="34" /> 

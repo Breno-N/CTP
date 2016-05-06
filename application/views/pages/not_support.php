@@ -9,12 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="description" content="Faz, que Falta - Sem Suporte">
         <meta name="keywords" content="Faz, que Falta - Sem Suporte">
-        
         <!-- mobile settings -->
         <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
         <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
-
-        <link href="<?php echo base_url().'assets/site/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
+        <link href="<?php echo base_url().'assets/plugins/bootstrap/css/bootstrap.min.css'?>" rel="stylesheet" type="text/css" />
     </head>
     <body>
         <div class="container"><br>

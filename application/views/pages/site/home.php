@@ -16,7 +16,6 @@
         </div>
     </div>
 </section>
-
 <section class="callout-dark heading-title heading-arrow-bottom padding-40">
     <div class="container">
         <div class="text-center">
@@ -24,7 +23,6 @@
         </div>
     </div>
 </section>
-
 <section class="padding-30">
     <div class="container">
         <div class="row">
@@ -67,7 +65,7 @@
                                     <label for="description">Descrição *</label>
                                     <div class="fancy-form">
                                         <textarea name="description" id="description" rows="4" class="form-control" required="required"></textarea>
-                                        <i class="fa fa-keyboard-o"><!-- icon --></i>
+                                        <i class="fa fa-keyboard-o"></i>
                                         <span class="fancy-hint size-11 text-muted">
                                             <strong>* Descreva com o máximo de detalhes possível a necessidade desse negócio no seu bairro.</strong>
                                         </span>
@@ -132,7 +130,6 @@
         </div>
     </div>
 </section>
-
 <section class="callout-dark heading-title padding-50 info-requests">
     <div class="container">
         <div class="row countTo-sm text-center">
