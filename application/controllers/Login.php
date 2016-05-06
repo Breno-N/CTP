@@ -67,7 +67,7 @@ class Login extends MY_Controller
                         ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_view('pages/site/access', $data);
+                        ->set_view('pages/site/login', $data);
         }
         
         private function _validate_login($data = array())
@@ -148,7 +148,7 @@ class Login extends MY_Controller
                             ->set_title('Faz, Que Falta - Login')
                             ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                             ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                            ->set_view('pages/site/access', $data);
+                            ->set_view('pages/site/login', $data);
         }
         
         public function validar_registro($token = '')
@@ -240,7 +240,7 @@ class Login extends MY_Controller
                         ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_view('pages/site/access', $data);
+                        ->set_view('pages/site/login', $data);
         }
         
         public function social()
@@ -340,7 +340,7 @@ class Login extends MY_Controller
                         ->set_title('Faz, Que Falta - Login')
                         ->set_keywords('Empreendedor, Empreendedorismo, Pequenos Negócios, Abrir um negócio, Social, Faz Que Falta, Falta, Demanda, Ideia, Cidadão, Bairro')
                         ->set_description('Login - Faz Que Falta, o sistema que conecta o empreendedor às demandas da sociedade. Faça o seu pedido!')
-                        ->set_view('pages/site/access', $data);
+                        ->set_view('pages/site/login', $data);
                 
         }
         

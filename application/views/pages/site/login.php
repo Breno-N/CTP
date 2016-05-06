@@ -105,6 +105,9 @@
                                         <input type="text" name="cpf" id="cpf" class="form-control masked" data-format="999.999.999-99" placeholder="* CPF" required="">
                                         <b class="tooltip tooltip-bottom-right">Informe seu CPF (Somente numeros) </b>
                                     </label>
+                                    <div id="test-cpf" class="margin-top-30 softhide">
+                                        <div class="alert alert-warning">CPF Inválido</div>
+                                    </div>
                                     <label class="input margin-bottom-10">
                                         <i class="ico-append fa fa-map-marker"></i>
                                         <input type="text" name="id_address" id="id-address" class="form-control masked" data-format="99999999" placeholder="* CEP" required="">
@@ -112,9 +115,6 @@
                                     </label>
                                     <div class="margin-top-30">
                                         <div id="address" class="alert alert-info softhide"></div>
-                                    </div>
-                                    <div class="margin-top-30">
-                                        <div id="test-cpf" class="alert alert-warning softhide">CPF Inválido</div>
                                     </div>
                                     <?php endif; ?>
                                 </fieldset>

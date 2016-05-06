@@ -119,6 +119,11 @@
                                                 <input type="text" name="cpf" id="cpf" class="form-control masked" data-format="999.999.999-99" data-placeholder="X"  required="required" />
                                             </div>
                                         </div>
+                                        <div id="test-cpf" class="form-group softhide">
+                                            <div class="col-md-offset-3 col-md-8 col-xs-12">
+                                                <div class="alert alert-warning">CPF Inválido</div>
+                                            </div>
+                                        </div>
                                         <?php endif;?>
                                         
                                         <?php if(!isset($item->id_address) || empty($item->id_address)):?>
@@ -190,9 +195,7 @@
                                                 <small class="text-muted block">2Mb (jpg/png)</small>
                                             </div>
                                         </div>
-                                        
                                     </fieldset>
-                                    
                                     <hr />
                                     <fieldset class="mb-xl">
                                         <div class="form-group">
@@ -202,14 +205,12 @@
                                             </div>
                                         </div>
                                     </fieldset>
-                                    
                                     <div class="row">
                                         <div class="col-md-9 col-md-offset-3">
                                             <button type="submit" id="submit" class="btn btn-success btn-3d">Salvar</button>
                                             <button type="reset" class="btn btn-default btn-3d">Limpar</button>
                                         </div>
                                     </div>
-                                    
                                 </form>
                             </div>
                         </div>

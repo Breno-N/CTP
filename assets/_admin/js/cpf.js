@@ -4,13 +4,11 @@
         if(!testCPF($(this).val())){
             $(this).addClass('error');
             $('#submit').attr('disabled', true);
-            $('.form-cpf').find('.alert').addClass('alert-warning').html('CPF inválido');
-            $('.form-cpf').show();
+            $('#test-cpf').show();
         }else{
             $(this).removeClass('error');
             $('#submit').attr('disabled', false);
-            $('.form-cpf').find('.alert').removeClass('alert-warning');
-            $('.form-cpf').hide();
+            $('#test-cpf').hide();
         }
     });
 
