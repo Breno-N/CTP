@@ -1464,7 +1464,7 @@
 		var file_container = jQuery("input[type=file]");
 
 		if(file_container.length > 0) {
-			loadScript(plugin_path + 'custom.fle_upload.js');
+			loadScript(plugin_path + 'custom.fle_upload.min.js');
 		}
 
 
